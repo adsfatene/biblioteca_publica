@@ -1,0 +1,38 @@
+atualizarPorTodosOsDados;
+DECLARE 
+ @material_codigo INT = ?,
+ @material_informacao VARCHAR(255) = ?,
+ @material_local_logico_fisico VARCHAR(100) = ?,
+ @material_formato_codigo TINYINT = ?,
+ @material_formato_nome VARCHAR(20) = ?,
+ @material_dado_material_codigo INT = ?,
+ @material_dado_material_titulo VARCHAR(50) = ?,
+ @material_dado_material_descricao VARCHAR(100) = ?,
+ @material_dado_material_edicao TINYINT = ?,
+ @material_dado_material_ano_publicacao SMALLINT = ?,
+ @material_dado_material_autor VARCHAR(50) = ?,
+ @material_dado_material_editora_codigo INT = ?,
+ @material_dado_material_editora_nome VARCHAR(100) = ?,
+ @material_dado_material_categoria_codigo TINYINT = ?,
+ @material_dado_material_categoria_nome VARCHAR(50) = ?,
+ @material_dado_material_publico_codigo TINYINT = ?,
+ @material_dado_material_publico_nome VARCHAR(50) = ?
+ EXECUTE 
+ atualizar_material
+ @material_codigo,
+ @material_informacao,
+ @material_local_logico_fisico,
+ @material_formato_codigo,
+ @material_formato_nome,
+ @material_dado_material_codigo,
+ @material_dado_material_titulo,
+ @material_dado_material_descricao,
+ @material_dado_material_edicao,
+ @material_dado_material_ano_publicacao,
+ @material_dado_material_autor,
+ @material_dado_material_editora_codigo,
+ @material_dado_material_editora_nome,
+ @material_dado_material_categoria_codigo,
+ @material_dado_material_categoria_nome,
+ @material_dado_material_publico_codigo,
+ @material_dado_material_publico_nome;
