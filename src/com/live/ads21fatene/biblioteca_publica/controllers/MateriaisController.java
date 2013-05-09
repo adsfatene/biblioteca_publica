@@ -2,19 +2,19 @@ package com.live.ads21fatene.biblioteca_publica.controllers;
 
 import com.live.ads21fatene.biblioteca_publica.models.Material;
 import com.live.ads21fatene.biblioteca_publica.models.daos.MateriaisDAO;
-import com.live.ads21fatene.biblioteca_publica.views.materiais.ListaPesquisaView;
+import com.live.ads21fatene.biblioteca_publica.views.materiais.ListaView;
 import java.util.List;
 
 public final class MateriaisController {
 
     private final AplicacaoController aplicacaoController;
     private final MateriaisDAO materiaisDAO;
-    private final ListaPesquisaView listaPesquisaView;
+    private final ListaView listaPesquisaView;
 
     public MateriaisController(AplicacaoController aplicacaoController) {
         this.aplicacaoController = aplicacaoController;
         materiaisDAO = new MateriaisDAO(aplicacaoController.getConexao());
-        listaPesquisaView = new ListaPesquisaView(this);
+        listaPesquisaView = new ListaView(this);
     }
 
     public void iniciar() {
@@ -22,7 +22,7 @@ public final class MateriaisController {
     }
 
     public void pesquisarCadastroDeMateriaisPorAlgumDeSeusDados(Material material) {
-        aplicacaoController.mudarPara(listaPesquisaView, " - Lista de Pesquisa - Materiais");
+        aplicacaoController.mudarPara(listaPesquisaView, " - Materiais");
         List<Material> materiais = materiaisDAO.pesquisarPorTodosOsDadosNaoNulos(material);
         listaPesquisaView.atualizar(materiais);
     }

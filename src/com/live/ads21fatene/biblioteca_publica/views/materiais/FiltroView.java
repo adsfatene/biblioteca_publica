@@ -4,20 +4,21 @@
  */
 package com.live.ads21fatene.biblioteca_publica.views.materiais;
 
-import javax.swing.JFrame;
+public class FiltroView extends javax.swing.JDialog {
 
-public class FormularioPesquisaView extends javax.swing.JDialog {
+    private final ListaView listaView;
 
-    private final ListaPesquisaView listaPesquisaView;
-
-    FormularioPesquisaView(ListaPesquisaView listaPesquisaView, boolean modal) {
-        super(listaPesquisaView.getMateriaisController().getAplicacaoController().getAplicacaoView(), modal);
+    FiltroView(ListaView listaView, boolean modal) {
+        super(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView(), modal);
         initComponents();
-        setLocationRelativeTo(listaPesquisaView);
-        this.listaPesquisaView = listaPesquisaView;
-        setTitle("Formulario de Pesquisa");
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.listaView = listaView;
+        setLocationRelativeTo(this.listaView);
+    }
+
+    @Override
+    public void setVisible(boolean flag) {
+        listaView.getjToggleButtonFiltro().setSelected(flag);
+        super.setVisible(flag);
     }
 
     /**
@@ -50,7 +51,8 @@ public class FormularioPesquisaView extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Filtro");
+        setResizable(false);
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -180,7 +182,6 @@ public class FormularioPesquisaView extends javax.swing.JDialog {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
