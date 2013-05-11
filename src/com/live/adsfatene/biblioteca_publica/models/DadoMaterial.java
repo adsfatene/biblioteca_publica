@@ -5,9 +5,9 @@ public class DadoMaterial {
     private Integer codigo;
     private String titulo;
     private String descricao;
-    private Integer edicao;
-    private Integer anoPublicacao;
-    private String autor;
+    private Edicao edicao;
+    private AnoPublicacao anoPublicacao;
+    private Autor autor;
     private Editora editora;
     private Categoria categoria;
     private Publico publico;
@@ -24,7 +24,7 @@ public class DadoMaterial {
         return descricao;
     }
 
-    public Integer getEdicao() {
+    public Edicao getEdicao() {
         return edicao;
     }
 
@@ -32,11 +32,11 @@ public class DadoMaterial {
         return editora;
     }
 
-    public Integer getAnoPublicacao() {
+    public AnoPublicacao getAnoPublicacao() {
         return anoPublicacao;
     }
 
-    public String getAutor() {
+    public Autor getAutor() {
         return autor;
     }
 
@@ -60,7 +60,7 @@ public class DadoMaterial {
         this.descricao = descricao;
     }
 
-    public void setEdicao(Integer edicao) {
+    public void setEdicao(Edicao edicao) {
         this.edicao = edicao;
     }
 
@@ -68,11 +68,11 @@ public class DadoMaterial {
         this.editora = editora;
     }
 
-    public void setAnoPublicacao(Integer anoPublicacao) {
+    public void setAnoPublicacao(AnoPublicacao anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(Autor autor) {
         this.autor = autor;
     }
 
@@ -82,5 +82,16 @@ public class DadoMaterial {
 
     public void setPublico(Publico publico) {
         this.publico = publico;
+    }
+
+    boolean ehIgual(DadoMaterial dadoMaterial) {
+        return titulo.equals(dadoMaterial.titulo)
+                && descricao.equals(dadoMaterial.descricao)
+                && edicao.ehIgual(dadoMaterial.edicao)
+                && anoPublicacao.ehIgual(dadoMaterial.anoPublicacao)
+                && autor.equals(dadoMaterial.autor)
+                && editora.ehIgual(dadoMaterial.editora)
+                && categoria.ehIgual(dadoMaterial.categoria)
+                && publico.ehIgual(dadoMaterial.publico);
     }
 }

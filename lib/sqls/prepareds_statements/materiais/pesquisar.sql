@@ -1,2 +1,8 @@
-pesquisarPorTodosOsDadosNaoNulos;
+pesquisarPorTodosOsDadosNaoNulos1;
  SELECT * FROM materiais_view;
+
+pesquisarPorTodosOsDadosNaoNulos2;
+ ORDER BY material_dado_material_titulo, material_dado_material_descricao;
+
+pesquisarTodosEdicaoAnoPublicaoAutorEditoraCategoriaPublicoFormato;
+ SELECT * FROM materiais_combobox_view;

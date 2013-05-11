@@ -1,11 +1,15 @@
 package com.live.adsfatene.biblioteca_publica.models.daos;
 
+import com.live.adsfatene.biblioteca_publica.models.AnoPublicacao;
+import com.live.adsfatene.biblioteca_publica.models.Autor;
 import com.live.adsfatene.biblioteca_publica.models.Categoria;
 import com.live.adsfatene.biblioteca_publica.models.DadoMaterial;
+import com.live.adsfatene.biblioteca_publica.models.Edicao;
 import com.live.adsfatene.biblioteca_publica.models.Editora;
 import com.live.adsfatene.biblioteca_publica.models.Formato;
 import com.live.adsfatene.biblioteca_publica.models.Material;
 import com.live.adsfatene.biblioteca_publica.models.Publico;
+import com.live.adsfatene.biblioteca_publica.models.util.MaterialComboBox;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,7 +45,8 @@ public class MateriaisDao {
         List<Material> materiais = new LinkedList<>();
         Connection connection = conexao.getConnection();
         try {
-            String valorDoComandoUm = comandos.get("pesquisarPorTodosOsDadosNaoNulos");
+            String valorDoComandoUm = comandos.get("pesquisarPorTodosOsDadosNaoNulos" + 1);
+            String valorDoComandoDois = comandos.get("pesquisarPorTodosOsDadosNaoNulos" + 2);
             List<String> where = new LinkedList<>();
             List<SetCommand> setCommands = new LinkedList<>();
 
@@ -72,17 +77,29 @@ public class MateriaisDao {
                     where.add("LOWER(material_dado_material_descricao) LIKE ?");
                     setCommands.add(new SetString(where.size(), "%" + dadoMaterial.getDescricao().toLowerCase() + "%"));
                 }
-                if (dadoMaterial.getEdicao() != null) {
-                    where.add("material_dado_material_edicao = ?");
-                    setCommands.add(new SetInt(where.size(), dadoMaterial.getEdicao()));
+
+                Edicao edicao = dadoMaterial.getEdicao();
+                if (edicao != null) {
+                    if (edicao.getNumero() != null) {
+                        where.add("material_dado_material_edicao = ?");
+                        setCommands.add(new SetInt(where.size(), edicao.getNumero()));
+                    }
                 }
-                if (dadoMaterial.getAnoPublicacao() != null) {
-                    where.add("material_dado_material_ano_publicacao = ?");
-                    setCommands.add(new SetInt(where.size(), dadoMaterial.getAnoPublicacao()));
+
+                AnoPublicacao anoPublicacao = dadoMaterial.getAnoPublicacao();
+                if (anoPublicacao != null) {
+                    if (anoPublicacao.getAno() != null) {
+                        where.add("material_dado_material_ano_publicacao = ?");
+                        setCommands.add(new SetInt(where.size(), anoPublicacao.getAno()));
+                    }
                 }
-                if (dadoMaterial.getAutor() != null) {
-                    where.add("material_dado_material_autor = ?");
-                    setCommands.add(new SetString(where.size(), dadoMaterial.getAutor()));
+
+                Autor autor = dadoMaterial.getAutor();
+                if (autor != null) {
+                    if (autor.getNome() != null) {
+                        where.add("material_dado_material_autor = ?");
+                        setCommands.add(new SetString(where.size(), autor.getNome()));
+                    }
                 }
 
                 Editora editora = dadoMaterial.getEditora();
@@ -141,6 +158,7 @@ public class MateriaisDao {
             while (!where.isEmpty()) {
                 query.append(" AND ").append(where.remove(0));
             }
+            query.append(valorDoComandoDois);
 
             PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
             query.delete(0, query.length());
@@ -163,9 +181,18 @@ public class MateriaisDao {
                 dadoMaterial.setCodigo(resultSet.getInt("material_dado_material_codigo"));
                 dadoMaterial.setTitulo(resultSet.getString("material_dado_material_titulo"));
                 dadoMaterial.setDescricao(resultSet.getString("material_dado_material_descricao"));
-                dadoMaterial.setEdicao(resultSet.getInt("material_dado_material_edicao"));
-                dadoMaterial.setAnoPublicacao(resultSet.getInt("material_dado_material_ano_publicacao"));
-                dadoMaterial.setAutor(resultSet.getString("material_dado_material_autor"));
+
+                Edicao edicao = new Edicao();
+                edicao.setNumero(resultSet.getInt("material_dado_material_edicao"));
+                dadoMaterial.setEdicao(edicao);
+
+                AnoPublicacao anoPublicacao = new AnoPublicacao();
+                anoPublicacao.setAno(resultSet.getInt("material_dado_material_ano_publicacao"));
+                dadoMaterial.setAnoPublicacao(anoPublicacao);
+
+                Autor autor = new Autor();
+                autor.setNome(resultSet.getString("material_dado_material_autor"));
+                dadoMaterial.setAutor(autor);
 
                 Editora editora = new Editora();
                 editora.setCodigo(resultSet.getInt("material_dado_material_editora_codigo"));
@@ -245,9 +272,15 @@ public class MateriaisDao {
             setInt(indice++, dadoMaterial.getCodigo(), preparedStatement);
             setString(indice++, dadoMaterial.getTitulo(), preparedStatement);
             setString(indice++, dadoMaterial.getDescricao(), preparedStatement);
-            setInt(indice++, dadoMaterial.getEdicao(), preparedStatement);
-            setInt(indice++, dadoMaterial.getAnoPublicacao(), preparedStatement);
-            setString(indice++, dadoMaterial.getAutor(), preparedStatement);
+
+            Edicao edicao = dadoMaterial.getEdicao();
+            setInt(indice++, edicao.getNumero(), preparedStatement);
+
+            AnoPublicacao anoPublicacao = dadoMaterial.getAnoPublicacao();
+            setInt(indice++, anoPublicacao.getAno(), preparedStatement);
+
+            Autor autor = dadoMaterial.getAutor();
+            setString(indice++, autor.getNome(), preparedStatement);
 
             Editora editora = dadoMaterial.getEditora();
             setInt(indice++, editora.getCodigo(), preparedStatement);
@@ -296,22 +329,29 @@ public class MateriaisDao {
             PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
             query.delete(0, query.length());
             int indice = 1;
-            DadoMaterial dado_material = materiais.get(0).getDadoMaterial();
-            setString(indice++, dado_material.getTitulo(), preparedStatement);
-            setString(indice++, dado_material.getDescricao(), preparedStatement);
-            setInt(indice++, dado_material.getEdicao(), preparedStatement);
-            setInt(indice++, dado_material.getAnoPublicacao(), preparedStatement);
-            setString(indice++, dado_material.getAutor(), preparedStatement);
+            DadoMaterial dadoMaterial = materiais.get(0).getDadoMaterial();
+            setString(indice++, dadoMaterial.getTitulo(), preparedStatement);
+            setString(indice++, dadoMaterial.getDescricao(), preparedStatement);
 
-            Editora editora = dado_material.getEditora();
+            Edicao edicao = dadoMaterial.getEdicao();
+            setInt(indice++, edicao.getNumero(), preparedStatement);
+
+            AnoPublicacao anoPublicacao = dadoMaterial.getAnoPublicacao();
+            setInt(indice++, anoPublicacao.getAno(), preparedStatement);
+
+            Autor autor = dadoMaterial.getAutor();
+            setString(indice++, autor.getNome(), preparedStatement);
+
+
+            Editora editora = dadoMaterial.getEditora();
             setInt(indice++, editora.getCodigo(), preparedStatement);
             setString(indice++, editora.getNome(), preparedStatement);
 
-            Categoria categoria = dado_material.getCategoria();
+            Categoria categoria = dadoMaterial.getCategoria();
             setInt(indice++, categoria.getCodigo(), preparedStatement);
             setString(indice++, categoria.getNome(), preparedStatement);
 
-            Publico publico = dado_material.getPublico();
+            Publico publico = dadoMaterial.getPublico();
             setInt(indice++, publico.getCodigo(), preparedStatement);
             setString(indice++, publico.getNome(), preparedStatement);
 
@@ -357,5 +397,72 @@ public class MateriaisDao {
         } else {
             preparedStatement.setInt(posicao, valor);
         }
+    }
+
+    public MaterialComboBox pesquisarTodosEdicaoAnoPublicaoAutorEditoraCategoriaPublicoFormato() {
+        MaterialComboBox materialComboBox = new MaterialComboBox();
+        Connection connection = conexao.getConnection();
+        try {
+            String valorDoComandoUm = comandos.get("pesquisarTodosEdicaoAnoPublicaoAutorEditoraCategoriaPublicoFormato");
+            PreparedStatement preparedStatement = connection.prepareStatement(valorDoComandoUm);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String valor = resultSet.getString("valor");
+                Integer codigo = resultSet.getInt("codigo");
+                String tipo = resultSet.getString("tipo");
+                switch (tipo) {
+                    case "edicao":
+                        Edicao edicao = new Edicao();
+                        edicao.setNumero(Integer.valueOf(valor));
+                        materialComboBox.getEdicoes().add(edicao);
+                        break;
+                    case "ano_publicacao":
+                        AnoPublicacao anoPublicacao = new AnoPublicacao();
+                        anoPublicacao.setAno(Integer.valueOf(valor));
+                        materialComboBox.getAnosPublicacoes().add(anoPublicacao);
+                        break;
+                    case "autor":
+                        Autor autor = new Autor();
+                        autor.setNome(valor);
+                        materialComboBox.getAutores().add(autor);
+                        break;
+                    case "editora":
+                        Editora editora = new Editora();
+                        editora.setCodigo(codigo);
+                        editora.setNome(valor);
+                        materialComboBox.getEditoras().add(editora);
+                        break;
+                    case "categoria":
+                        Categoria categoria = new Categoria();
+                        categoria.setCodigo(codigo);
+                        categoria.setNome(valor);
+                        materialComboBox.getCategorias().add(categoria);
+                        break;
+                    case "publico":
+                        Publico publico = new Publico();
+                        publico.setCodigo(codigo);
+                        publico.setNome(valor);
+                        materialComboBox.getPublicos().add(publico);
+                        break;
+                    default:
+                        Formato formato = new Formato();
+                        formato.setCodigo(codigo);
+                        formato.setNome(valor);
+                        materialComboBox.getFormatos().add(formato);
+                        break;
+                }
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+            }
+            throw new RuntimeException(ex.getMessage());
+        } catch (NullPointerException ex) {
+            throw new RuntimeException(ex.getMessage());
+        } finally {
+            conexao.fecharConnection();
+        }
+        return materialComboBox;
     }
 }

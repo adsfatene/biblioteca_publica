@@ -2,8 +2,11 @@ package com.live.adsfatene.biblioteca_publica.views.materiais;
 
 import com.live.adsfatene.biblioteca_publica.controllers.MateriaisController;
 import com.live.adsfatene.biblioteca_publica.models.Material;
+import com.live.adsfatene.biblioteca_publica.models.util.MaterialComboBox;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,6 +18,7 @@ public class ListaView extends javax.swing.JPanel {
     private final CadastroView cadastroView;
     private final FiltroView filtroView;
     private final EdicaoView edicaoView;
+    private MaterialComboBox materialComboBox;
 
     public ListaView(MateriaisController materiaisController) {
         initComponents();
@@ -86,11 +90,11 @@ public class ListaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13"
+                "Material", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -98,6 +102,12 @@ public class ListaView extends javax.swing.JPanel {
             }
         });
         jTableLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableListaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTableListaMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTableListaMousePressed(evt);
             }
@@ -108,6 +118,10 @@ public class ListaView extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTableLista);
+        jTableLista.getColumnModel().getColumn(0).setMinWidth(0);
+        jTableLista.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jTableLista.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTableLista.getColumnModel().getColumn(0).setCellRenderer(null);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -117,7 +131,7 @@ public class ListaView extends javax.swing.JPanel {
     }//GEN-LAST:event_jToggleButtonCadastroActionPerformed
 
     private void jToggleButtonFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFiltroActionPerformed
-        filtroView.setVisible(jToggleButtonFiltro.isSelected());
+        materiaisController.filtrar(new Material());
     }//GEN-LAST:event_jToggleButtonFiltroActionPerformed
 
     private void jTableListaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMousePressed
@@ -127,8 +141,22 @@ public class ListaView extends javax.swing.JPanel {
     }//GEN-LAST:event_jTableListaKeyPressed
 
     private void jToggleButtonEdicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEdicaoActionPerformed
-        edicaoView.setVisible(jToggleButtonEdicao.isSelected());
+        if (jTableLista.getSelectedRowCount() > 0) {
+            materiaisController.editar((Material) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um Material.", "Erro", JOptionPane.ERROR_MESSAGE);
+            jToggleButtonEdicao.setSelected(false);
+        }
     }//GEN-LAST:event_jToggleButtonEdicaoActionPerformed
+
+    private void jTableListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseEntered
+    }//GEN-LAST:event_jTableListaMouseEntered
+
+    private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
+        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1 && jToggleButtonEdicao.isSelected()) {
+            materiaisController.editar((Material) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
+        }
+    }//GEN-LAST:event_jTableListaMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableLista;
@@ -138,33 +166,34 @@ public class ListaView extends javax.swing.JPanel {
     private javax.swing.JToolBar jToolBarAcoes;
     // End of variables declaration//GEN-END:variables
 
-    public void atualizar(List<Material> materiais) {
+    public void atualizar(List<Material> materiais, MaterialComboBox materialComboBox) {
         while (dtm.getRowCount() > 0) {
             dtm.removeRow(0);
         }
 
         this.materiais.clear();
-        
+
         this.materiais.addAll(materiais);
-        
+        this.materialComboBox = materialComboBox;
+
         for (Material material : this.materiais) {
             dtm.addRow(new Object[dtm.getColumnCount()]);
-            dtm.setValueAt(material.getCodigo(), dtm.getRowCount() - 1, 0);
-            dtm.setValueAt(material.getDadoMaterial().getTitulo(), dtm.getRowCount() - 1, 1);
-            dtm.setValueAt(material.getDadoMaterial().getDescricao(), dtm.getRowCount() - 1, 2);
-            dtm.setValueAt(material.getDadoMaterial().getEdicao(), dtm.getRowCount() - 1, 3);
-            dtm.setValueAt(material.getDadoMaterial().getAnoPublicacao(), dtm.getRowCount() - 1, 4);
-            dtm.setValueAt(material.getDadoMaterial().getAutor(), dtm.getRowCount() - 1, 5);
-            dtm.setValueAt(material.getDadoMaterial().getEditora().getNome(), dtm.getRowCount() - 1, 6);
-            dtm.setValueAt(material.getDadoMaterial().getCategoria().getNome(), dtm.getRowCount() - 1, 7);
-            dtm.setValueAt(material.getDadoMaterial().getPublico().getNome(), dtm.getRowCount() - 1, 8);
-            dtm.setValueAt(material.getFormato().getNome(), dtm.getRowCount() - 1, 9);
-            dtm.setValueAt(material.getInformacao(), dtm.getRowCount() - 1, 10);
-            dtm.setValueAt(material.getLocalLogicoFisico(), dtm.getRowCount() - 1, 11);
-            dtm.setValueAt(material.getDataHoraCadastro(), dtm.getRowCount() - 1, 12);
+            int i = 0;
+            dtm.setValueAt(material, dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getCodigo(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getTitulo(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getDescricao(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getEdicao(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getAnoPublicacao(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getAutor(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getEditora().getNome(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getCategoria().getNome(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDadoMaterial().getPublico().getNome(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getFormato().getNome(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getInformacao(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getLocalLogicoFisico(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(material.getDataHoraCadastro(), dtm.getRowCount() - 1, i++);
         }
-        
-        filtroView.atualizar(materiais);
     }
 
     public MateriaisController getMateriaisController() {
@@ -185,5 +214,13 @@ public class ListaView extends javax.swing.JPanel {
 
     public FiltroView getFiltroView() {
         return filtroView;
+    }
+
+    public EdicaoView getEdicaoView() {
+        return edicaoView;
+    }
+
+    public MaterialComboBox getMaterialComboBox() {
+        return materialComboBox;
     }
 }

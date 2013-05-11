@@ -54,4 +54,9 @@ public class Categoria implements Comparable<Categoria> {
     public int compareTo(Categoria categoria) {
         return nome.compareTo(categoria.nome);
     }
+
+    boolean ehIgual(Categoria categoria) {
+        return codigo.equals(categoria.codigo)
+                && nome.equals(categoria.nome);
+    }
 }

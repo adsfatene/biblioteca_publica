@@ -54,4 +54,9 @@ public class Formato implements Comparable<Formato> {
     public int compareTo(Formato formato) {
         return nome.compareTo(formato.nome);
     }
+
+    boolean ehIgual(Formato formato) {
+        return codigo.equals(formato.codigo)
+                && nome.equals(formato.nome);
+    }
 }

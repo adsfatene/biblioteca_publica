@@ -1,7 +1,10 @@
 package com.live.adsfatene.biblioteca_publica.models.daos.helper;
 
+import com.live.adsfatene.biblioteca_publica.models.AnoPublicacao;
+import com.live.adsfatene.biblioteca_publica.models.Autor;
 import com.live.adsfatene.biblioteca_publica.models.Categoria;
 import com.live.adsfatene.biblioteca_publica.models.DadoMaterial;
+import com.live.adsfatene.biblioteca_publica.models.Edicao;
 import com.live.adsfatene.biblioteca_publica.models.Editora;
 import com.live.adsfatene.biblioteca_publica.models.Formato;
 import com.live.adsfatene.biblioteca_publica.models.Material;
@@ -23,11 +26,20 @@ public class MaterialHelper {
             material.setLocalLogicoFisico("localLogicoFisico");
 
             DadoMaterial dadoMaterial = new DadoMaterial();
-            dadoMaterial.setAnoPublicacao(2013);
-            dadoMaterial.setAutor("autor");
             dadoMaterial.setTitulo("titulo");
             dadoMaterial.setDescricao("descricao");
-            dadoMaterial.setEdicao(1);
+
+            Edicao edicao = new Edicao();
+            edicao.setNumero(1);
+            dadoMaterial.setEdicao(edicao);
+
+            AnoPublicacao anoPublicacao = new AnoPublicacao();
+            anoPublicacao.setAno(2013);
+            dadoMaterial.setAnoPublicacao(anoPublicacao);
+
+            Autor autor = new Autor();
+            autor.setNome("autor");
+            dadoMaterial.setAutor(autor);
 
             Categoria categoria = new Categoria();
             categoria.setNome("categoria");

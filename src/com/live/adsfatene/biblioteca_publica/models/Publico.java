@@ -54,4 +54,9 @@ public class Publico implements Comparable<Publico> {
     public int compareTo(Publico publico) {
         return nome.compareTo(publico.nome);
     }
+
+    boolean ehIgual(Publico publico) {
+        return codigo.equals(publico.codigo)
+                && nome.equals(publico.nome);
+    }
 }

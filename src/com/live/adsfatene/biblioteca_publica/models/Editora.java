@@ -54,4 +54,9 @@ public class Editora implements Comparable<Editora> {
     public int compareTo(Editora editora) {
         return nome.compareTo(editora.nome);
     }
+
+    boolean ehIgual(Editora editora) {
+        return codigo.equals(editora.codigo)
+                && nome.equals(editora.nome);
+    }
 }

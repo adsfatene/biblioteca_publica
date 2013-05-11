@@ -24,3 +24,18 @@ CREATE VIEW materiais_view AS
  INNER JOIN editoras AS e ON d_m.editora = e.codigo
  INNER JOIN categorias AS c ON d_m.categoria = c.codigo
  INNER JOIN publicos AS p ON d_m.publico = p.codigo;
+
+CREATE VIEW materiais_combobox_view AS
+ SELECT DISTINCT(CAST(d_m.edicao AS VARCHAR)) AS valor, -1 AS codigo, 'edicao' AS tipo FROM dados_materiais AS d_m
+ UNION
+ SELECT DISTINCT(CAST(d_m.ano_publicacao AS VARCHAR)) AS valor, '-1' AS codigo, 'ano_publicacao' AS tipo FROM dados_materiais AS d_m
+ UNION
+ SELECT DISTINCT(CAST(d_m.autor AS VARCHAR)) AS valor, '-1' AS codigo, 'autor' AS tipo FROM dados_materiais AS d_m
+ UNION
+ SELECT nome AS valor, codigo, 'editora' AS tipo FROM editoras
+ UNION
+ SELECT nome AS valor, codigo, 'categoria' AS tipo FROM categorias
+ UNION
+ SELECT nome AS valor, codigo, 'publico' AS tipo FROM publicos
+ UNION
+ SELECT nome AS valor, codigo, 'formato' AS tipo FROM formatos;

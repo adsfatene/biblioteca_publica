@@ -78,13 +78,18 @@ public class Material {
                 + "\nmaterial_dado_material_categoria_codigo: %d"
                 + "\nmaterial_dado_material_categoria_nome: %s"
                 + "\nmaterial_dado_material_publico_codigo: %d"
-                + "\nmaterial_dado_material_publico_nome: %s"
-                ,codigo,informacao,localLogicoFisico,formato.getCodigo(), formato.getNome(),
+                + "\nmaterial_dado_material_publico_nome: %s", codigo, informacao, localLogicoFisico, formato.getCodigo(), formato.getNome(),
                 dadoMaterial.getCodigo(), dadoMaterial.getTitulo(), dadoMaterial.getDescricao(),
                 dadoMaterial.getEdicao(), dadoMaterial.getAnoPublicacao(), dadoMaterial.getAutor(),
                 dadoMaterial.getEditora().getCodigo(), dadoMaterial.getEditora().getNome(),
                 dadoMaterial.getCategoria().getCodigo(), dadoMaterial.getCategoria().getNome(),
-                dadoMaterial.getPublico().getCodigo(), dadoMaterial.getPublico().getNome()
-                );
+                dadoMaterial.getPublico().getCodigo(), dadoMaterial.getPublico().getNome());
+    }
+
+    public boolean ehIgual(Material material) {
+        return dadoMaterial.ehIgual(material.dadoMaterial)
+                && formato.ehIgual(material.formato)
+                && informacao.equals(material.informacao)
+                && localLogicoFisico.equals(material.localLogicoFisico);
     }
 }
