@@ -18,13 +18,18 @@ public final class MateriaisController {
     }
 
     public void iniciar() {
-        pesquisarCadastroDeMateriaisPorAlgumDeSeusDados(new Material());
+        aplicacaoController.mudarPara(listaPesquisaView, " - Materiais");
+        filtrar(new Material());
     }
 
-    public void pesquisarCadastroDeMateriaisPorAlgumDeSeusDados(Material material) {
-        aplicacaoController.mudarPara(listaPesquisaView, " - Materiais");
+    public void filtrar(Material material) {
         List<Material> materiais = materiaisDao.pesquisarPorTodosOsDadosNaoNulos(material);
         listaPesquisaView.atualizar(materiais);
+    }
+
+    public void iniciarFiltroView() {
+        List<Material> materiais = materiaisDao.pesquisarPorTodosOsDadosNaoNulos(new Material());
+        listaPesquisaView.getFiltroView().atualizar(materiais);
     }
 
     public void mostrarMaterialPeloSeuCodigoUnico(Integer codigo) {
@@ -42,5 +47,4 @@ public final class MateriaisController {
     public AplicacaoController getAplicacaoController() {
         return aplicacaoController;
     }
-
 }

@@ -65,12 +65,12 @@ public class MateriaisDao {
             DadoMaterial dadoMaterial = material.getDadoMaterial();
             if (dadoMaterial != null) {
                 if (dadoMaterial.getTitulo() != null) {
-                    where.add("material_dado_material_titulo = ?");
-                    setCommands.add(new SetString(where.size(), dadoMaterial.getTitulo()));
+                    where.add("LOWER(material_dado_material_titulo) LIKE ?");
+                    setCommands.add(new SetString(where.size(), "%" + dadoMaterial.getTitulo().toLowerCase() + "%"));
                 }
                 if (dadoMaterial.getDescricao() != null) {
-                    where.add("material_dado_material_descricao = ?");
-                    setCommands.add(new SetString(where.size(), dadoMaterial.getDescricao()));
+                    where.add("LOWER(material_dado_material_descricao) LIKE ?");
+                    setCommands.add(new SetString(where.size(), "%" + dadoMaterial.getDescricao().toLowerCase() + "%"));
                 }
                 if (dadoMaterial.getEdicao() != null) {
                     where.add("material_dado_material_edicao = ?");

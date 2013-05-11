@@ -1,8 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.live.adsfatene.biblioteca_publica.views.materiais;
+
+import com.live.adsfatene.biblioteca_publica.models.Categoria;
+import com.live.adsfatene.biblioteca_publica.models.DadoMaterial;
+import com.live.adsfatene.biblioteca_publica.models.Editora;
+import com.live.adsfatene.biblioteca_publica.models.Formato;
+import com.live.adsfatene.biblioteca_publica.models.Material;
+import com.live.adsfatene.biblioteca_publica.models.Publico;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class FiltroView extends javax.swing.JDialog {
 
@@ -17,8 +24,88 @@ public class FiltroView extends javax.swing.JDialog {
 
     @Override
     public void setVisible(boolean flag) {
+        if (flag) {
+            jButtonLimparActionPerformed(null);
+        }
         listaView.getjToggleButtonFiltro().setSelected(flag);
         super.setVisible(flag);
+    }
+
+    public void atualizar(List<Material> materiais) {
+        jComboBoxEdicao.removeAllItems();
+        jComboBoxAnoPublicacao.removeAllItems();
+        jComboBoxAutor.removeAllItems();
+        jComboBoxEditora.removeAllItems();
+        jComboBoxCategoria.removeAllItems();
+        jComboBoxPublico.removeAllItems();
+        jComboBoxFormato.removeAllItems();
+
+        Set<Integer> edicoesUnicoEOrdenado = new HashSet<>();
+        Set<Integer> anosPublicacoesUnicoEOrdenado = new HashSet<>();
+        Set<String> autoresUnicoEOrdenado = new HashSet<>();
+
+        Set<Editora> editorasUnico = new HashSet<>();
+        Set<Categoria> categoriasUnico = new HashSet<>();
+        Set<Publico> publicosUnico = new HashSet<>();
+        Set<Formato> formatosUnico = new HashSet<>();
+
+
+        for (Material material : materiais) {
+            DadoMaterial dadoMaterial = material.getDadoMaterial();
+            edicoesUnicoEOrdenado.add(dadoMaterial.getEdicao());
+            anosPublicacoesUnicoEOrdenado.add(dadoMaterial.getAnoPublicacao());
+            autoresUnicoEOrdenado.add(dadoMaterial.getAutor());
+            editorasUnico.add(dadoMaterial.getEditora());
+            categoriasUnico.add(dadoMaterial.getCategoria());
+            publicosUnico.add(dadoMaterial.getPublico());
+
+            formatosUnico.add(material.getFormato());
+        }
+
+        Set<Editora> editorasOrdenado = new TreeSet<>();
+        Set<Categoria> categoriasOrdenado = new TreeSet<>();
+        Set<Publico> publicosOrdenado = new TreeSet<>();
+        Set<Formato> formatosOrdenado = new TreeSet<>();
+
+        editorasOrdenado.addAll(editorasUnico);
+        categoriasOrdenado.addAll(categoriasUnico);
+        publicosOrdenado.addAll(publicosUnico);
+        formatosOrdenado.addAll(formatosUnico);
+
+        jComboBoxEdicao.addItem("Todos");
+        for (Integer edicao : edicoesUnicoEOrdenado) {
+            jComboBoxEdicao.addItem(edicao);
+        }
+
+        jComboBoxAnoPublicacao.addItem("Todos");
+        for (Integer anoPublicacao : anosPublicacoesUnicoEOrdenado) {
+            jComboBoxAnoPublicacao.addItem(anoPublicacao);
+        }
+
+        jComboBoxAutor.addItem("Todos");
+        for (String autor : autoresUnicoEOrdenado) {
+            jComboBoxAutor.addItem(autor);
+        }
+
+        jComboBoxEditora.addItem("Todos");
+        for (Editora editora : editorasOrdenado) {
+            jComboBoxEditora.addItem(editora);
+        }
+
+        jComboBoxCategoria.addItem("Todos");
+        for (Categoria categoria : categoriasOrdenado) {
+            jComboBoxCategoria.addItem(categoria);
+        }
+
+        jComboBoxPublico.addItem("Todos");
+        for (Publico publico : publicosOrdenado) {
+            jComboBoxPublico.addItem(publico);
+        }
+
+        jComboBoxFormato.addItem("Todos");
+        for (Formato formato : formatosOrdenado) {
+            jComboBoxFormato.addItem(formato);
+        }
     }
 
     /**
@@ -30,71 +117,87 @@ public class FiltroView extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox7 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox6 = new javax.swing.JComboBox();
-        jComboBox5 = new javax.swing.JComboBox();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
-        jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jComboBoxFormato = new javax.swing.JComboBox();
+        jTextFieldTitulo = new javax.swing.JTextField();
+        jComboBoxPublico = new javax.swing.JComboBox();
+        jComboBoxCategoria = new javax.swing.JComboBox();
+        jLabelCategoria = new javax.swing.JLabel();
+        jLabelEditora = new javax.swing.JLabel();
+        jLabelFormato = new javax.swing.JLabel();
+        jLabelPublico = new javax.swing.JLabel();
+        jTextFieldDescricao = new javax.swing.JTextField();
+        jLabelDescricao = new javax.swing.JLabel();
+        jComboBoxEdicao = new javax.swing.JComboBox();
+        jLabelEdicao = new javax.swing.JLabel();
+        jLabelAnoPublicacao = new javax.swing.JLabel();
+        jLabelAutor = new javax.swing.JLabel();
+        jComboBoxEditora = new javax.swing.JComboBox();
+        jComboBoxAnoPublicacao = new javax.swing.JComboBox();
+        jComboBoxAutor = new javax.swing.JComboBox();
+        jLabelTitulo = new javax.swing.JLabel();
+        jButtonPesquisar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonLimpar = new javax.swing.JButton();
 
         setTitle("Filtro");
         setResizable(false);
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxFormato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jComboBoxFormatoActionPerformed(evt);
             }
         });
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextFieldTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTituloActionPerformed(evt);
+            }
+        });
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabelCategoria.setText("Categoria");
 
-        jLabel16.setText("Categoria");
+        jLabelEditora.setText("Editora");
 
-        jLabel15.setText("Editora");
+        jLabelFormato.setText("Formato");
 
-        jLabel18.setText("Formato");
+        jLabelPublico.setText("Publico");
 
-        jLabel17.setText("Publico");
+        jLabelDescricao.setText("Descrição");
 
-        jLabel11.setText("Descrição");
+        jLabelEdicao.setText("Edição");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabelAnoPublicacao.setText("Ano de Publicação");
 
-        jLabel12.setText("Edição");
+        jLabelAutor.setText("Autor");
 
-        jLabel13.setText("Publicação");
+        jComboBoxAnoPublicacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxAnoPublicacaoActionPerformed(evt);
+            }
+        });
 
-        jLabel14.setText("Autor");
+        jLabelTitulo.setText("Título");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel10.setText("Título");
-
-        jButton1.setText("Pesquisar");
-
-        jButton2.setText("Limpar");
+        jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,105 +206,163 @@ public class FiltroView extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabelDescricao)
+                    .addComponent(jLabelTitulo)
+                    .addComponent(jLabelEdicao)
+                    .addComponent(jLabelAnoPublicacao)
+                    .addComponent(jLabelAutor)
+                    .addComponent(jLabelEditora)
+                    .addComponent(jLabelCategoria)
+                    .addComponent(jLabelPublico)
+                    .addComponent(jLabelFormato))
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField4)
-                        .addComponent(jTextField1)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jComboBoxFormato, javax.swing.GroupLayout.Alignment.LEADING, 0, 301, Short.MAX_VALUE)
+                        .addComponent(jComboBoxPublico, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxEditora, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxAutor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxAnoPublicacao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxEdicao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTitulo)
+                    .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelDescricao)
+                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelEdicao)
+                    .addComponent(jComboBoxEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelAnoPublicacao)
+                    .addComponent(jComboBoxAnoPublicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelAutor)
+                    .addComponent(jComboBoxAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelEditora)
+                    .addComponent(jComboBoxEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelCategoria)
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelPublico)
+                    .addComponent(jComboBoxPublico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelFormato)
+                    .addComponent(jComboBoxFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonPesquisar)
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonLimpar))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTituloActionPerformed
+    }//GEN-LAST:event_jTextFieldTituloActionPerformed
+
+    private void jComboBoxAnoPublicacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAnoPublicacaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jComboBoxAnoPublicacaoActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        jTextFieldTitulo.setText(null);
+        jTextFieldDescricao.setText(null);
+        jComboBoxEdicao.setSelectedIndex(0);
+        jComboBoxAnoPublicacao.setSelectedIndex(0);
+        jComboBoxAutor.setSelectedIndex(0);
+        jComboBoxEditora.setSelectedIndex(0);
+        jComboBoxCategoria.setSelectedIndex(0);
+        jComboBoxPublico.setSelectedIndex(0);
+        jComboBoxFormato.setSelectedIndex(0);
+    }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void jComboBoxFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFormatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxFormatoActionPerformed
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        Material material = new Material();
+        DadoMaterial dadoMaterial = new DadoMaterial();
+        if (!jTextFieldTitulo.getText().isEmpty()) {
+            dadoMaterial.setTitulo(jTextFieldTitulo.getText());
+        }
+        if (!jTextFieldDescricao.getText().isEmpty()) {
+            dadoMaterial.setDescricao(jTextFieldDescricao.getText());
+        }
+        if (jComboBoxEdicao.getSelectedIndex() > 0) {
+            dadoMaterial.setEdicao((Integer) jComboBoxEdicao.getSelectedItem());
+        }
+        if (jComboBoxAnoPublicacao.getSelectedIndex() > 0) {
+            dadoMaterial.setAnoPublicacao((Integer) jComboBoxAnoPublicacao.getSelectedItem());
+        }
+        if (jComboBoxEditora.getSelectedIndex() > 0) {
+            dadoMaterial.setEditora((Editora) jComboBoxEditora.getSelectedItem());
+        }
+        if (jComboBoxCategoria.getSelectedIndex() > 0) {
+            dadoMaterial.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
+        }
+        if (jComboBoxPublico.getSelectedIndex() > 0) {
+            dadoMaterial.setPublico((Publico) jComboBoxPublico.getSelectedItem());
+        }
+        material.setDadoMaterial(dadoMaterial);
+        if (jComboBoxFormato.getSelectedIndex() > 0) {
+            material.setFormato((Formato) jComboBoxFormato.getSelectedItem());
+        }
+
+        listaView.getMateriaisController().filtrar(material);
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JComboBox jComboBox5;
-    private javax.swing.JComboBox jComboBox6;
-    private javax.swing.JComboBox jComboBox7;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonLimpar;
+    private javax.swing.JButton jButtonPesquisar;
+    private javax.swing.JComboBox jComboBoxAnoPublicacao;
+    private javax.swing.JComboBox jComboBoxAutor;
+    private javax.swing.JComboBox jComboBoxCategoria;
+    private javax.swing.JComboBox jComboBoxEdicao;
+    private javax.swing.JComboBox jComboBoxEditora;
+    private javax.swing.JComboBox jComboBoxFormato;
+    private javax.swing.JComboBox jComboBoxPublico;
+    private javax.swing.JLabel jLabelAnoPublicacao;
+    private javax.swing.JLabel jLabelAutor;
+    private javax.swing.JLabel jLabelCategoria;
+    private javax.swing.JLabel jLabelDescricao;
+    private javax.swing.JLabel jLabelEdicao;
+    private javax.swing.JLabel jLabelEditora;
+    private javax.swing.JLabel jLabelFormato;
+    private javax.swing.JLabel jLabelPublico;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JTextField jTextFieldDescricao;
+    private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,15 +26,6 @@ public class ListaView extends javax.swing.JPanel {
         edicaoView = new EdicaoView(this, false);
     }
 
-    @Override
-    public void setVisible(boolean aFlag) {
-        while (dtm.getRowCount() > 0) {
-            dtm.removeRow(0);
-        }
-        materiais.clear();
-        super.setVisible(aFlag);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,7 +139,14 @@ public class ListaView extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void atualizar(List<Material> materiais) {
+        while (dtm.getRowCount() > 0) {
+            dtm.removeRow(0);
+        }
+
+        this.materiais.clear();
+        
         this.materiais.addAll(materiais);
+        
         for (Material material : this.materiais) {
             dtm.addRow(new Object[dtm.getColumnCount()]);
             dtm.setValueAt(material.getCodigo(), dtm.getRowCount() - 1, 0);
@@ -165,6 +163,8 @@ public class ListaView extends javax.swing.JPanel {
             dtm.setValueAt(material.getLocalLogicoFisico(), dtm.getRowCount() - 1, 11);
             dtm.setValueAt(material.getDataHoraCadastro(), dtm.getRowCount() - 1, 12);
         }
+        
+        filtroView.atualizar(materiais);
     }
 
     public MateriaisController getMateriaisController() {
@@ -181,5 +181,9 @@ public class ListaView extends javax.swing.JPanel {
 
     public JToggleButton getjToggleButtonEdicao() {
         return jToggleButtonEdicao;
+    }
+
+    public FiltroView getFiltroView() {
+        return filtroView;
     }
 }
