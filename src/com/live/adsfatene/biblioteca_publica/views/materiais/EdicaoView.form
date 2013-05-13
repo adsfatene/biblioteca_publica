@@ -42,22 +42,22 @@
               <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jButtonAtualizar" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="jButtonAtualizar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonLimpar" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="jButtonLimpar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonCancelar" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="jButtonCancelar" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jTextFieldDescricao" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jComboBoxEdicao" alignment="0" pref="282" max="32767" attributes="0"/>
+                      <Component id="jComboBoxEdicao" alignment="0" pref="312" max="32767" attributes="0"/>
                       <Component id="jComboBoxAnoPublicacao" alignment="0" max="32767" attributes="0"/>
                       <Component id="jComboBoxAutor" alignment="0" max="32767" attributes="0"/>
                       <Component id="jComboBoxEditora" alignment="0" max="32767" attributes="0"/>
                       <Component id="jComboBoxCategoria" alignment="0" max="32767" attributes="0"/>
                       <Component id="jComboBoxPublico" alignment="0" max="32767" attributes="0"/>
                       <Component id="jComboBoxFormato" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextFieldTitulo" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jTextFieldTitulo" alignment="1" pref="312" max="32767" attributes="0"/>
                       <Component id="jTextFieldInformacao" alignment="0" max="32767" attributes="0"/>
                       <Component id="jTextFieldLocalizacao" max="32767" attributes="0"/>
                   </Group>

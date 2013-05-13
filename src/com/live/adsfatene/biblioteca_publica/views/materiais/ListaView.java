@@ -4,6 +4,7 @@ import com.live.adsfatene.biblioteca_publica.controllers.MateriaisController;
 import com.live.adsfatene.biblioteca_publica.models.Material;
 import com.live.adsfatene.biblioteca_publica.models.util.MaterialComboBox;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,7 +20,8 @@ public class ListaView extends javax.swing.JPanel {
     private final FiltroView filtroView;
     private final EdicaoView edicaoView;
     private MaterialComboBox materialComboBox;
-
+    private final SimpleDateFormat sdf;
+    
     public ListaView(MateriaisController materiaisController) {
         initComponents();
         this.materiaisController = materiaisController;
@@ -28,6 +30,7 @@ public class ListaView extends javax.swing.JPanel {
         cadastroView = new CadastroView(this, false);
         filtroView = new FiltroView(this, false);
         edicaoView = new EdicaoView(this, false);
+        sdf = new SimpleDateFormat("dd/MM/YYYY");
     }
 
     /**
@@ -90,7 +93,7 @@ public class ListaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Material", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14"
+                "Material", "Codigo", "Titulo", "Descrição", "Edição", "Ano de Publicação", "Autor", "Editora", "Categoria", "Publico", "Formato", "Informação", "Locaização", "Data de Cadastro"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -121,13 +124,12 @@ public class ListaView extends javax.swing.JPanel {
         jTableLista.getColumnModel().getColumn(0).setMinWidth(0);
         jTableLista.getColumnModel().getColumn(0).setPreferredWidth(0);
         jTableLista.getColumnModel().getColumn(0).setMaxWidth(0);
-        jTableLista.getColumnModel().getColumn(0).setCellRenderer(null);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCadastroActionPerformed
-        cadastroView.setVisible(jToggleButtonCadastro.isSelected());
+        materiaisController.cadastrar();
     }//GEN-LAST:event_jToggleButtonCadastroActionPerformed
 
     private void jToggleButtonFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFiltroActionPerformed
@@ -192,7 +194,7 @@ public class ListaView extends javax.swing.JPanel {
             dtm.setValueAt(material.getFormato().getNome(), dtm.getRowCount() - 1, i++);
             dtm.setValueAt(material.getInformacao(), dtm.getRowCount() - 1, i++);
             dtm.setValueAt(material.getLocalLogicoFisico(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDataHoraCadastro(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt( sdf.format(material.getDataHoraCadastro().getTime()), dtm.getRowCount() - 1, i++);
         }
     }
 
@@ -218,6 +220,10 @@ public class ListaView extends javax.swing.JPanel {
 
     public EdicaoView getEdicaoView() {
         return edicaoView;
+    }
+
+    public CadastroView getCadastroView() {
+        return cadastroView;
     }
 
     public MaterialComboBox getMaterialComboBox() {

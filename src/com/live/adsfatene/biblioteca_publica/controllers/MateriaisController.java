@@ -37,22 +37,29 @@ public final class MateriaisController {
         listaView.getEdicaoView().setVisible(listaView.getjToggleButtonEdicao().isSelected());
     }
 
-    public void mostrarMaterialPeloSeuCodigoUnico(Integer codigo) {
-        Material material = materiaisDao.buscarPeloCodigo(codigo);
-    }
-
     public void atualizar(Material material) {
         if (materiaisDao.atualizarPorTodosOsDados(material)) {
             JOptionPane.showMessageDialog(listaView.getEdicaoView(), "atualizado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
             iniciar();
             editar(material);
         } else {
-           JOptionPane.showMessageDialog(listaView.getEdicaoView(), "falha na atualização", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "falha na atualização", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void cadastrarNovoMaterial(List<Material> materiais) {
-        Boolean sucesso = materiaisDao.cadastarNovos(materiais);
+    public void cadastrar() {
+        listaView.getCadastroView().atualizar();
+        listaView.getCadastroView().setVisible(listaView.getjToggleButtonCadastro().isSelected());
+    }
+
+    public void salvar(List<Material> materiais) {
+        if (materiaisDao.cadastarNovos(materiais)) {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "cadastrado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            iniciar();
+            cadastrar();
+        } else {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "falha no cadastro", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public AplicacaoController getAplicacaoController() {

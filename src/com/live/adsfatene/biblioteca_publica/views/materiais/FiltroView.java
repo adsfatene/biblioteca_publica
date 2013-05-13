@@ -204,8 +204,8 @@ public class FiltroView extends javax.swing.JDialog {
                     .addComponent(jComboBoxAutor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxAnoPublicacao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxEdicao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextFieldTitulo))
-                .addGap(0, 20, Short.MAX_VALUE))
+                    .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +251,7 @@ public class FiltroView extends javax.swing.JDialog {
                     .addComponent(jButtonPesquisar)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonLimpar))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
