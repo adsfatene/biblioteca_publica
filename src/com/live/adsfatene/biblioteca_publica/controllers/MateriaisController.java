@@ -65,4 +65,19 @@ public final class MateriaisController {
     public AplicacaoController getAplicacaoController() {
         return aplicacaoController;
     }
+
+    public void excluir(Integer codigo) {
+        if (materiaisDao.exluirPeloCodigo(codigo)) {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "excluido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            iniciar();
+            listaView.getExibicaoView().setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "falha no exclusao", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void exibir(Material material) {
+        listaView.getExibicaoView().atualizar(material);
+        listaView.getExibicaoView().setVisible(true);
+    }
 }

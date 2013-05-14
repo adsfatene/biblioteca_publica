@@ -48,7 +48,7 @@ formato TINYINT NOT NULL DEFAULT 1,
 data_hora_cadastro DATETIME NOT NULL DEFAULT GETDATE(),
 informacao VARCHAR(255),
 local_logico_fisico VARCHAR(100) NOT NULL,
-UNIQUE (dado_material, formato, data_hora_cadastro),
+UNIQUE (codigo, dado_material, formato),
 FOREIGN KEY (dado_material) REFERENCES dados_materiais(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (formato) REFERENCES formatos(codigo) ON DELETE NO ACTION ON UPDATE NO ACTION
 );

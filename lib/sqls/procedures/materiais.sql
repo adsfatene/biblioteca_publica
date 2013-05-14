@@ -152,4 +152,14 @@ CREATE PROCEDURE atualizar_material
   @material_dado_material_editora_codigo, @material_dado_material_editora_nome,
   @material_dado_material_categoria_codigo, @material_dado_material_categoria_nome,
   @material_dado_material_publico_codigo, @material_dado_material_publico_nome
- END
+ END;
+
+CREATE PROCEDURE excluir_material
+ @material_codigo INT
+ AS
+ BEGIN
+  DELETE FROM
+  materiais 
+  WHERE
+  codigo = @material_codigo
+ END;

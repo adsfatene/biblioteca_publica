@@ -21,7 +21,8 @@ public class ListaView extends javax.swing.JPanel {
     private final EdicaoView edicaoView;
     private MaterialComboBox materialComboBox;
     private final SimpleDateFormat sdf;
-    
+    private final ExibicaoView exibicaoView;
+
     public ListaView(MateriaisController materiaisController) {
         initComponents();
         this.materiaisController = materiaisController;
@@ -31,6 +32,7 @@ public class ListaView extends javax.swing.JPanel {
         filtroView = new FiltroView(this, false);
         edicaoView = new EdicaoView(this, false);
         sdf = new SimpleDateFormat("dd/MM/YYYY");
+        exibicaoView = new ExibicaoView(this, false);
     }
 
     /**
@@ -155,8 +157,13 @@ public class ListaView extends javax.swing.JPanel {
     }//GEN-LAST:event_jTableListaMouseEntered
 
     private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
-        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1 && jToggleButtonEdicao.isSelected()) {
-            materiaisController.editar((Material) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
+        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+            Material material = (Material) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0);
+            if (jToggleButtonEdicao.isSelected()) {
+                materiaisController.editar(material);
+            } else {
+                materiaisController.exibir(material);
+            }
         }
     }//GEN-LAST:event_jTableListaMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -194,7 +201,7 @@ public class ListaView extends javax.swing.JPanel {
             dtm.setValueAt(material.getFormato().getNome(), dtm.getRowCount() - 1, i++);
             dtm.setValueAt(material.getInformacao(), dtm.getRowCount() - 1, i++);
             dtm.setValueAt(material.getLocalLogicoFisico(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt( sdf.format(material.getDataHoraCadastro().getTime()), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(sdf.format(material.getDataHoraCadastro().getTime()), dtm.getRowCount() - 1, i++);
         }
     }
 
@@ -228,5 +235,9 @@ public class ListaView extends javax.swing.JPanel {
 
     public MaterialComboBox getMaterialComboBox() {
         return materialComboBox;
+    }
+
+    public ExibicaoView getExibicaoView() {
+        return exibicaoView;
     }
 }

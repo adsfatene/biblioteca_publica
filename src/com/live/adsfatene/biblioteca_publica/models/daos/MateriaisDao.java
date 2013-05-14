@@ -452,6 +452,21 @@ public class MateriaisDao {
                         break;
                 }
             }
+            if (materialComboBox.getEdicoes().isEmpty()) {
+                Edicao edicao = new Edicao();
+                edicao.setNumero(1);
+                materialComboBox.getEdicoes().add(edicao);
+            }
+            if (materialComboBox.getAnosPublicacoes().isEmpty()) {
+                AnoPublicacao anoPublicacao = new AnoPublicacao();
+                anoPublicacao.setAno(Calendar.getInstance().get(Calendar.YEAR));
+                materialComboBox.getAnosPublicacoes().add(anoPublicacao);
+            }
+            if (materialComboBox.getAutores().isEmpty()) {
+                Autor autor = new Autor();
+                autor.setNome("desconhecido");
+                materialComboBox.getAutores().add(autor);
+            }
         } catch (SQLException ex) {
             try {
                 connection.rollback();
@@ -464,5 +479,32 @@ public class MateriaisDao {
             conexao.fecharConnection();
         }
         return materialComboBox;
+    }
+
+    public boolean exluirPeloCodigo(Integer codigo) {
+        boolean sucesso = false;
+        Connection connection = conexao.getConnection();
+        try {
+            String valorDoComandoUm = comandos.get("excluirPeloCodigo");
+            PreparedStatement preparedStatement = connection.prepareStatement(valorDoComandoUm);
+            preparedStatement.setInt(1, codigo);
+            connection.setAutoCommit(false);
+            sucesso = preparedStatement.executeUpdate() == 1;
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+            }
+            throw new RuntimeException(ex.getMessage());
+        } catch (NullPointerException ex) {
+            throw new RuntimeException(ex.getMessage());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        } finally {
+            conexao.fecharConnection();
+        }
+        return sucesso;
     }
 }
