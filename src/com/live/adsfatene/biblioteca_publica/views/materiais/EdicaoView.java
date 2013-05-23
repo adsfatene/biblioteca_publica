@@ -89,7 +89,6 @@ public class EdicaoView extends javax.swing.JDialog {
         jComboBoxFormato.setSelectedItem(material.getFormato());
 
         jTextFieldInformacao.setText(material.getInformacao());
-        jTextFieldLocalizacao.setText(material.getLocalLogicoFisico());
 
         this.material = material;
     }
@@ -124,8 +123,6 @@ public class EdicaoView extends javax.swing.JDialog {
         jButtonAtualizar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
-        jTextFieldLocalizacao = new javax.swing.JTextField();
-        jLabelLocalizacao = new javax.swing.JLabel();
         jLabelInformacao = new javax.swing.JLabel();
         jTextFieldInformacao = new javax.swing.JTextField();
 
@@ -189,8 +186,6 @@ public class EdicaoView extends javax.swing.JDialog {
             }
         });
 
-        jLabelLocalizacao.setText("Localização");
-
         jLabelInformacao.setText("Informação");
 
         jTextFieldInformacao.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +201,6 @@ public class EdicaoView extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLocalizacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelInformacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelDescricao)
                     .addComponent(jLabelTitulo)
@@ -235,8 +229,7 @@ public class EdicaoView extends javax.swing.JDialog {
                         .addComponent(jComboBoxPublico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jComboBoxFormato, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                        .addComponent(jTextFieldInformacao)
-                        .addComponent(jTextFieldLocalizacao)))
+                        .addComponent(jTextFieldInformacao)))
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
@@ -284,10 +277,6 @@ public class EdicaoView extends javax.swing.JDialog {
                     .addComponent(jTextFieldInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelLocalizacao)
-                    .addComponent(jTextFieldLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAtualizar)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonLimpar))
@@ -319,7 +308,6 @@ public class EdicaoView extends javax.swing.JDialog {
         jComboBoxPublico.setSelectedItem(material.getDadoMaterial().getPublico());
         jComboBoxFormato.setSelectedItem(material.getFormato());
         jTextFieldInformacao.setText(material.getInformacao());
-        jTextFieldLocalizacao.setText(material.getLocalLogicoFisico());
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jComboBoxFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFormatoActionPerformed
@@ -398,7 +386,6 @@ public class EdicaoView extends javax.swing.JDialog {
         material.setFormato(formato);
 
         material.setInformacao(jTextFieldInformacao.getText());
-        material.setLocalLogicoFisico(jTextFieldLocalizacao.getText());
         material.setCodigo(this.material.getCodigo());
 
         if (!this.material.ehIgual(material)) {
@@ -431,12 +418,10 @@ public class EdicaoView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelEditora;
     private javax.swing.JLabel jLabelFormato;
     private javax.swing.JLabel jLabelInformacao;
-    private javax.swing.JLabel jLabelLocalizacao;
     private javax.swing.JLabel jLabelPublico;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldInformacao;
-    private javax.swing.JTextField jTextFieldLocalizacao;
     private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
 }

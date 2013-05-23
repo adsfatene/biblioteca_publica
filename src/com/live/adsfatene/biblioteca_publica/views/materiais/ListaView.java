@@ -95,11 +95,11 @@ public class ListaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Material", "Codigo", "Titulo", "Descrição", "Edição", "Ano de Publicação", "Autor", "Editora", "Categoria", "Publico", "Formato", "Informação", "Locaização", "Data de Cadastro"
+                "Material", "Codigo", "Titulo", "Descrição", "Edição", "Ano de Publicação", "Autor", "Editora", "Categoria", "Publico", "Formato", "Informação", "Data de Cadastro"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -200,7 +200,6 @@ public class ListaView extends javax.swing.JPanel {
             dtm.setValueAt(material.getDadoMaterial().getPublico().getNome(), dtm.getRowCount() - 1, i++);
             dtm.setValueAt(material.getFormato().getNome(), dtm.getRowCount() - 1, i++);
             dtm.setValueAt(material.getInformacao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getLocalLogicoFisico(), dtm.getRowCount() - 1, i++);
             dtm.setValueAt(sdf.format(material.getDataHoraCadastro().getTime()), dtm.getRowCount() - 1, i++);
         }
     }

@@ -99,15 +99,9 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabelLocalizacao" max="32767" attributes="0"/>
-                              <Component id="jLabelInformacao" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabelInformacao" max="32767" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldInformacao" pref="312" max="32767" attributes="0"/>
-                              <Component id="jTextFieldLocalizacao" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jTextFieldInformacao" min="-2" pref="312" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabelCodigo" min="-2" pref="57" max="-2" attributes="0"/>
@@ -183,11 +177,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelInformacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldInformacao" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelLocalizacao" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldLocalizacao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -336,16 +325,6 @@
     <Component class="javax.swing.JLabel" name="jLabelInformacao">
       <Properties>
         <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xe3;o"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldLocalizacao">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabelLocalizacao">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Localiaza&#xe7;&#xe3;o"/>
       </Properties>
     </Component>
   </SubComponents>

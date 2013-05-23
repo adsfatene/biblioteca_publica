@@ -193,11 +193,11 @@ public class CadastroView extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Formato", "Quantidade", "Informação", "Localização"
+                "Formato", "Quantidade", "Informação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -359,8 +359,6 @@ public class CadastroView extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "titulo obrigatorio", "aviso", JOptionPane.WARNING_MESSAGE);
         } else if (jTableFormato.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "formato é obrigatorio. adicione pelo menos um formato", "aviso", JOptionPane.WARNING_MESSAGE);
-        } else if (!validarLocalizacoes()) {
-            JOptionPane.showMessageDialog(this, "localização é obrigatorio.", "aviso", JOptionPane.WARNING_MESSAGE);
         } else {
             DadoMaterial dadoMaterial = new DadoMaterial();
             dadoMaterial.setTitulo(jTextFieldTitulo.getText());
@@ -430,7 +428,6 @@ public class CadastroView extends javax.swing.JDialog {
                         material.setDadoMaterial(dadoMaterial);
                         material.setFormato(formato);
                         material.setInformacao(jTableFormato.getValueAt(i, 2).toString());
-                        material.setLocalLogicoFisico(jTableFormato.getValueAt(i, 3).toString());
                         materiais.add(material);
                     }
                 } else {
@@ -438,7 +435,6 @@ public class CadastroView extends javax.swing.JDialog {
                     material.setDadoMaterial(dadoMaterial);
                     material.setFormato(formato);
                     material.setInformacao(jTableFormato.getValueAt(i, 2).toString());
-                    material.setLocalLogicoFisico(jTableFormato.getValueAt(i, 3).toString());
                     materiais.add(material);
                 }
             }
@@ -507,12 +503,4 @@ public class CadastroView extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
 
-    private boolean validarLocalizacoes() {
-        for (int i = 0; i < dtm.getRowCount(); i++) {
-            if (dtm.getValueAt(i, 3).toString().trim().isEmpty()) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

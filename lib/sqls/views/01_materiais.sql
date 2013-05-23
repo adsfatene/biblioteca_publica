@@ -3,7 +3,6 @@ CREATE VIEW materiais_view AS
  m.codigo AS material_codigo, 
  m.data_hora_cadastro  AS material_data_hora_cadastro, 
  m.informacao AS material_informacao, 
- m.local_logico_fisico AS material_local_logico_fisico,
  f.codigo AS material_formato_codigo, 
  f.nome AS material_formato_nome,
  d_m.codigo AS material_dado_material_codigo, 

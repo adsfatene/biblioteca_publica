@@ -47,7 +47,6 @@ dado_material INT NOT NULL,
 formato TINYINT NOT NULL DEFAULT 1,
 data_hora_cadastro DATETIME NOT NULL DEFAULT GETDATE(),
 informacao VARCHAR(255),
-local_logico_fisico VARCHAR(100) NOT NULL,
 UNIQUE (codigo, dado_material, formato),
 FOREIGN KEY (dado_material) REFERENCES dados_materiais(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (formato) REFERENCES formatos(codigo) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -56,7 +55,8 @@ FOREIGN KEY (formato) REFERENCES formatos(codigo) ON DELETE NO ACTION ON UPDATE 
 CREATE TABLE estoques
 (
 material INT NOT NULL PRIMARY KEY,
-estado VARCHAR(10) NOT NULL CHECK (estado IN ('Novo', 'Usado', 'Restaurado')),
+statu VARCHAR(10) NOT NULL CHECK (statu IN ('Novo', 'Usado', 'Restaurado')),
+local_logico_fisico VARCHAR(100) NOT NULL,
 FOREIGN KEY (material) REFERENCES materiais(codigo) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 

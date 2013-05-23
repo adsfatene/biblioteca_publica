@@ -106,7 +106,9 @@ public abstract class Conexao {
 
     public void fecharConnection() {
         try {
-            connection.close();
+            if (!connection.isClosed()) {
+                connection.close();
+            }
         } catch (SQLException ex) {
         }
     }

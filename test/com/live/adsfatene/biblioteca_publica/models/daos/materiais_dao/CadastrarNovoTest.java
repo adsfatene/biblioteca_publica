@@ -61,7 +61,6 @@ public class CadastrarNovoTest {
             publico.setNome("publico");
             formato.setNome("formato" + i);
             material.setInformacao("informacao" + i);
-            material.setLocalLogicoFisico("localizacao" + i);
             materiais.add(material);
         }
         Assert.assertTrue(materiaisDAO.cadastarNovos(materiais));
@@ -96,5 +95,9 @@ public class CadastrarNovoTest {
 
     public List<Material> getMateriais() {
         return materiais;
+    }
+
+    public Conexao getConexao() {
+        return conexao;
     }
 }

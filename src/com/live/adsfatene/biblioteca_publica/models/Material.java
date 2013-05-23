@@ -13,7 +13,6 @@ public class Material {
     private Formato formato;
     private Calendar dataHoraCadastro;
     private String informacao;
-    private String localLogicoFisico;
 
     public Integer getCodigo() {
         return codigo;
@@ -33,10 +32,6 @@ public class Material {
 
     public String getInformacao() {
         return informacao;
-    }
-
-    public String getLocalLogicoFisico() {
-        return localLogicoFisico;
     }
 
     public void setCodigo(Integer codigo) {
@@ -59,13 +54,9 @@ public class Material {
         this.informacao = informacao;
     }
 
-    public void setLocalLogicoFisico(String localLogicoFisico) {
-        this.localLogicoFisico = localLogicoFisico;
-    }
-
     @Override
     public String toString() {
-        return String.format("material_codigo: %d\nmaterial_informacao: %s\nmaterial_local_logico_fisico: %s"
+        return String.format("material_codigo: %d\nmaterial_informacao: %s"
                 + "\nmaterial_formato_codigo: %d\nmaterial_formato_nome: %s"
                 + "\nmaterial_dado_material_codigo: %d"
                 + "\nmaterial_dado_material_titulo: %s"
@@ -78,7 +69,7 @@ public class Material {
                 + "\nmaterial_dado_material_categoria_codigo: %d"
                 + "\nmaterial_dado_material_categoria_nome: %s"
                 + "\nmaterial_dado_material_publico_codigo: %d"
-                + "\nmaterial_dado_material_publico_nome: %s", codigo, informacao, localLogicoFisico, formato.getCodigo(), formato.getNome(),
+                + "\nmaterial_dado_material_publico_nome: %s", codigo, informacao, formato.getCodigo(), formato.getNome(),
                 dadoMaterial.getCodigo(), dadoMaterial.getTitulo(), dadoMaterial.getDescricao(),
                 dadoMaterial.getEdicao(), dadoMaterial.getAnoPublicacao(), dadoMaterial.getAutor(),
                 dadoMaterial.getEditora().getCodigo(), dadoMaterial.getEditora().getNome(),
@@ -89,7 +80,6 @@ public class Material {
     public boolean ehIgual(Material material) {
         return dadoMaterial.ehIgual(material.dadoMaterial)
                 && formato.ehIgual(material.formato)
-                && informacao.equals(material.informacao)
-                && localLogicoFisico.equals(material.localLogicoFisico);
+                && informacao.equals(material.informacao);
     }
 }

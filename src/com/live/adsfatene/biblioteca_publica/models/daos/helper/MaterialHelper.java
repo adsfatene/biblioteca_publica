@@ -23,7 +23,6 @@ public class MaterialHelper {
         for (int i = 0; i < 100; i++) {
             Material material = new Material();
             material.setInformacao("informacao");
-            material.setLocalLogicoFisico("localLogicoFisico");
 
             DadoMaterial dadoMaterial = new DadoMaterial();
             dadoMaterial.setTitulo("titulo");

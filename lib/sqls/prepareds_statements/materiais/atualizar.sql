@@ -2,7 +2,6 @@ atualizarPorTodosOsDados;
 DECLARE 
  @material_codigo INT = ?,
  @material_informacao VARCHAR(255) = ?,
- @material_local_logico_fisico VARCHAR(100) = ?,
  @material_formato_codigo TINYINT = ?,
  @material_formato_nome VARCHAR(20) = ?,
  @material_dado_material_codigo INT = ?,
@@ -21,7 +20,6 @@ DECLARE
  atualizar_material
  @material_codigo,
  @material_informacao,
- @material_local_logico_fisico,
  @material_formato_codigo,
  @material_formato_nome,
  @material_dado_material_codigo,

@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BuscarPeloCodigoTest {
+public class ExcluirPeloCodigoTest {
 
     private CadastrarNovoTest cadastrarNovoTest;
 
@@ -23,16 +23,16 @@ public class BuscarPeloCodigoTest {
 
     @Test
     public void testComCodigoExistenteNoBanco() {
-        Assert.assertNotNull(cadastrarNovoTest.getMateriaisDAO().buscarPeloCodigo(1));
+        Assert.assertTrue(cadastrarNovoTest.getMateriaisDAO().excluirPeloCodigo(1));
     }
 
     @Test
     public void testComCodigoNulo() {
-        Assert.assertNull(cadastrarNovoTest.getMateriaisDAO().buscarPeloCodigo(null));
+        Assert.assertFalse(cadastrarNovoTest.getMateriaisDAO().excluirPeloCodigo(null));
     }
 
     @Test
     public void testComCodigoNaoExistenteNoBanco() {
-        Assert.assertNull(cadastrarNovoTest.getMateriaisDAO().buscarPeloCodigo(0));
+        Assert.assertFalse(cadastrarNovoTest.getMateriaisDAO().excluirPeloCodigo(0));
     }
 }

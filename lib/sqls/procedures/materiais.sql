@@ -65,16 +65,15 @@ CREATE PROCEDURE inserir_material
  @dado_material_codigo INT,
  @formato_codigo TINYINT,
  @formato_nome VARCHAR(20),
- @informacao VARCHAR(255),
- @local_logico_fisico VARCHAR(100)
+ @informacao VARCHAR(255)
  AS
  BEGIN
   IF @formato_codigo IS NULL
   BEGIN
    EXECUTE @formato_codigo = inserir_formato @formato_nome
   END
-  INSERT INTO materiais (dado_material,formato,informacao,local_logico_fisico)
-  VALUES (@dado_material_codigo,@formato_codigo,@informacao,@local_logico_fisico)
+  INSERT INTO materiais (dado_material,formato,informacao)
+  VALUES (@dado_material_codigo,@formato_codigo,@informacao)
  END;
 
 CREATE PROCEDURE atualizar_dado_material
@@ -118,7 +117,6 @@ CREATE PROCEDURE atualizar_dado_material
 CREATE PROCEDURE atualizar_material
  @material_codigo INT,
  @material_informacao VARCHAR(255),
- @material_local_logico_fisico VARCHAR(100),
  @material_formato_codigo TINYINT,
  @material_formato_nome VARCHAR(20),
  @material_dado_material_codigo INT,
@@ -141,8 +139,7 @@ CREATE PROCEDURE atualizar_material
   END
   UPDATE 
   materiais 
-  SET formato = @material_formato_codigo, informacao = @material_informacao,
-  local_logico_fisico = @material_local_logico_fisico
+  SET formato = @material_formato_codigo, informacao = @material_informacao
   WHERE
   codigo = @material_codigo
   EXECUTE atualizar_dado_material 

@@ -61,7 +61,7 @@ public class PesquisaView extends javax.swing.JPanel {
 
         lbPesquisarPor.setText("Pesquisar por:");
 
-        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/live/ads21fatene/biblioteca_publica/imagens/lupa.png"))); // NOI18N
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/live/adsfatene/biblioteca_publica/imagens/lupa.png"))); // NOI18N
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisarActionPerformed(evt);

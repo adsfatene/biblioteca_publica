@@ -7,15 +7,15 @@ package com.live.adsfatene.biblioteca_publica.models;
 public class Estoque {
 
     private Material material;
-    private Integer volumeEstocado;
+    private String statu;
     private String localLogicoFisico;
 
     public Material getMaterial() {
         return material;
     }
 
-    public Integer getVolumeEstocado() {
-        return volumeEstocado;
+    public String getStatu() {
+        return statu;
     }
 
     public String getLocalLogicoFisico() {
@@ -26,8 +26,8 @@ public class Estoque {
         this.material = material;
     }
 
-    public void setVolumeEstocado(Integer volumeEstocado) {
-        this.volumeEstocado = volumeEstocado;
+    public void setStatu(String statu) {
+        this.statu = statu;
     }
 
     public void setLocalLogicoFisico(String localLogicoFisico) {

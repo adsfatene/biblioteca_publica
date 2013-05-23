@@ -67,7 +67,7 @@ public final class MateriaisController {
     }
 
     public void excluir(Integer codigo) {
-        if (materiaisDao.exluirPeloCodigo(codigo)) {
+        if (materiaisDao.excluirPeloCodigo(codigo)) {
             JOptionPane.showMessageDialog(listaView.getEdicaoView(), "excluido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
             iniciar();
             listaView.getExibicaoView().setVisible(false);

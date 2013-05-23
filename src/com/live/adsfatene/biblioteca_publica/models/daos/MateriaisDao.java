@@ -62,10 +62,6 @@ public class MateriaisDao {
                 where.add("material_informacao = ?");
                 setCommands.add(new SetString(where.size(), material.getInformacao()));
             }
-            if (material.getLocalLogicoFisico() != null) {
-                where.add("material_local_logico_fisico = ?");
-                setCommands.add(new SetString(where.size(), material.getLocalLogicoFisico()));
-            }
 
             DadoMaterial dadoMaterial = material.getDadoMaterial();
             if (dadoMaterial != null) {
@@ -152,9 +148,6 @@ public class MateriaisDao {
             }
 
             StringBuilder query = new StringBuilder(valorDoComandoUm);
-            if (!where.isEmpty()) {
-                query.append(" WHERE ").append(where.remove(0));
-            }
             while (!where.isEmpty()) {
                 query.append(" AND ").append(where.remove(0));
             }
@@ -212,7 +205,6 @@ public class MateriaisDao {
                 material.setDadoMaterial(dadoMaterial);
 
                 material.setInformacao(resultSet.getString("material_informacao"));
-                material.setLocalLogicoFisico(resultSet.getString("material_local_logico_fisico"));
 
                 formato = new Formato();
                 formato.setCodigo(resultSet.getInt("material_formato_codigo"));
@@ -262,7 +254,6 @@ public class MateriaisDao {
             int indice = 1;
             setInt(indice++, material.getCodigo(), preparedStatement);
             setString(indice++, material.getInformacao(), preparedStatement);
-            setString(indice++, material.getLocalLogicoFisico(), preparedStatement);
 
             Formato formato = material.getFormato();
             setInt(indice++, formato.getCodigo(), preparedStatement);
@@ -319,8 +310,8 @@ public class MateriaisDao {
         Boolean sucesso = false;
         Connection connection = conexao.getConnection();
         try {
-            String valorDoComandoUm = comandos.get("cadastarNovo" + 1);
-            String valorDoComandoDois = comandos.get("cadastarNovo" + 2);
+            String valorDoComandoUm = comandos.get("cadastarNovos" + 1);
+            String valorDoComandoDois = comandos.get("cadastarNovos" + 2);
             StringBuilder query = new StringBuilder(valorDoComandoUm);
             for (int i = 0; i < materiais.size(); i++) {
                 query.append("\n").append(valorDoComandoDois);
@@ -361,7 +352,6 @@ public class MateriaisDao {
                 setInt(indice++, formato.getCodigo(), preparedStatement);
                 setString(indice++, formato.getNome(), preparedStatement);
                 setString(indice++, material.getInformacao(), preparedStatement);
-                setString(indice++, material.getLocalLogicoFisico(), preparedStatement);
             }
             preparedStatement.execute();
             connection.commit();
@@ -481,29 +471,31 @@ public class MateriaisDao {
         return materialComboBox;
     }
 
-    public boolean exluirPeloCodigo(Integer codigo) {
+    public boolean excluirPeloCodigo(Integer codigo) {
         boolean sucesso = false;
-        Connection connection = conexao.getConnection();
-        try {
-            String valorDoComandoUm = comandos.get("excluirPeloCodigo");
-            PreparedStatement preparedStatement = connection.prepareStatement(valorDoComandoUm);
-            preparedStatement.setInt(1, codigo);
-            connection.setAutoCommit(false);
-            sucesso = preparedStatement.executeUpdate() == 1;
-            connection.commit();
-            connection.setAutoCommit(true);
-        } catch (SQLException ex) {
+        if (codigo != null) {
+            Connection connection = conexao.getConnection();
             try {
-                connection.rollback();
-            } catch (SQLException ex1) {
+                String valorDoComandoUm = comandos.get("excluirPeloCodigo");
+                PreparedStatement preparedStatement = connection.prepareStatement(valorDoComandoUm);
+                preparedStatement.setInt(1, codigo);
+                connection.setAutoCommit(false);
+                sucesso = preparedStatement.executeUpdate() == 1;
+                connection.commit();
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex1) {
+                }
+                throw new RuntimeException(ex.getMessage());
+            } catch (NullPointerException ex) {
+                throw new RuntimeException(ex.getMessage());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex.getMessage());
+            } finally {
+                conexao.fecharConnection();
             }
-            throw new RuntimeException(ex.getMessage());
-        } catch (NullPointerException ex) {
-            throw new RuntimeException(ex.getMessage());
-        } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
-        } finally {
-            conexao.fecharConnection();
         }
         return sucesso;
     }

@@ -35,7 +35,7 @@ public final class EstoquesController {
      * na biblioteca)
      */
     public void estocarDeterminadoVolumeDeMaterial(Estoque estoque) {
-        Boolean sucesso = estoquesDAO.estocarNovo(estoque);
+        //Boolean sucesso = estoquesDAO.estocarNovo(estoque);
     }
 
     public void aumentarVolumeEstocadoDeUmDeterminadoMaterial(Estoque estoque, Integer volumeAdicional) {
