@@ -31,16 +31,7 @@ public class EstocarNovosTest {
 
     @Test
     public void testComMateriaisExistentesNoBanco() {
-        List<Estoque> estoques = new LinkedList<>();
-        Estoque estoque;
-        for (int i = 1; i <= cadastrarNovoTest.getMateriais().size(); i++) {
-            estoque = new Estoque();
-            estoque.setMaterial(new Material());
-            estoque.getMaterial().setCodigo(i);
-            estoque.setLocalLogicoFisico("xyz_" + i);
-            estoques.add(estoque);
-        }
-        Assert.assertTrue(estoquesDAO.estocarNovos(estoques));
+        Assert.assertTrue(estoquesDAO.estocarNovos(getEstoques()));
     }
 
     @Test
@@ -61,5 +52,26 @@ public class EstocarNovosTest {
             estoques.add(estoque);
         }
         Assert.assertFalse(estoquesDAO.estocarNovos(estoques));
+    }
+
+    public List<Estoque> getEstoques() {
+        List<Estoque> estoques = new LinkedList<>();
+        Estoque estoque;
+        for (int i = 1; i <= cadastrarNovoTest.getMateriais().size(); i++) {
+            estoque = new Estoque();
+            estoque.setMaterial(new Material());
+            estoque.getMaterial().setCodigo(i);
+            estoque.setLocalLogicoFisico("xyz_" + i);
+            estoques.add(estoque);
+        }
+        return estoques;
+    }
+
+    public EstoquesDAO getEstoquesDAO() {
+        return estoquesDAO;
+    }
+    
+    public List<Material> getMateriais(){
+        return cadastrarNovoTest.getMateriais();
     }
 }

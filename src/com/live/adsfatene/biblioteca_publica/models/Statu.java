@@ -2,7 +2,7 @@ package com.live.adsfatene.biblioteca_publica.models;
 
 import java.util.Objects;
 
-public class Autor implements Comparable<Autor> {
+public class Statu implements Comparable<Statu> {
 
     private String nome;
 
@@ -20,12 +20,12 @@ public class Autor implements Comparable<Autor> {
     }
 
     @Override
-    public int compareTo(Autor autor) {
-        return nome.compareTo(autor.nome);
+    public int compareTo(Statu statu) {
+        return nome.compareTo(statu.nome);
     }
 
-    boolean ehIgual(Autor autor) {
-        return nome.equals(autor.nome);
+    boolean ehIgual(Statu statu) {
+        return nome.equals(statu.nome);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Autor implements Comparable<Autor> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Autor other = (Autor) obj;
+        final Statu other = (Statu) obj;
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }

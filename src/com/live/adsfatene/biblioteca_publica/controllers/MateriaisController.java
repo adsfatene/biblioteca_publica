@@ -80,4 +80,8 @@ public final class MateriaisController {
         listaView.getExibicaoView().atualizar(material);
         listaView.getExibicaoView().setVisible(true);
     }
+
+    public MateriaisDao getMateriaisDao() {
+        return materiaisDao;
+    }
 }
