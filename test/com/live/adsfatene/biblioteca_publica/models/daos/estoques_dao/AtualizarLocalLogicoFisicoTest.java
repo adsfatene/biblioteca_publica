@@ -1,8 +1,6 @@
 package com.live.adsfatene.biblioteca_publica.models.daos.estoques_dao;
 
 import com.live.adsfatene.biblioteca_publica.models.Estoque;
-import com.live.adsfatene.biblioteca_publica.models.daos.materiais_dao.*;
-import com.live.adsfatene.biblioteca_publica.models.Material;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;

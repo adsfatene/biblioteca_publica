@@ -24,8 +24,8 @@ public class FiltroView extends javax.swing.JDialog {
     public void setVisible(boolean flag) {
         if (flag) {
             jButtonLimparActionPerformed(null);
-            setLocationRelativeTo(this.listaView);
-        }
+             setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
+       }
         listaView.getjToggleButtonFiltro().setSelected(flag);
         super.setVisible(flag);
     }

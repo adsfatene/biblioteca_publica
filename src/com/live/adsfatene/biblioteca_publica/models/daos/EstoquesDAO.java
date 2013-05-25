@@ -12,6 +12,7 @@ import com.live.adsfatene.biblioteca_publica.models.Material;
 import com.live.adsfatene.biblioteca_publica.models.Publico;
 import com.live.adsfatene.biblioteca_publica.models.Statu;
 import com.live.adsfatene.biblioteca_publica.models.util.EstoqueComboBox;
+import com.live.adsfatene.biblioteca_publica.models.util.MaterialComboBox;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -216,6 +217,10 @@ public class EstoquesDAO {
                     }
                 }
             }
+            if (estoque.getStatu() != null) {
+                where.add("estoque_statu = ?");
+                setCommands.add(new SetString(where.size(), estoque.getStatu().getNome()));
+            }
 
             StringBuilder query = new StringBuilder(valorDoComandoUm);
             if (!where.isEmpty()) {
@@ -286,7 +291,9 @@ public class EstoquesDAO {
                 material.setFormato(formato);
                 estoque = new Estoque();
                 estoque.setMaterial(material);
-                estoque.setStatu(resultSet.getString("estoque_statu"));
+                Statu statu = new Statu();
+                statu.setNome(resultSet.getString("estoque_statu"));
+                estoque.setStatu(statu);
                 estoque.setLocalLogicoFisico(resultSet.getString("estoque_local_logico_fisico"));
                 estoques.add(estoque);
             }
@@ -350,16 +357,73 @@ public class EstoquesDAO {
     }
 
     public EstoqueComboBox pesquisarTodosEdicaoAnoPublicaoAutorEditoraCategoriaPublicoFormatoStatu(MateriaisDao materiaisDao) {
-        EstoqueComboBox estoqueComboBox = new EstoqueComboBox(materiaisDao.pesquisarTodosEdicaoAnoPublicaoAutorEditoraCategoriaPublicoFormato());
-        Statu statu = new Statu();
-        statu.setNome("Novo");
-        estoqueComboBox.getStatus().add(statu);
-        statu = new Statu();
-        statu.setNome("Usuado");
-        estoqueComboBox.getStatus().add(statu);
-        statu = new Statu();
-        statu.setNome("Restaurado");
-        estoqueComboBox.getStatus().add(statu);
+        EstoqueComboBox estoqueComboBox = new EstoqueComboBox();
+        Connection connection = conexao.getConnection();
+        try {
+            String valorDoComandoUm = comandos.get("pesquisarTodosEdicaoAnoPublicaoAutorEditoraCategoriaPublicoFormatoStatu");
+            PreparedStatement preparedStatement = connection.prepareStatement(valorDoComandoUm);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String valor = resultSet.getString("valor");
+                Integer codigo = resultSet.getInt("codigo");
+                String tipo = resultSet.getString("tipo");
+                switch (tipo) {
+                    case "edicao":
+                        Edicao edicao = new Edicao();
+                        edicao.setNumero(Integer.valueOf(valor));
+                        estoqueComboBox.getMaterialComboBox().getEdicoes().add(edicao);
+                        break;
+                    case "ano_publicacao":
+                        AnoPublicacao anoPublicacao = new AnoPublicacao();
+                        anoPublicacao.setAno(Integer.valueOf(valor));
+                        estoqueComboBox.getMaterialComboBox().getAnosPublicacoes().add(anoPublicacao);
+                        break;
+                    case "autor":
+                        Autor autor = new Autor();
+                        autor.setNome(valor);
+                        estoqueComboBox.getMaterialComboBox().getAutores().add(autor);
+                        break;
+                    case "editora":
+                        Editora editora = new Editora();
+                        editora.setCodigo(codigo);
+                        editora.setNome(valor);
+                        estoqueComboBox.getMaterialComboBox().getEditoras().add(editora);
+                        break;
+                    case "categoria":
+                        Categoria categoria = new Categoria();
+                        categoria.setCodigo(codigo);
+                        categoria.setNome(valor);
+                        estoqueComboBox.getMaterialComboBox().getCategorias().add(categoria);
+                        break;
+                    case "publico":
+                        Publico publico = new Publico();
+                        publico.setCodigo(codigo);
+                        publico.setNome(valor);
+                        estoqueComboBox.getMaterialComboBox().getPublicos().add(publico);
+                        break;
+                    case "formato":
+                        Formato formato = new Formato();
+                        formato.setCodigo(codigo);
+                        formato.setNome(valor);
+                        estoqueComboBox.getMaterialComboBox().getFormatos().add(formato);
+                        break;
+                    default:
+                        Statu statu = new Statu();
+                        statu.setNome(valor);
+                        estoqueComboBox.getStatus().add(statu);
+                }
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+            }
+            throw new RuntimeException(ex.getMessage());
+        } catch (NullPointerException ex) {
+            throw new RuntimeException(ex.getMessage());
+        } finally {
+            conexao.fecharConnection();
+        }
         return estoqueComboBox;
     }
 }

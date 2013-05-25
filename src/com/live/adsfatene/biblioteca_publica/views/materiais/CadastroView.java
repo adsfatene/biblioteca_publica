@@ -24,7 +24,6 @@ public class CadastroView extends javax.swing.JDialog {
         initComponents();
         this.listaView = listaView;
         dtm = (DefaultTableModel) jTableFormato.getModel();
-        setLocationRelativeTo(this.listaView);
         jComboBoxEdicao.setEditable(true);
         jComboBoxAnoPublicacao.setEditable(true);
         jComboBoxAutor.setEditable(true);
@@ -38,7 +37,7 @@ public class CadastroView extends javax.swing.JDialog {
     public void setVisible(boolean flag) {
         if (flag) {
             jButtonLimparActionPerformed(null);
-            setLocationRelativeTo(this.listaView);
+            setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
         }
         listaView.getjToggleButtonCadastro().setSelected(flag);
         super.setVisible(flag);

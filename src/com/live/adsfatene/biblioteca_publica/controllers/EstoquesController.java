@@ -38,7 +38,7 @@ public final class EstoquesController {
     }
 
     public void atualizar(Estoque estoque) {
-        if (estoquesDAO.atualizarPorTodosOsDados(estoque)) {
+        if (estoquesDAO.atualizarLocalLogicoFisico(estoque)) {
             JOptionPane.showMessageDialog(listaView.getEdicaoView(), "atualizado com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
             iniciar();
             editar(estoque);
@@ -48,15 +48,14 @@ public final class EstoquesController {
     }
 
     public void cadastrar() {
-        listaView.getCadastroView().atualizar();
+        aplicacaoController.getMateriaisController().iniciar();
         listaView.getCadastroView().setVisible(listaView.getjToggleButtonCadastro().isSelected());
     }
 
-    public void salvar(List<Estoque> estoques) {
+    public void estocar(List<Estoque> estoques) {
         if (estoquesDAO.estocarNovos(estoques)) {
             JOptionPane.showMessageDialog(listaView.getEdicaoView(), "movido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
             iniciar();
-            cadastrar();
         } else {
             JOptionPane.showMessageDialog(listaView.getEdicaoView(), "falha na movimentação", "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -79,5 +78,9 @@ public final class EstoquesController {
     public void exibir(Estoque estoque) {
         listaView.getExibicaoView().atualizar(estoque);
         listaView.getExibicaoView().setVisible(true);
+    }
+
+    public ListaView getListaView() {
+        return listaView;
     }
 }

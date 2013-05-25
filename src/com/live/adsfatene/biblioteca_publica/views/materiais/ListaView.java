@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +34,17 @@ public class ListaView extends javax.swing.JPanel {
         edicaoView = new EdicaoView(this, false);
         sdf = new SimpleDateFormat("dd/MM/YYYY");
         exibicaoView = new ExibicaoView(this, false);
+    }
+
+    @Override
+    public void setVisible(boolean aFlag) {
+        if (!aFlag) {
+            cadastroView.setVisible(aFlag);
+            filtroView.setVisible(aFlag);
+            edicaoView.setVisible(aFlag);
+            exibicaoView.setVisible(aFlag);
+        }
+        super.setVisible(aFlag);
     }
 
     /**
@@ -157,7 +169,7 @@ public class ListaView extends javax.swing.JPanel {
     }//GEN-LAST:event_jTableListaMouseEntered
 
     private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
-        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+        if (jToolBarAcoes.isEnabled() && evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
             Material material = (Material) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0);
             if (jToggleButtonEdicao.isSelected()) {
                 materiaisController.editar(material);
@@ -238,5 +250,17 @@ public class ListaView extends javax.swing.JPanel {
 
     public ExibicaoView getExibicaoView() {
         return exibicaoView;
+    }
+
+    public JTable getjTableLista() {
+        return jTableLista;
+    }
+
+    public void habilitar(boolean aFlag){
+        jToolBarAcoes.setEnabled(aFlag);
+        jToggleButtonFiltro.setEnabled(aFlag);
+        jToggleButtonEdicao.setEnabled(aFlag);
+        jToggleButtonCadastro.setEnabled(aFlag);
+        materiaisController.getAplicacaoController().getAplicacaoView().habilitar(aFlag);
     }
 }

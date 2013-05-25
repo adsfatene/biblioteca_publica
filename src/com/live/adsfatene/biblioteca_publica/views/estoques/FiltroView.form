@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelDescricao" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -36,11 +36,13 @@
                   <Component id="jLabelCategoria" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelPublico" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelFormato" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelStatu" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jComboBoxStatu" max="32767" attributes="0"/>
                   <Component id="jTextFieldDescricao" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jButtonPesquisar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonLimpar" min="-2" pref="100" max="-2" attributes="0"/>
@@ -56,7 +58,7 @@
                   <Component id="jComboBoxEdicao" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTextFieldTitulo" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -107,6 +109,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelFormato" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBoxFormato" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelStatu" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBoxStatu" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -252,6 +259,21 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLimparActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelStatu">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Statu"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBoxStatu">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxStatuActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -115,6 +115,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonCancelar" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabelLocalLogicoFisico" pref="78" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="jTextFieldLocalLogicoFisico" min="-2" pref="312" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabelStatu" pref="78" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="jTextFieldStatu" min="-2" pref="312" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -177,6 +187,16 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelInformacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldInformacao" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jTextFieldLocalLogicoFisico" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelLocalLogicoFisico" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jTextFieldStatu" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelStatu" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -325,6 +345,26 @@
     <Component class="javax.swing.JLabel" name="jLabelInformacao">
       <Properties>
         <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xe3;o"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldLocalLogicoFisico">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldStatu">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelLocalLogicoFisico">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Localiza&#xe7;&#xe3;o"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelStatu">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Statu"/>
       </Properties>
     </Component>
   </SubComponents>

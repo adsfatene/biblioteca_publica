@@ -84,4 +84,8 @@ public final class MateriaisController {
     public MateriaisDao getMateriaisDao() {
         return materiaisDao;
     }
+
+    public ListaView getListaView() {
+        return listaView;
+    }
 }

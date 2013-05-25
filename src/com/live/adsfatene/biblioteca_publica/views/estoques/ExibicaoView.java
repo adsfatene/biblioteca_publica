@@ -11,13 +11,12 @@ public class ExibicaoView extends javax.swing.JDialog {
         super(listaView.getEstoquesController().getAplicacaoController().getAplicacaoView(), modal);
         initComponents();
         this.listaView = listaView;
-        setLocationRelativeTo(this.listaView);
     }
 
     @Override
     public void setVisible(boolean flag) {
         if (flag) {
-            setLocationRelativeTo(this.listaView);
+            setLocationRelativeTo(listaView.getEstoquesController().getAplicacaoController().getAplicacaoView());
         }
         super.setVisible(flag);
     }
@@ -33,6 +32,8 @@ public class ExibicaoView extends javax.swing.JDialog {
         jTextFieldPublico.setText(estoque.getMaterial().getDadoMaterial().getPublico().getNome());
         jTextFieldFormato.setText(estoque.getMaterial().getFormato().getNome());
         jTextFieldInformacao.setText(estoque.getMaterial().getInformacao());
+        jTextFieldLocalLogicoFisico.setText(estoque.getLocalLogicoFisico());
+        jTextFieldStatu.setText(estoque.getStatu().toString());
     }
 
     /**
@@ -70,6 +71,10 @@ public class ExibicaoView extends javax.swing.JDialog {
         jTextFieldCodigo = new javax.swing.JTextField();
         jTextFieldInformacao = new javax.swing.JTextField();
         jLabelInformacao = new javax.swing.JLabel();
+        jTextFieldLocalLogicoFisico = new javax.swing.JTextField();
+        jTextFieldStatu = new javax.swing.JTextField();
+        jLabelLocalLogicoFisico = new javax.swing.JLabel();
+        jLabelStatu = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,6 +170,14 @@ public class ExibicaoView extends javax.swing.JDialog {
 
         jLabelInformacao.setText("Informação");
 
+        jTextFieldLocalLogicoFisico.setEditable(false);
+
+        jTextFieldStatu.setEditable(false);
+
+        jLabelLocalLogicoFisico.setText("Localização");
+
+        jLabelStatu.setText("Statu");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,7 +233,15 @@ public class ExibicaoView extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelLocalLogicoFisico, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jTextFieldLocalLogicoFisico, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelStatu, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jTextFieldStatu, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -271,6 +292,14 @@ public class ExibicaoView extends javax.swing.JDialog {
                     .addComponent(jLabelInformacao)
                     .addComponent(jTextFieldInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldLocalLogicoFisico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelLocalLogicoFisico))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldStatu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelStatu))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonExcluir))
@@ -288,7 +317,7 @@ public class ExibicaoView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(this, "Continuar exclusão?", "Confirmaçãoo", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(this, "Continuar exclusão?", "Confirmação", JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             listaView.getEstoquesController().excluir(Integer.valueOf(jTextFieldCodigo.getText()));
         }
@@ -317,7 +346,9 @@ public class ExibicaoView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelEditora;
     private javax.swing.JLabel jLabelFormato;
     private javax.swing.JLabel jLabelInformacao;
+    private javax.swing.JLabel jLabelLocalLogicoFisico;
     private javax.swing.JLabel jLabelPublico;
+    private javax.swing.JLabel jLabelStatu;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -330,7 +361,9 @@ public class ExibicaoView extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldEditora;
     private javax.swing.JTextField jTextFieldFormato;
     private javax.swing.JTextField jTextFieldInformacao;
+    private javax.swing.JTextField jTextFieldLocalLogicoFisico;
     private javax.swing.JTextField jTextFieldPublico;
+    private javax.swing.JTextField jTextFieldStatu;
     private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
 }

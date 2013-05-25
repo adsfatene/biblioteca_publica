@@ -11,13 +11,12 @@ public class ExibicaoView extends javax.swing.JDialog {
         super(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView(), modal);
         initComponents();
         this.listaView = listaView;
-        setLocationRelativeTo(this.listaView);
     }
 
     @Override
     public void setVisible(boolean flag) {
         if (flag) {
-            setLocationRelativeTo(this.listaView);
+            setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
         }
         super.setVisible(flag);
     }

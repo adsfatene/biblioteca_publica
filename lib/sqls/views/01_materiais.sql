@@ -22,7 +22,8 @@ CREATE VIEW materiais_view AS
  INNER JOIN dados_materiais AS d_m ON m.dado_material = d_m.codigo
  INNER JOIN editoras AS e ON d_m.editora = e.codigo
  INNER JOIN categorias AS c ON d_m.categoria = c.codigo
- INNER JOIN publicos AS p ON d_m.publico = p.codigo;
+ INNER JOIN publicos AS p ON d_m.publico = p.codigo
+ WHERE m.codigo NOT IN (SELECT material FROM estoques);
 
 CREATE VIEW materiais_combobox_view AS
  SELECT DISTINCT(CAST(d_m.edicao AS VARCHAR)) AS valor, -1 AS codigo, 'edicao' AS tipo FROM dados_materiais AS d_m

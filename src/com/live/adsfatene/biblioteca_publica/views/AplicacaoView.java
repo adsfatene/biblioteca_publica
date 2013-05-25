@@ -12,7 +12,7 @@ public class AplicacaoView extends javax.swing.JFrame {
     public AplicacaoView(AplicacaoController aplicacaoController) {
         initComponents();
         this.aplicacaoController = aplicacaoController;
-        sobreView = new SobreView(this,true);
+        sobreView = new SobreView(this, true);
         sobreView.setResizable(false);
         sobreView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
@@ -154,7 +154,7 @@ public class AplicacaoView extends javax.swing.JFrame {
         } catch (SQLException ex) {
             throw new RuntimeException(ex.getMessage());
         } finally {
-            super.dispose();      
+            super.dispose();
         }
     }
 
@@ -198,4 +198,8 @@ public class AplicacaoView extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
+
+    public void habilitar(boolean aFlag){
+        jMenuOpcoes.setEnabled(aFlag);
+    }
 }

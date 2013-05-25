@@ -1,13 +1,9 @@
 package com.live.adsfatene.biblioteca_publica.views.estoques;
 
 import com.live.adsfatene.biblioteca_publica.controllers.EstoquesController;
-import com.live.adsfatene.biblioteca_publica.controllers.MateriaisController;
 import com.live.adsfatene.biblioteca_publica.models.Estoque;
-import com.live.adsfatene.biblioteca_publica.models.Material;
 import com.live.adsfatene.biblioteca_publica.models.util.EstoqueComboBox;
-import com.live.adsfatene.biblioteca_publica.models.util.MaterialComboBox;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,12 +26,21 @@ public class ListaView extends javax.swing.JPanel {
         this.estoquesController = estoquesController;
         dtm = (DefaultTableModel) jTableLista.getModel();
         estoques = new LinkedList<>();
-        cadastroView = new CadastroView(this, false);
+        cadastroView = new CadastroView(estoquesController.getAplicacaoController().getMateriaisController().getListaView(), false);
         filtroView = new FiltroView(this, false);
         edicaoView = new EdicaoView(this, false);
         exibicaoView = new ExibicaoView(this, false);
     }
 
+    @Override
+    public void setVisible(boolean aFlag) {
+        if(!aFlag){
+            filtroView.setVisible(aFlag);
+            edicaoView.setVisible(aFlag);
+            exibicaoView.setVisible(aFlag);
+        }
+        super.setVisible(aFlag);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,11 +101,11 @@ public class ListaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Material", "Codigo", "Titulo", "Descrição", "Edição", "Ano de Publicação", "Autor", "Editora", "Categoria", "Publico", "Formato", "Informação", "Data de Cadastro"
+                "Estoque", "Codigo", "Titulo", "Descrição", "Edição", "Ano de Publicação", "Autor", "Editora", "Categoria", "Publico", "Formato", "Informação", "Localização", "Statu"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -130,10 +135,6 @@ public class ListaView extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jToggleButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCadastroActionPerformed
-        estoquesController.cadastrar();
-    }//GEN-LAST:event_jToggleButtonCadastroActionPerformed
 
     private void jToggleButtonFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFiltroActionPerformed
         estoquesController.filtrar(new Estoque());
@@ -167,6 +168,11 @@ public class ListaView extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jTableListaMouseClicked
+
+    private void jToggleButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCadastroActionPerformed
+        estoquesController.cadastrar();
+    }//GEN-LAST:event_jToggleButtonCadastroActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableLista;

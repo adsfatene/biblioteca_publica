@@ -148,8 +148,11 @@ public class MateriaisDao {
             }
 
             StringBuilder query = new StringBuilder(valorDoComandoUm);
-            while (!where.isEmpty()) {
-                query.append(" AND ").append(where.remove(0));
+            if (!where.isEmpty()) {
+                query.append(" WHERE ").append(where.remove(0));
+                while (!where.isEmpty()) {
+                    query.append(" AND ").append(where.remove(0));
+                }
             }
             query.append(valorDoComandoDois);
 

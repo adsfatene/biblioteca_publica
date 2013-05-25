@@ -20,8 +20,7 @@ public class EdicaoView extends javax.swing.JDialog {
         super(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView(), modal);
         initComponents();
         this.listaView = listaView;
-        setLocationRelativeTo(this.listaView);
-        jComboBoxEdicao.setEditable(true);
+          jComboBoxEdicao.setEditable(true);
         jComboBoxAnoPublicacao.setEditable(true);
         jComboBoxAutor.setEditable(true);
         jComboBoxEditora.setEditable(true);
@@ -34,7 +33,7 @@ public class EdicaoView extends javax.swing.JDialog {
     public void setVisible(boolean flag) {
         if (flag) {
             jButtonLimparActionPerformed(null);
-            setLocationRelativeTo(this.listaView);
+            setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
         }
         listaView.getjToggleButtonEdicao().setSelected(flag);
         super.setVisible(flag);

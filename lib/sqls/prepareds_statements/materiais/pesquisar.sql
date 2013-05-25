@@ -1,5 +1,5 @@
 pesquisarPorTodosOsDadosNaoNulos1;
- SELECT * FROM materiais_view AS m_v WHERE m_v.material_codigo NOT IN (SELECT e.material FROM estoques AS e);
+ SELECT * FROM materiais_view;
 
 pesquisarPorTodosOsDadosNaoNulos2;
  ORDER BY material_dado_material_titulo, material_dado_material_descricao;

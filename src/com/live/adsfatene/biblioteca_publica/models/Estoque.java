@@ -7,14 +7,14 @@ package com.live.adsfatene.biblioteca_publica.models;
 public class Estoque {
 
     private Material material;
-    private String statu;
+    private Statu statu;
     private String localLogicoFisico;
 
     public Material getMaterial() {
         return material;
     }
 
-    public String getStatu() {
+    public Statu getStatu() {
         return statu;
     }
 
@@ -26,11 +26,17 @@ public class Estoque {
         this.material = material;
     }
 
-    public void setStatu(String statu) {
+    public void setStatu(Statu statu) {
         this.statu = statu;
     }
 
     public void setLocalLogicoFisico(String localLogicoFisico) {
         this.localLogicoFisico = localLogicoFisico;
+    }
+
+    public boolean ehIgual(Estoque estoque) {
+        return material.ehIgual(estoque.material)
+                && statu.ehIgual(estoque.statu)
+                && localLogicoFisico.equals(estoque.localLogicoFisico);
     }
 }
