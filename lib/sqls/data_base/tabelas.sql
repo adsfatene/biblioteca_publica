@@ -92,6 +92,7 @@ nome_completo VARCHAR(100) NOT NULL,
 logradouro VARCHAR(30) NOT NULL,
 numero_imovel INT,
 bairro INT NOT NULL,
+data_hora_cadastro DATETIME NOT NULL DEFAULT GETDATE(),
 FOREIGN KEY (bairro) REFERENCES bairros(codigo) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -109,7 +110,7 @@ cidadao INT NOT NULL,
 ddd TINYINT NOT NULL,
 numero CHAR(8) NOT NULL,
 tipo CHAR(3) NOT NULL DEFAULT 'Tel' CHECK (tipo IN ('Tel', 'Cel')),
-UNIQUE (cidadao, ddd, numero),
+UNIQUE (cidadao, ddd, numero, tipo),
 FOREIGN KEY (cidadao) REFERENCES cidadaos(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (ddd) REFERENCES ddds(numero) ON DELETE NO ACTION ON UPDATE NO ACTION
 );

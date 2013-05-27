@@ -1,8 +1,8 @@
-package com.live.adsfatene.biblioteca_publica.views.materiais;
+package com.live.adsfatene.biblioteca_publica.views.cidadaos;
 
-import com.live.adsfatene.biblioteca_publica.controllers.MateriaisController;
-import com.live.adsfatene.biblioteca_publica.models.Material;
-import com.live.adsfatene.biblioteca_publica.models.util.MaterialComboBox;
+import com.live.adsfatene.biblioteca_publica.controllers.CidadaosController;
+import com.live.adsfatene.biblioteca_publica.models.Cidadao;
+import com.live.adsfatene.biblioteca_publica.models.util.CidadaoComboBox;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -14,21 +14,21 @@ import javax.swing.table.DefaultTableModel;
 
 public class ListaView extends javax.swing.JPanel {
 
-    private final MateriaisController materiaisController;
+    private final CidadaosController cidadaosController;
     private final DefaultTableModel dtm;
-    private final List<Material> materiais;
+    private final List<Cidadao> cidadaos;
     private final CadastroView cadastroView;
     private final FiltroView filtroView;
     private final EdicaoView edicaoView;
-    private MaterialComboBox materialComboBox;
+    private CidadaoComboBox cidadaoComboBox;
     private final SimpleDateFormat sdf;
     private final ExibicaoView exibicaoView;
 
-    public ListaView(MateriaisController materiaisController) {
+    public ListaView(CidadaosController cidadaosController) {
         initComponents();
-        this.materiaisController = materiaisController;
+        this.cidadaosController = cidadaosController;
         dtm = (DefaultTableModel) jTableLista.getModel();
-        materiais = new LinkedList<>();
+        cidadaos = new LinkedList<>();
         cadastroView = new CadastroView(this, false);
         filtroView = new FiltroView(this, false);
         edicaoView = new EdicaoView(this, false);
@@ -107,11 +107,11 @@ public class ListaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Material", "Codigo", "Titulo", "Descrição", "Edição", "Ano de Publicação", "Autor", "Editora", "Categoria", "Publico", "Formato", "Informação", "Data de Cadastro"
+                "Cidadao", "Codigo", "Nome Completo", "Estado - UF", "Cidade", "Bairro", "Logradouro", "Nº", "Data de Cadastro"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -143,11 +143,11 @@ public class ListaView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCadastroActionPerformed
-        materiaisController.cadastrar();
+        cidadaosController.cadastrar();
     }//GEN-LAST:event_jToggleButtonCadastroActionPerformed
 
     private void jToggleButtonFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFiltroActionPerformed
-        materiaisController.filtrar(new Material());
+        cidadaosController.filtrar(new Cidadao());
     }//GEN-LAST:event_jToggleButtonFiltroActionPerformed
 
     private void jTableListaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMousePressed
@@ -158,9 +158,9 @@ public class ListaView extends javax.swing.JPanel {
 
     private void jToggleButtonEdicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEdicaoActionPerformed
         if (jTableLista.getSelectedRowCount() > 0) {
-            materiaisController.editar((Material) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
+            cidadaosController.editar((Cidadao) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um Material.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecione um Cidadao.", "Erro", JOptionPane.ERROR_MESSAGE);
             jToggleButtonEdicao.setSelected(false);
         }
     }//GEN-LAST:event_jToggleButtonEdicaoActionPerformed
@@ -170,11 +170,11 @@ public class ListaView extends javax.swing.JPanel {
 
     private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
         if (jToolBarAcoes.isEnabled() && evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-            Material material = (Material) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0);
+            Cidadao cidadao = (Cidadao) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0);
             if (jToggleButtonEdicao.isSelected()) {
-                materiaisController.editar(material);
+                cidadaosController.editar(cidadao);
             } else {
-                materiaisController.exibir(material);
+                cidadaosController.exibir(cidadao);
             }
         }
     }//GEN-LAST:event_jTableListaMouseClicked
@@ -187,37 +187,33 @@ public class ListaView extends javax.swing.JPanel {
     private javax.swing.JToolBar jToolBarAcoes;
     // End of variables declaration//GEN-END:variables
 
-    public void atualizar(List<Material> materiais, MaterialComboBox materialComboBox) {
+    public void atualizar(List<Cidadao> cidadaos, CidadaoComboBox cidadaoComboBox) {
         while (dtm.getRowCount() > 0) {
             dtm.removeRow(0);
         }
 
-        this.materiais.clear();
+        this.cidadaos.clear();
 
-        this.materiais.addAll(materiais);
-        this.materialComboBox = materialComboBox;
+        this.cidadaos.addAll(cidadaos);
+        this.cidadaoComboBox = cidadaoComboBox;
 
-        for (Material material : this.materiais) {
+        for (Cidadao cidadao : this.cidadaos) {
             dtm.addRow(new Object[dtm.getColumnCount()]);
             int i = 0;
-            dtm.setValueAt(material, dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getCodigo(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getTitulo(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getDescricao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getEdicao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getAnoPublicacao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getAutor(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getEditora().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getCategoria().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getDadoMaterial().getPublico().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getFormato().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(material.getInformacao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(sdf.format(material.getDataHoraCadastro().getTime()), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao, dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao.getCodigo(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao.getNomeCompleto(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao.getBairro().getCidade().getEstado(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao.getBairro().getCidade(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao.getBairro(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao.getLogradouro(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(cidadao.getNumeroImovel(), dtm.getRowCount() - 1, i++);
+            dtm.setValueAt(sdf.format(cidadao.getDataHoraCadastro().getTime()), dtm.getRowCount() - 1, i++);
         }
     }
 
-    public MateriaisController getMateriaisController() {
-        return materiaisController;
+    public CidadaosController getCidadaosController() {
+        return cidadaosController;
     }
 
     public JToggleButton getjToggleButtonCadastro() {
@@ -244,8 +240,8 @@ public class ListaView extends javax.swing.JPanel {
         return cadastroView;
     }
 
-    public MaterialComboBox getMaterialComboBox() {
-        return materialComboBox;
+    public CidadaoComboBox getCidadaoComboBox() {
+        return cidadaoComboBox;
     }
 
     public ExibicaoView getExibicaoView() {
@@ -256,10 +252,10 @@ public class ListaView extends javax.swing.JPanel {
         return jTableLista;
     }
 
-    public void habilitar(boolean aFlag){
+    public void habilitar(boolean aFlag) {
         jToolBarAcoes.setEnabled(aFlag);
         jToggleButtonEdicao.setEnabled(aFlag);
         jToggleButtonCadastro.setEnabled(aFlag);
-        materiaisController.getAplicacaoController().getAplicacaoView().habilitar(aFlag);
+        cidadaosController.getAplicacaoController().getAplicacaoView().habilitar(aFlag);
     }
 }

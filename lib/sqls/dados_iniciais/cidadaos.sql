@@ -23,7 +23,7 @@ DECLARE @nome VARCHAR(25) = 'Bahia' , @uf CHAR(2) = 'BA', @codigo_estado TINYINT
     EXECUTE inserir_ddd @ddd3, @codigo_estado
     EXECUTE inserir_ddd @ddd4, @codigo_estado
     EXECUTE inserir_ddd @ddd5, @codigo_estado;
-DECLARE @nome VARCHAR(25) = 'Ceará' , @uf CHAR(2) = 'CE', @codigo_estado TINYINT, 
+DECLARE @nome VARCHAR(25) =  'Ceará' , @uf CHAR(2) = 'CE', @codigo_estado TINYINT, 
     @ddd TINYINT = 85, @ddd2 TINYINT = 88
     EXECUTE @codigo_estado = inserir_estado @nome, @uf 
     EXECUTE inserir_ddd @ddd, @codigo_estado
@@ -157,4 +157,3 @@ DECLARE @nome VARCHAR(25) = 'Caucaia', @estado TINYINT = 6 EXECUTE inserir_cidad
 
 DECLARE @nome VARCHAR(50) = 'Damas', @cidade INT = 1 EXECUTE inserir_bairro @nome, @cidade;
 DECLARE @nome VARCHAR(50) = 'Centro', @cidade INT = 1 EXECUTE inserir_bairro @nome, @cidade;
-

@@ -1,5 +1,6 @@
 package com.live.adsfatene.biblioteca_publica.models;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class Cidadao {
     private Bairro bairro;
     private List<Telefone> telefones;
     private List<Celular> celulares;
+    private Calendar dataHoraCadastro;
 
     public Integer getCodigo() {
         return codigo;
@@ -70,5 +72,13 @@ public class Cidadao {
 
     public void setCelulares(List<Celular> celulares) {
         this.celulares = celulares;
+    }
+
+    public Calendar getDataHoraCadastro() {
+        return dataHoraCadastro;
+    }
+
+    public void setDataHoraCadastro(Calendar dataHoraCadastro) {
+        this.dataHoraCadastro = dataHoraCadastro;
     }
 }

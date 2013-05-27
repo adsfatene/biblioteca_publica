@@ -26,7 +26,9 @@ public class FiltroView extends javax.swing.JDialog {
     public void setVisible(boolean flag) {
         if (flag) {
             jButtonLimparActionPerformed(null);
-            setLocationRelativeTo(listaView.getEstoquesController().getAplicacaoController().getAplicacaoView());
+            if (!isVisible()) {
+                setLocationRelativeTo(listaView.getEstoquesController().getAplicacaoController().getAplicacaoView());
+            }
         }
         listaView.getjToggleButtonFiltro().setSelected(flag);
         super.setVisible(flag);
@@ -76,9 +78,9 @@ public class FiltroView extends javax.swing.JDialog {
         for (Formato formato : listaView.getEstoqueComboBox().getMaterialComboBox().getFormatos()) {
             jComboBoxFormato.addItem(formato);
         }
-        
+
         jComboBoxStatu.addItem("Todos");
-        for(Statu statu : listaView.getEstoqueComboBox().getStatus()){
+        for (Statu statu : listaView.getEstoqueComboBox().getStatus()) {
             jComboBoxStatu.addItem(statu);
         }
     }
@@ -339,7 +341,7 @@ public class FiltroView extends javax.swing.JDialog {
             material.setFormato((Formato) jComboBoxFormato.getSelectedItem());
         }
         estoque.setMaterial(material);
-        if(jComboBoxStatu.getSelectedIndex() > 0){
+        if (jComboBoxStatu.getSelectedIndex() > 0) {
             estoque.setStatu((Statu) jComboBoxStatu.getSelectedItem());
         }
         listaView.getEstoquesController().filtrar(estoque);
@@ -352,7 +354,6 @@ public class FiltroView extends javax.swing.JDialog {
     private void jComboBoxStatuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxStatuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxStatuActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLimpar;

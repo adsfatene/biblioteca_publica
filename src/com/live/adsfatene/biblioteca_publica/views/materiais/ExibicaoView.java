@@ -287,7 +287,7 @@ public class ExibicaoView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(this, "Continuar exclusão?", "Confirmaçãoo", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(this, "Continuar exclusão?", "Confirmação", JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             listaView.getMateriaisController().excluir(Integer.valueOf(jTextFieldCodigo.getText()));
         }

@@ -5,7 +5,7 @@ public abstract class ContatoVoz {
     private Integer codigo;
     private Cidadao cidadao;
     private DDD ddd;
-    private Integer numero;
+    private String numero;
     private String tipo;
 
     public Integer getCodigo() {
@@ -16,11 +16,11 @@ public abstract class ContatoVoz {
         return cidadao;
     }
 
-    public DDD getDdd() {
+    public DDD getDDD() {
         return ddd;
     }
 
-    public Integer getNumero() {
+    public String getNumero() {
         return numero;
     }
 
@@ -36,11 +36,11 @@ public abstract class ContatoVoz {
         this.cidadao = cidadao;
     }
 
-    public void setDdd(DDD ddd) {
+    public void setDDD(DDD ddd) {
         this.ddd = ddd;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

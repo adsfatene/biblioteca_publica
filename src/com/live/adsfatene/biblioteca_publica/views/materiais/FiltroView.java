@@ -24,8 +24,10 @@ public class FiltroView extends javax.swing.JDialog {
     public void setVisible(boolean flag) {
         if (flag) {
             jButtonLimparActionPerformed(null);
-             setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
-       }
+            if (!isVisible()) {
+                setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
+            }
+        }
         listaView.getjToggleButtonFiltro().setSelected(flag);
         super.setVisible(flag);
     }
@@ -318,7 +320,6 @@ public class FiltroView extends javax.swing.JDialog {
     private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLimpar;

@@ -8,7 +8,6 @@ import java.awt.Container;
 import javax.swing.JFrame;
 
 public final class AplicacaoController implements Runnable {
-    
 
     private final AplicacaoView aplicacaoView;
     private final Conexao conexao;

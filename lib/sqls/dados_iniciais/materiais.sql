@@ -1,3 +1,5 @@
+
+
 DECLARE @nome VARCHAR(100) = 'desconhecido' EXECUTE inserir_editora @nome;
 
 DECLARE @nome VARCHAR(50) = 'desconhecido' EXECUTE inserir_categoria @nome;

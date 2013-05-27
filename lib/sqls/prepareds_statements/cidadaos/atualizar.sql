@@ -1,5 +1,6 @@
-cadastarNovo1;
- DECLARE 
+atualizarPorTodosOsDados1;
+DECLARE 
+    @cidadao_codigo INT = ?,
     @cidadao_nome_completo VARCHAR(100) = ?,
     @cidadao_logradouro VARCHAR(30) = ?,
     @cidadao_numero_imovel INT = ?,
@@ -8,11 +9,13 @@ cadastarNovo1;
     @cidadao_bairro_cidade_codigo INT = ?,
     @cidadao_bairro_cidade_nome VARCHAR(25) = ?,
     @cidadao_bairro_cidade_estado_codigo TINYINT = ?,
+    @cidadao_contato_voz_codigo INT,
     @cidadao_contato_voz_cidadao_codigo INT,
     @cidadao_contato_voz_ddd_numero TINYINT,
     @cidadao_contato_voz_numero CHAR(8),
     @cidadao_contato_voz_tipo CHAR(3)
-    EXECUTE @cidadao_contato_voz_cidadao_codigo = inserir_cidadao
+    EXECUTE atualizar_cidadao
+    @cidadao_codigo,
     @cidadao_nome_completo,
     @cidadao_logradouro,
     @cidadao_numero_imovel,
@@ -22,11 +25,14 @@ cadastarNovo1;
     @cidadao_bairro_cidade_nome,
     @cidadao_bairro_cidade_estado_codigo;
 
-cadastarNovo2;
+atualizarPorTodosOsDados2;
+    SET @cidadao_contato_voz_codigo = ?
+    SET @cidadao_contato_voz_cidadao_codigo = ?
     SET @cidadao_contato_voz_ddd_numero = ?
     SET @cidadao_contato_voz_numero = ?
     SET @cidadao_contato_voz_tipo = ?
-    EXECUTE inserir_cidadao_contato_voz
+    EXECUTE atualizar_cidadao_contato_voz
+    @cidadao_contato_voz_codigo,
     @cidadao_contato_voz_cidadao_codigo,
     @cidadao_contato_voz_ddd_numero,
     @cidadao_contato_voz_numero,
