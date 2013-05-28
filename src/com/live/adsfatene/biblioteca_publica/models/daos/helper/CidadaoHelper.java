@@ -9,16 +9,11 @@ import com.live.adsfatene.biblioteca_publica.models.Estado;
 import com.live.adsfatene.biblioteca_publica.models.Telefone;
 import com.live.adsfatene.biblioteca_publica.models.daos.CidadaosDao;
 import com.live.adsfatene.biblioteca_publica.models.daos.Conexao;
-import com.live.adsfatene.biblioteca_publica.models.daos.ConexaoDesenvolvimento;
-import com.live.adsfatene.biblioteca_publica.models.daos.MateriaisDao;
 import java.util.LinkedList;
-import java.util.List;
 
 public class CidadaoHelper {
 
-    public static void main(String[] args) {
-        Conexao conexao = new ConexaoDesenvolvimento();
-        conexao.destroiBanco();
+    public void gerar(Conexao conexao) {
         CidadaosDao cidadaosDao = new CidadaosDao(conexao);
 
         for (int i = 0; i < 100; i++) {
@@ -55,6 +50,5 @@ public class CidadaoHelper {
 
             cidadaosDao.cadastarNovo(cidadao);
         }
-        conexao.fecharConnection();
     }
 }

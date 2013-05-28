@@ -47,4 +47,9 @@ public abstract class ContatoVoz {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return numero;
+    }
 }

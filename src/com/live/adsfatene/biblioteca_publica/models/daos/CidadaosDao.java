@@ -193,12 +193,14 @@ public class CidadaosDao {
                     telefone.setCodigo(resultSet.getInt("cidadao_contato_voz_codigo"));
                     telefone.setNumero(resultSet.getString("cidadao_contato_voz_numero"));
                     telefone.setDDD(ddd);
+                    telefone.setCidadao(cidadao);
                     cidadao.getTelefones().add(telefone);
                 } else {
                     Celular celular = new Celular();
                     celular.setCodigo(resultSet.getInt("cidadao_contato_voz_codigo"));
                     celular.setNumero(resultSet.getString("cidadao_contato_voz_numero"));
                     celular.setDDD(ddd);
+                    celular.setCidadao(cidadao);
                     cidadao.getCelulares().add(celular);
                 }
             }

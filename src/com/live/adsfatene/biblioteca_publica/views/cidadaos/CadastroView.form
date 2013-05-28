@@ -70,48 +70,47 @@
                           <Component id="jButtonCancelar" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="jLabelTelefones" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabelEstadoUF" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-                          <Component id="jLabelNomeCompleto" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-                          <Component id="jLabelCidade" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-                          <Component id="jLabelBairro" alignment="1" min="-2" pref="86" max="-2" attributes="0"/>
-                          <Component id="jLabelLogradouro" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
-                          <Component id="jLabelNumero" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="jLabelNomeCompleto" max="32767" attributes="0"/>
+                          <Component id="jLabelEstadoUF" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabelCidade" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabelBairro" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabelLogradouro" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabelNumero" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextFieldLogradouro" min="-2" pref="313" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jComboBoxCidade" pref="304" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxEstadoUF" pref="304" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                              <Component id="jTextFieldNomeCompleto" min="-2" pref="312" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="jButtonAdicionarTefone" min="-2" pref="45" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButtonRemoverTelefone" min="-2" pref="45" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jTextFieldNumero" alignment="1" min="-2" pref="312" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jComboBoxBairro" alignment="0" min="-2" pref="304" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldLogradouro" min="-2" pref="304" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldNumero" alignment="0" min="-2" pref="304" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jComboBoxCidade" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jComboBoxEstadoUF" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jComboBoxBairro" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="jTextFieldNomeCompleto" min="-2" pref="304" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="jLabelTelefones" alignment="0" min="-2" pref="235" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -138,23 +137,21 @@
                   <Component id="jLabelBairro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBoxBairro" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelLogradouro" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldLogradouro" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelLogradouro" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldLogradouro" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldNumero" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelNumero" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldNumero" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="jButtonAdicionarTefone" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonRemoverTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jLabelTelefones" alignment="1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelTelefones" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonAdicionarTefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonRemoverTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane3" min="-2" pref="92" max="-2" attributes="0"/>
@@ -222,15 +219,13 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBoxBairro">
       <Properties>
+        <Property name="editable" type="boolean" value="true"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldNumero">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelLogradouro">
       <Properties>
@@ -280,6 +275,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBoxCidade">
       <Properties>
+        <Property name="editable" type="boolean" value="true"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
@@ -302,9 +298,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldNomeCompleto">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNomeCompletoActionPerformed"/>
       </Events>
@@ -325,9 +318,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldLogradouro">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelTelefones">
       <Properties>

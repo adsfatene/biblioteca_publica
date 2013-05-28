@@ -1,6 +1,7 @@
 package com.live.adsfatene.biblioteca_publica.models;
 
 public class DDD {
+
     private Integer numero;
     private Estado estado;
 
@@ -18,5 +19,10 @@ public class DDD {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return numero.toString();
     }
 }
