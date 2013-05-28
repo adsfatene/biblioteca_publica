@@ -56,7 +56,7 @@ public class EdicaoView extends javax.swing.JDialog {
         }
         jComboBoxEstadoUF.setSelectedItem(cidadao.getBairro().getCidade().getEstado());
 
-        for (Cidade cidade : listaView.getCidadaoComboBox().getCidadades()) {
+        for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
             jComboBoxCidade.addItem(cidade);
         }
         jComboBoxCidade.setSelectedItem(cidadao.getBairro().getCidade());

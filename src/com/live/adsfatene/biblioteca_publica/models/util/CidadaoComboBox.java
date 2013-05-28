@@ -42,7 +42,7 @@ public class CidadaoComboBox {
         return bairros;
     }
 
-    public List<Cidade> getCidadades() {
+    public List<Cidade> getCidades() {
         return cidadades;
     }
 

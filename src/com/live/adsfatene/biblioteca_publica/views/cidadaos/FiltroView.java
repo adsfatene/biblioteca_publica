@@ -46,7 +46,7 @@ public class FiltroView extends javax.swing.JDialog {
         }
 
         jComboBoxCidade.addItem("Todos");
-        for (Cidade cidade : listaView.getCidadaoComboBox().getCidadades()) {
+        for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
             jComboBoxCidade.addItem(cidade);
         }
 

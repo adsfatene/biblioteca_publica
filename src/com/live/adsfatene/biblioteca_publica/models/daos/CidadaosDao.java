@@ -402,7 +402,7 @@ public class CidadaosDao {
                         estado = new Estado();
                         estado.setCodigo(fk);
                         cidade.setEstado(estado);
-                        cidadaoComboBox.getCidadades().add(cidade);
+                        cidadaoComboBox.getCidades().add(cidade);
                         break;
                     case "telefone":
                         Telefone telefone = new Telefone();

@@ -1,22 +1,24 @@
 package com.live.adsfatene.biblioteca_publica.views.cidadaos;
 
+import com.live.adsfatene.biblioteca_publica.models.Bairro;
+import com.live.adsfatene.biblioteca_publica.models.Cidade;
+import com.live.adsfatene.biblioteca_publica.models.Estado;
+import javax.swing.table.DefaultTableModel;
+
 public class CadastroView extends javax.swing.JDialog {
 
-//    private final ListaView listaView;
-//    private final DefaultTableModel dtm;
+    private final ListaView listaView;
+    private final DefaultTableModel dtm;
 
     CadastroView(ListaView listaView, boolean modal) {
-//        super(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView(), modal);
-//        initComponents();
-//        this.listaView = listaView;
-//        dtm = (DefaultTableModel) jTableFormato.getModel();
-//        jComboBoxEdicao.setEditable(true);
-//        jComboBoxAnoPublicacao.setEditable(true);
-//        jComboBoxAutor.setEditable(true);
-//        jComboBoxEditora.setEditable(true);
-//        jComboBoxCategoria.setEditable(true);
-//        jComboBoxPublico.setEditable(true);
-//        jComboBoxFormato.setEditable(true);
+        super(listaView.getCidadaosController().getAplicacaoController().getAplicacaoView(), modal);
+        initComponents();
+        this.listaView = listaView;
+        dtm = (DefaultTableModel) jTableCelulares.getModel();
+        jComboBoxBairro.setEditable(true);
+        jComboBoxCidade.setEditable(true);
+        jComboBoxEstadoUF.setEditable(true);
+        
     }
 
     @Override
@@ -30,45 +32,25 @@ public class CadastroView extends javax.swing.JDialog {
     }
 
     public void atualizar() {
-//        jComboBoxEdicao.removeAllItems();
-//        jComboBoxAnoPublicacao.removeAllItems();
-//        jComboBoxAutor.removeAllItems();
-//        jComboBoxEditora.removeAllItems();
-//        jComboBoxCategoria.removeAllItems();
-//        jComboBoxPublico.removeAllItems();
-//        jComboBoxFormato.removeAllItems();
-//
-//
-//        jTextFieldTitulo.setText(null);
-//        jTextFieldDescricao.setText(null);
-//
-//        for (Edicao edicao : listaView.getMaterialComboBox().getEdicoes()) {
-//            jComboBoxEdicao.addItem(edicao);
-//        }
-//
-//        for (AnoPublicacao anoPublicacao : listaView.getMaterialComboBox().getAnosPublicacoes()) {
-//            jComboBoxAnoPublicacao.addItem(anoPublicacao);
-//        }
-//
-//        for (Autor autor : listaView.getMaterialComboBox().getAutores()) {
-//            jComboBoxAutor.addItem(autor);
-//        }
-//
-//        for (Editora editora : listaView.getMaterialComboBox().getEditoras()) {
-//            jComboBoxEditora.addItem(editora);
-//        }
-//
-//        for (Categoria categoria : listaView.getMaterialComboBox().getCategorias()) {
-//            jComboBoxCategoria.addItem(categoria);
-//        }
-//
-//        for (Publico publico : listaView.getMaterialComboBox().getPublicos()) {
-//            jComboBoxPublico.addItem(publico);
-//        }
-//
-//        for (Formato formato : listaView.getMaterialComboBox().getFormatos()) {
-//            jComboBoxFormato.addItem(formato);
-//        }
+        jComboBoxBairro.removeAllItems();
+        jComboBoxCidade.removeAllItems();
+        jComboBoxEstadoUF.removeAllItems();
+        
+        jTextFieldLogradouro.setText(null);
+        jTextFieldNomeCompleto.setText(null);
+        jTextFieldNumero.setText(null);
+        
+        for (Bairro bairro : listaView.getCidadaoComboBox().getBairros()) {
+            jComboBoxBairro.addItem(bairro);
+        }
+
+        for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
+            jComboBoxCidade.addItem(cidade);
+        }
+
+        for (Estado estado : listaView.getCidadaoComboBox().getEstados()) {
+            jComboBoxEstadoUF.addItem(estado);
+        }
     }
 
     /**
