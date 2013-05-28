@@ -17,9 +17,8 @@ import java.util.List;
 
 public class MaterialHelper {
 
-    public static void main(String[] args) {
+    public void gerar(Conexao conexao) {
         List<Material> materials = new LinkedList<>();
-
         for (int i = 0; i < 100; i++) {
             Material material = new Material();
             material.setInformacao("informacao");
@@ -62,10 +61,7 @@ public class MaterialHelper {
 
             materials.add(material);
         }
-        Conexao conexao = new ConexaoDesenvolvimento();
-        conexao.destroiBanco();
         MateriaisDao materiaisDao = new MateriaisDao(conexao);
         materiaisDao.cadastarNovos(materials);
-        conexao.fecharConnection();
     }
 }

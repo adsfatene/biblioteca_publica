@@ -81,4 +81,12 @@ public class Cidadao {
     public void setDataHoraCadastro(Calendar dataHoraCadastro) {
         this.dataHoraCadastro = dataHoraCadastro;
     }
+
+    public boolean ehIgual(Cidadao cidadao) {
+        return codigo.equals(cidadao.codigo)
+                && nomeCompleto.equalsIgnoreCase(cidadao.nomeCompleto)
+                && numeroImovel.equals(cidadao.numeroImovel)
+                && logradouro.equalsIgnoreCase(cidadao.logradouro)
+                && bairro.ehIgual(cidadao.bairro);
+    }
 }

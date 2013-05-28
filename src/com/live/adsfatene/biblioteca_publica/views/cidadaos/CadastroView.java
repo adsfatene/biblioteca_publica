@@ -1,74 +1,54 @@
 package com.live.adsfatene.biblioteca_publica.views.cidadaos;
 
+import com.live.adsfatene.biblioteca_publica.models.Bairro;
+import com.live.adsfatene.biblioteca_publica.models.Celular;
+import com.live.adsfatene.biblioteca_publica.models.Cidadao;
+import com.live.adsfatene.biblioteca_publica.models.Cidade;
+import com.live.adsfatene.biblioteca_publica.models.Estado;
+import com.live.adsfatene.biblioteca_publica.models.Telefone;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+
 public class CadastroView extends javax.swing.JDialog {
 
-//    private final ListaView listaView;
-//    private final DefaultTableModel dtm;
+    private final ListaView listaView;
 
     CadastroView(ListaView listaView, boolean modal) {
-//        super(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView(), modal);
-//        initComponents();
-//        this.listaView = listaView;
-//        dtm = (DefaultTableModel) jTableFormato.getModel();
-//        jComboBoxEdicao.setEditable(true);
-//        jComboBoxAnoPublicacao.setEditable(true);
-//        jComboBoxAutor.setEditable(true);
-//        jComboBoxEditora.setEditable(true);
-//        jComboBoxCategoria.setEditable(true);
-//        jComboBoxPublico.setEditable(true);
-//        jComboBoxFormato.setEditable(true);
+        super(listaView.getCidadaosController().getAplicacaoController().getAplicacaoView(), modal);
+        initComponents();
+        this.listaView = listaView;
     }
 
     @Override
     public void setVisible(boolean flag) {
-//        if (flag) {
-//            jButtonLimparActionPerformed(null);
-//            setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
-//        }
-//        listaView.getjToggleButtonCadastro().setSelected(flag);
+        if (flag) {
+            jButtonLimparActionPerformed(null);
+            setLocationRelativeTo(listaView.getCidadaosController().getAplicacaoController().getAplicacaoView());
+        }
+        listaView.getjToggleButtonCadastro().setSelected(flag);
         super.setVisible(flag);
     }
 
     public void atualizar() {
-//        jComboBoxEdicao.removeAllItems();
-//        jComboBoxAnoPublicacao.removeAllItems();
-//        jComboBoxAutor.removeAllItems();
-//        jComboBoxEditora.removeAllItems();
-//        jComboBoxCategoria.removeAllItems();
-//        jComboBoxPublico.removeAllItems();
-//        jComboBoxFormato.removeAllItems();
-//
-//
-//        jTextFieldTitulo.setText(null);
-//        jTextFieldDescricao.setText(null);
-//
-//        for (Edicao edicao : listaView.getMaterialComboBox().getEdicoes()) {
-//            jComboBoxEdicao.addItem(edicao);
-//        }
-//
-//        for (AnoPublicacao anoPublicacao : listaView.getMaterialComboBox().getAnosPublicacoes()) {
-//            jComboBoxAnoPublicacao.addItem(anoPublicacao);
-//        }
-//
-//        for (Autor autor : listaView.getMaterialComboBox().getAutores()) {
-//            jComboBoxAutor.addItem(autor);
-//        }
-//
-//        for (Editora editora : listaView.getMaterialComboBox().getEditoras()) {
-//            jComboBoxEditora.addItem(editora);
-//        }
-//
-//        for (Categoria categoria : listaView.getMaterialComboBox().getCategorias()) {
-//            jComboBoxCategoria.addItem(categoria);
-//        }
-//
-//        for (Publico publico : listaView.getMaterialComboBox().getPublicos()) {
-//            jComboBoxPublico.addItem(publico);
-//        }
-//
-//        for (Formato formato : listaView.getMaterialComboBox().getFormatos()) {
-//            jComboBoxFormato.addItem(formato);
-//        }
+        jComboBoxEstadoUF.removeAllItems();
+        jComboBoxCidade.removeAllItems();
+        jComboBoxBairro.removeAllItems();
+
+        jTextFieldNomeCompleto.setText("");
+        jTextFieldLogradouro.setText("");
+        jTextFieldNumero.setText("");
+
+        for (Estado estado : listaView.getCidadaoComboBox().getEstados()) {
+            jComboBoxEstadoUF.addItem(estado);
+        }
+
+        for (Cidade cidade : listaView.getCidadaoComboBox().getCidadades()) {
+            jComboBoxCidade.addItem(cidade);
+        }
+
+        for (Bairro bairro : listaView.getCidadaoComboBox().getBairros()) {
+            jComboBoxBairro.addItem(bairro);
+        }
     }
 
     /**
@@ -159,7 +139,7 @@ public class CadastroView extends javax.swing.JDialog {
             }
         });
 
-        jTextFieldNumero.setEditable(false);
+        jComboBoxBairro.setEditable(true);
 
         jLabelLogradouro.setText("Logradouro");
 
@@ -185,6 +165,8 @@ public class CadastroView extends javax.swing.JDialog {
         });
         jScrollPane4.setViewportView(jTableCelulares);
 
+        jComboBoxCidade.setEditable(true);
+
         jButtonAdicionarCelular.setText("+");
         jButtonAdicionarCelular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,7 +181,6 @@ public class CadastroView extends javax.swing.JDialog {
             }
         });
 
-        jTextFieldNomeCompleto.setEditable(false);
         jTextFieldNomeCompleto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNomeCompletoActionPerformed(evt);
@@ -211,8 +192,6 @@ public class CadastroView extends javax.swing.JDialog {
         jLabelCidade.setText("Cidade");
 
         jLabelEstadoUF.setText("Estado - UF");
-
-        jTextFieldLogradouro.setEditable(false);
 
         jLabelTelefones.setText("Telefones");
 
@@ -259,37 +238,36 @@ public class CadastroView extends javax.swing.JDialog {
                             .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelTelefones, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabelEstadoUF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelNomeCompleto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelLogradouro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelNomeCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelEstadoUF, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabelCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabelBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabelLogradouro, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabelNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxCidade, 0, 304, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxEstadoUF, 0, 304, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jTextFieldNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jButtonAdicionarTefone, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButtonRemoverTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxCidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxEstadoUF, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxBairro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addComponent(jLabelTelefones, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jComboBoxBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jTextFieldNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,20 +288,19 @@ public class CadastroView extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelBairro)
                     .addComponent(jComboBoxBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLogradouro)
                     .addComponent(jTextFieldLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumero)
                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonAdicionarTefone)
-                        .addComponent(jButtonRemoverTelefone))
-                    .addComponent(jLabelTelefones, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTelefones)
+                    .addComponent(jButtonAdicionarTefone)
+                    .addComponent(jButtonRemoverTelefone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -350,108 +327,48 @@ public class CadastroView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
-//        jTextFieldTitulo.setText(null);
-//        jTextFieldDescricao.setText(null);
-//        jComboBoxEdicao.setSelectedIndex(0);
-//        jComboBoxAnoPublicacao.setSelectedIndex(0);
-//        jComboBoxAutor.setSelectedIndex(0);
-//        jComboBoxEditora.setSelectedIndex(0);
-//        jComboBoxCategoria.setSelectedIndex(0);
-//        jComboBoxPublico.setSelectedIndex(0);
-//        jComboBoxFormato.setSelectedIndex(0);
-//        while (dtm.getRowCount() > 0) {
-//            dtm.removeRow(0);
-//        }
+        jTextFieldNomeCompleto.setText("");
+        jTextFieldLogradouro.setText("");
+        jTextFieldNumero.setText("");
+        jComboBoxEstadoUF.setSelectedIndex(0);
+        jComboBoxCidade.setSelectedIndex(0);
+        jComboBoxBairro.setSelectedIndex(0);
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-//        if (jTextFieldTitulo.getText().trim().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "titulo obrigatorio", "aviso", JOptionPane.WARNING_MESSAGE);
-//        } else if (jTableFormato.getRowCount() < 1) {
-//            JOptionPane.showMessageDialog(this, "formato é obrigatorio. adicione pelo menos um formato", "aviso", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//            DadoMaterial dadoMaterial = new DadoMaterial();
-//            dadoMaterial.setTitulo(jTextFieldTitulo.getText());
-//            dadoMaterial.setDescricao(jTextFieldDescricao.getText());
-//
-//            Edicao edicao;
-//            if (jComboBoxEdicao.getSelectedItem() instanceof Edicao) {
-//                edicao = (Edicao) jComboBoxEdicao.getSelectedItem();
-//            } else {
-//                edicao = new Edicao();
-//                edicao.setNumero(Integer.valueOf(jComboBoxEdicao.getSelectedItem().toString()));
-//            }
-//            dadoMaterial.setEdicao(edicao);
-//
-//            AnoPublicacao anoPublicacao;
-//            if (jComboBoxAnoPublicacao.getSelectedItem() instanceof AnoPublicacao) {
-//                anoPublicacao = (AnoPublicacao) jComboBoxAnoPublicacao.getSelectedItem();
-//            } else {
-//                anoPublicacao = new AnoPublicacao();
-//                anoPublicacao.setAno(Integer.valueOf(jComboBoxAnoPublicacao.getSelectedItem().toString()));
-//            }
-//            dadoMaterial.setAnoPublicacao(anoPublicacao);
-//
-//            Autor autor;
-//            if (jComboBoxAutor.getSelectedItem() instanceof Autor) {
-//                autor = (Autor) jComboBoxAutor.getSelectedItem();
-//            } else {
-//                autor = new Autor();
-//                autor.setNome(jComboBoxAutor.getSelectedItem().toString());
-//            }
-//            dadoMaterial.setAutor(autor);
-//
-//            Editora editora;
-//            if (jComboBoxEditora.getSelectedItem() instanceof Editora) {
-//                editora = (Editora) jComboBoxEditora.getSelectedItem();
-//            } else {
-//                editora = new Editora();
-//                editora.setNome(jComboBoxEditora.getSelectedItem().toString());
-//            }
-//            dadoMaterial.setEditora(editora);
-//
-//            Categoria categoria;
-//            if (jComboBoxCategoria.getSelectedItem() instanceof Categoria) {
-//                categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
-//            } else {
-//                categoria = new Categoria();
-//                categoria.setNome(jComboBoxCategoria.getSelectedItem().toString());
-//            }
-//            dadoMaterial.setCategoria(categoria);
-//
-//            Publico publico;
-//            if (jComboBoxPublico.getSelectedItem() instanceof Publico) {
-//                publico = (Publico) jComboBoxPublico.getSelectedItem();
-//            } else {
-//                publico = new Publico();
-//                publico.setNome(jComboBoxPublico.getSelectedItem().toString());
-//            }
-//            dadoMaterial.setPublico(publico);
-//
-//            List<Material> materiais = new LinkedList<>();
-//            Material material;
-//            for (int i = 0; i < jTableFormato.getRowCount(); i++) {
-//                Formato formato = (Formato) jTableFormato.getValueAt(i, 0);
-//                if (formato.getNome().equalsIgnoreCase("impresso")) {
-//                    for (int j = 0; j < (int) jTableFormato.getValueAt(i, 1); j++) {
-//                        material = new Material();
-//                        material.setDadoMaterial(dadoMaterial);
-//                        material.setFormato(formato);
-//                        material.setInformacao(jTableFormato.getValueAt(i, 2).toString());
-//                        materiais.add(material);
-//                    }
-//                } else {
-//                    material = new Material();
-//                    material.setDadoMaterial(dadoMaterial);
-//                    material.setFormato(formato);
-//                    material.setInformacao(jTableFormato.getValueAt(i, 2).toString());
-//                    materiais.add(material);
-//                }
-//            }
-//
-//            listaView.getMateriaisController().salvar(materiais);
-//        }
+        if (jTextFieldNomeCompleto.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "nome completo obrigatorio", "aviso", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Cidadao cidadao = new Cidadao();
+            cidadao.setNomeCompleto(jTextFieldNomeCompleto.getText());
+            cidadao.setLogradouro(jTextFieldLogradouro.getText());
+            cidadao.setNumeroImovel(Integer.valueOf(jTextFieldNumero.getText()));
 
+            Bairro bairro;
+            if (jComboBoxBairro.getSelectedItem() instanceof Bairro) {
+                bairro = ((Bairro) jComboBoxBairro.getSelectedItem()).getClone();
+            } else {
+                bairro = new Bairro();
+                bairro.setNome(jComboBoxBairro.getSelectedItem().toString());
+            }
+            cidadao.setBairro(bairro);
+
+            Cidade cidade;
+            if (jComboBoxCidade.getSelectedItem() instanceof Cidade) {
+                cidade = ((Cidade) jComboBoxCidade.getSelectedItem()).getClone();
+            } else {
+                cidade = new Cidade();
+                cidade.setNome((String) jComboBoxCidade.getSelectedItem());
+            }
+            bairro.setCidade(cidade);
+
+            cidade.setEstado((Estado) jComboBoxEstadoUF.getSelectedItem());
+
+            cidadao.setTelefones(new LinkedList<Telefone>());
+            cidadao.setCelulares(new LinkedList<Celular>());
+
+            listaView.getCidadaosController().salvar(cidadao);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverTelefoneActionPerformed
@@ -500,9 +417,7 @@ public class CadastroView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonRemoverCelularActionPerformed
 
     private void jTextFieldNomeCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeCompletoActionPerformed
-
     }//GEN-LAST:event_jTextFieldNomeCompletoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarCelular;
     private javax.swing.JButton jButtonAdicionarTefone;
@@ -532,5 +447,4 @@ public class CadastroView extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldNomeCompleto;
     private javax.swing.JTextField jTextFieldNumero;
     // End of variables declaration//GEN-END:variables
-
 }
