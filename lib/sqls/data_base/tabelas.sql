@@ -119,7 +119,7 @@ CREATE TABLE emprestimos
 (
 codigo INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 cidadao INT NOT NULL,
-data_hora_emprestado DATETIME NOT NULL,
+data_hora_emprestado DATETIME NOT NULL DEFAULT GETDATE(),
 data_hora_devolucao_prevista DATETIME,
 data_hora_devolucao_efetiva DATETIME,
 CHECK 
@@ -139,23 +139,11 @@ FOREIGN KEY(emprestimo) REFERENCES emprestimos(codigo) ON DELETE CASCADE ON UPDA
 FOREIGN KEY(estoque) REFERENCES estoques(material) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE danificicados
+CREATE TABLE estoques_danificicados
 (
-material INT NOT NULL,
+emprestimo_estoque INT NOT NULL PRIMARY KEY,
 data_hora_cadastro DATETIME NOT NULL DEFAULT GETDATE(),
-emprestimo INT,
 motivo VARCHAR (160),
-UNIQUE (material, emprestimo),
-FOREIGN KEY (material) REFERENCES materiais(codigo),
-FOREIGN KEY (emprestimo) REFERENCES emprestimos(codigo)
+tipo VARCHAR(13) CHECK (tipo IN ('Avariado', 'Irrecuperavel')) 
+FOREIGN KEY (emprestimo_estoque) REFERENCES emprestimos_estoques(codigo)
 );
-
-CREATE TABLE perdidos
-(
-material INT NOT NULL PRIMARY KEY,
-data_hora_cadastro DATETIME NOT NULL DEFAULT GETDATE(),
-emprestimo INT,
-motivo VARCHAR (160),
-FOREIGN KEY (material) REFERENCES materiais(codigo),
-FOREIGN KEY (emprestimo) REFERENCES emprestimos(codigo)
-)

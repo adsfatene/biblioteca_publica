@@ -1,6 +1,6 @@
 package com.live.adsfatene.biblioteca_publica.models.daos;
 
-import com.live.adsfatene.biblioteca_publica.models.EmprestimoIrrecuperavel;
+import com.live.adsfatene.biblioteca_publica.models.EstoqueDanificado;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ public class EmprestimosIrrecuperaveisDAO {
         this.conexao = conexao;
     }
 
-    public List<EmprestimoIrrecuperavel> pesquisarPorTodosOsDadosNaoNulos(EmprestimoIrrecuperavel materialIrrecuperavel) {
+    public List<EstoqueDanificado> pesquisarPorTodosOsDadosNaoNulos(EstoqueDanificado materialIrrecuperavel) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
