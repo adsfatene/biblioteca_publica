@@ -4,7 +4,7 @@ package com.live.adsfatene.biblioteca_publica.models;
  *
  * @author Clairton
  */
-public class EmprestimoIrrecuperavel {
+public class EstoqueDanificado {
 
     private EmprestimoEstoque emprestimoEstoque;
     private String motivo;

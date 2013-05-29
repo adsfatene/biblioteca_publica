@@ -34,7 +34,7 @@ public class AplicacaoView extends javax.swing.JFrame {
         jMenuItemEstoques = new javax.swing.JMenuItem();
         jMenuItemCidadaos = new javax.swing.JMenuItem();
         jMenuItemEmprestimos = new javax.swing.JMenuItem();
-        jMenuItemEmprestimosIrrecuperaveis = new javax.swing.JMenuItem();
+        jMenuItemEstoquesDanificados = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenuAjuda = new javax.swing.JMenu();
@@ -90,14 +90,14 @@ public class AplicacaoView extends javax.swing.JFrame {
         });
         jMenuOpcoes.add(jMenuItemEmprestimos);
 
-        jMenuItemEmprestimosIrrecuperaveis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
-        jMenuItemEmprestimosIrrecuperaveis.setText("Emprestimos Irrecuperáveis");
-        jMenuItemEmprestimosIrrecuperaveis.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemEstoquesDanificados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        jMenuItemEstoquesDanificados.setText("Estoques Danificados");
+        jMenuItemEstoquesDanificados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEmprestimosIrrecuperaveisActionPerformed(evt);
+                jMenuItemEstoquesDanificadosActionPerformed(evt);
             }
         });
-        jMenuOpcoes.add(jMenuItemEmprestimosIrrecuperaveis);
+        jMenuOpcoes.add(jMenuItemEstoquesDanificados);
         jMenuOpcoes.add(jSeparator2);
 
         jMenuItemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
@@ -171,9 +171,9 @@ public class AplicacaoView extends javax.swing.JFrame {
         aplicacaoController.getEstoquesController().iniciar();
     }//GEN-LAST:event_jMenuItemEstoquesActionPerformed
 
-    private void jMenuItemEmprestimosIrrecuperaveisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEmprestimosIrrecuperaveisActionPerformed
+    private void jMenuItemEstoquesDanificadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstoquesDanificadosActionPerformed
         aplicacaoController.getEmprestimosIrrecuperaveisController().iniciar();
-    }//GEN-LAST:event_jMenuItemEmprestimosIrrecuperaveisActionPerformed
+    }//GEN-LAST:event_jMenuItemEstoquesDanificadosActionPerformed
 
     private void jMenuItemCidadaosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCidadaosActionPerformed
         aplicacaoController.getCidadaosController().iniciar();
@@ -188,8 +188,8 @@ public class AplicacaoView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemCidadaos;
     private javax.swing.JMenuItem jMenuItemEmprestimos;
-    private javax.swing.JMenuItem jMenuItemEmprestimosIrrecuperaveis;
     private javax.swing.JMenuItem jMenuItemEstoques;
+    private javax.swing.JMenuItem jMenuItemEstoquesDanificados;
     private javax.swing.JMenuItem jMenuItemInicio;
     private javax.swing.JMenuItem jMenuItemMateriais;
     private javax.swing.JMenuItem jMenuItemSair;

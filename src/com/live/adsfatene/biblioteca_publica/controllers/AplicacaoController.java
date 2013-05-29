@@ -16,7 +16,7 @@ public final class AplicacaoController implements Runnable {
 
     private final MateriaisController materiaisController;
     private final EstoquesController estoquesController;
-    private final EmprestimosIrrecuperaveisController emprestimosIrrecuperaveisController;
+    private final EstoquesDanificadosController emprestimosIrrecuperaveisController;
     private final CidadaosController cidadaosController;
     private final EmprestimosController emprestimosController;
 
@@ -28,7 +28,7 @@ public final class AplicacaoController implements Runnable {
         
         materiaisController = new MateriaisController(this);
         estoquesController = new EstoquesController(this);
-        emprestimosIrrecuperaveisController = new EmprestimosIrrecuperaveisController(this);
+        emprestimosIrrecuperaveisController = new EstoquesDanificadosController(this);
         cidadaosController = new CidadaosController(this);
         emprestimosController = new EmprestimosController(this);
     }
@@ -56,7 +56,7 @@ public final class AplicacaoController implements Runnable {
         return estoquesController;
     }
 
-    public EmprestimosIrrecuperaveisController getEmprestimosIrrecuperaveisController() {
+    public EstoquesDanificadosController getEmprestimosIrrecuperaveisController() {
         return emprestimosIrrecuperaveisController;
     }
 
