@@ -89,4 +89,9 @@ public class Cidadao {
                 && logradouro.equalsIgnoreCase(cidadao.logradouro)
                 && bairro.ehIgual(cidadao.bairro);
     }
+
+    @Override
+    public String toString() {
+        return nomeCompleto;
+    }   
 }

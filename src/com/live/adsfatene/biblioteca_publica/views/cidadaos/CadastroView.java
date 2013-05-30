@@ -22,7 +22,6 @@ public class CadastroView extends javax.swing.JDialog {
         dtm = (DefaultTableModel) jTableCelulares.getModel();
         jComboBoxBairro.setEditable(true);
         jComboBoxCidade.setEditable(true);
-        jComboBoxEstadoUF.setEditable(true);
     }
 
     @Override

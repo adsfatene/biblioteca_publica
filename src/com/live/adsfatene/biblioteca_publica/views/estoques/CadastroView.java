@@ -28,6 +28,8 @@ public class CadastroView extends javax.swing.JDialog {
         if (flag) {
             jButtonLimparActionPerformed(null);
             setLocationRelativeTo(listaView.getMateriaisController().getAplicacaoController().getAplicacaoView());
+        } else {
+            listaView.getMateriaisController().getAplicacaoController().getEstoquesController().iniciar();
         }
         listaView.getMateriaisController().getAplicacaoController().getEstoquesController().getListaView().getjToggleButtonCadastro().setSelected(flag);
         listaView.habilitar(!flag);
@@ -167,7 +169,6 @@ public class CadastroView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        listaView.getMateriaisController().getAplicacaoController().getEstoquesController().iniciar();
         setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 

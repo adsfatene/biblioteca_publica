@@ -14,7 +14,6 @@ public class Emprestimo {
     private Calendar dataHoraEmprestato;
     private Calendar dataHoraDevolucaoPrevista;
     private Calendar dataHoraDevolucaoEfetiva;
-    private String estadoDevolucao;
     private List<EmprestimoEstoque> emprestimosEstoques;
 
     public Integer getCodigo() {
@@ -35,10 +34,6 @@ public class Emprestimo {
 
     public Calendar getDataHoraDevolucaoEfetiva() {
         return dataHoraDevolucaoEfetiva;
-    }
-
-    public String getEstadoDevolucao() {
-        return estadoDevolucao;
     }
 
     public List<EmprestimoEstoque> getEmprestimosEstoques() {
@@ -63,10 +58,6 @@ public class Emprestimo {
 
     public void setDataHoraDevolucaoEfetiva(Calendar dataHoraDevolucaoEfetiva) {
         this.dataHoraDevolucaoEfetiva = dataHoraDevolucaoEfetiva;
-    }
-
-    public void setEstadoDevolucao(String estadoDevolucao) {
-        this.estadoDevolucao = estadoDevolucao;
     }
 
     public void setEmprestimosEstoques(List<EmprestimoEstoque> emprestimosEstoques) {

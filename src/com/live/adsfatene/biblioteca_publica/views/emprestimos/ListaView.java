@@ -1,36 +1,42 @@
-package com.live.adsfatene.biblioteca_publica.views.estoques;
+package com.live.adsfatene.biblioteca_publica.views.emprestimos;
 
-import com.live.adsfatene.biblioteca_publica.controllers.EstoquesController;
-import com.live.adsfatene.biblioteca_publica.models.Estoque;
-import com.live.adsfatene.biblioteca_publica.models.util.EstoqueComboBox;
+import com.live.adsfatene.biblioteca_publica.controllers.EmprestimosController;
+import com.live.adsfatene.biblioteca_publica.models.Emprestimo;
+import com.live.adsfatene.biblioteca_publica.models.util.EmprestimoComboBox;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 
 public class ListaView extends javax.swing.JPanel {
 
-    private final EstoquesController estoquesController;
+    private final EmprestimosController emprestimosController;
+    private final List<Emprestimo> emprestimos;
     private final DefaultTableModel dtm;
-    private final List<Estoque> estoques;
+    private final AdicionarEstoqueView adicionarEstoqueView;
     private final CadastroView cadastroView;
     private final FiltroView filtroView;
     private final EdicaoView edicaoView;
-    private EstoqueComboBox estoqueComboBox;
+    private EmprestimoComboBox emprestimoComboBox;
     private final ExibicaoView exibicaoView;
+    private final SimpleDateFormat sdf;
+    private final AlterarCidadaoView alterarCidadaoView;
 
-    public ListaView(EstoquesController estoquesController) {
+    public ListaView(EmprestimosController emprestimosController) {
         initComponents();
-        this.estoquesController = estoquesController;
+        this.emprestimosController = emprestimosController;
         dtm = (DefaultTableModel) jTableLista.getModel();
-        estoques = new LinkedList<>();
-        cadastroView = new CadastroView(estoquesController.getAplicacaoController().getMateriaisController().getListaView(), false);
+        cadastroView = new CadastroView(this, false);
         filtroView = new FiltroView(this, false);
         edicaoView = new EdicaoView(this, false);
         exibicaoView = new ExibicaoView(this, false);
+        sdf = new SimpleDateFormat("dd/MM/YYYY - hh:mm:ss");
+        adicionarEstoqueView = new AdicionarEstoqueView(emprestimosController.getAplicacaoController().getEstoquesController().getListaView(), false);
+        alterarCidadaoView = new AlterarCidadaoView(emprestimosController.getAplicacaoController().getCidadaosController().getListaView(), false);
+        emprestimos = new LinkedList<>();
     }
 
     @Override
@@ -103,11 +109,11 @@ public class ListaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Estoque", "Codigo", "Titulo", "Descrição", "Edição", "Ano de Publicação", "Autor", "Editora", "Categoria", "Publico", "Formato", "Informação", "Localização", "Statu"
+                "Emprestimo", "Codigo", "Cidadao", "Quantidade Estoques", "Data/Hora Emprestado", "Data/Hora Devolucao Prevista", "Data/Hora Devolucao Efetiva", "Aberto/Concluido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -139,7 +145,7 @@ public class ListaView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButtonFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFiltroActionPerformed
-        estoquesController.filtrar(new Estoque());
+        emprestimosController.filtrar(new Emprestimo());
     }//GEN-LAST:event_jToggleButtonFiltroActionPerformed
 
     private void jTableListaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMousePressed
@@ -150,9 +156,9 @@ public class ListaView extends javax.swing.JPanel {
 
     private void jToggleButtonEdicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEdicaoActionPerformed
         if (jTableLista.getSelectedRowCount() > 0) {
-            estoquesController.editar((Estoque) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
+            emprestimosController.editar((Emprestimo) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um Estoque.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecione um Emprestimo.", "Erro", JOptionPane.ERROR_MESSAGE);
             jToggleButtonEdicao.setSelected(false);
         }
     }//GEN-LAST:event_jToggleButtonEdicaoActionPerformed
@@ -162,17 +168,17 @@ public class ListaView extends javax.swing.JPanel {
 
     private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
         if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-            Estoque estoque = (Estoque) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0);
+            Emprestimo emprestimo = (Emprestimo) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0);
             if (jToggleButtonEdicao.isSelected()) {
-                estoquesController.editar(estoque);
+                emprestimosController.editar(emprestimo);
             } else {
-                estoquesController.exibir(estoque);
+                emprestimosController.exibir(emprestimo);
             }
         }
     }//GEN-LAST:event_jTableListaMouseClicked
 
     private void jToggleButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCadastroActionPerformed
-        estoquesController.cadastrar();
+        emprestimosController.cadastrar();
     }//GEN-LAST:event_jToggleButtonCadastroActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -183,38 +189,37 @@ public class ListaView extends javax.swing.JPanel {
     private javax.swing.JToolBar jToolBarAcoes;
     // End of variables declaration//GEN-END:variables
 
-    public void atualizar(List<Estoque> estoques, EstoqueComboBox estoqueComboBox) {
+    public void atualizar(List<Emprestimo> emprestimos, EmprestimoComboBox emprestimosComboBox) {
         while (dtm.getRowCount() > 0) {
             dtm.removeRow(0);
         }
 
-        this.estoques.clear();
+        this.emprestimos.clear();
 
-        this.estoques.addAll(estoques);
-        this.estoqueComboBox = estoqueComboBox;
+        this.emprestimos.addAll(emprestimos);
+        this.emprestimoComboBox = emprestimosComboBox;
 
-        for (Estoque estoque : this.estoques) {
+        for (Emprestimo emprestimo : this.emprestimos) {
             dtm.addRow(new Object[dtm.getColumnCount()]);
-            int i = 0;
-            dtm.setValueAt(estoque, dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getCodigo(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getTitulo(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getDescricao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getEdicao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getAnoPublicacao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getAutor(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getEditora().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getCategoria().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getPublico().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getFormato().getNome(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getMaterial().getInformacao(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getLocalLogicoFisico(), dtm.getRowCount() - 1, i++);
-            dtm.setValueAt(estoque.getStatu(), dtm.getRowCount() - 1, i++);
+            int coluna = 0;
+            dtm.setValueAt(emprestimo, dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(emprestimo.getCodigo(), dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(emprestimo.getCidadao(), dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(emprestimo.getEmprestimosEstoques().size(), dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(sdf.format(emprestimo.getDataHoraEmprestato()), dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoPrevista()), dtm.getRowCount() - 1, coluna++);
+            coluna++;
+            String abertoConcluido = "Aberto";
+            if (emprestimo.getDataHoraDevolucaoEfetiva() != null) {
+                dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoEfetiva()), dtm.getRowCount() - 1, coluna);
+                abertoConcluido = "Concluido";
+            }
+            dtm.setValueAt(abertoConcluido, dtm.getRowCount() - 1, coluna++);
         }
     }
 
-    public EstoquesController getEstoquesController() {
-        return estoquesController;
+    public EmprestimosController getEmprestimosController() {
+        return emprestimosController;
     }
 
     public JToggleButton getjToggleButtonCadastro() {
@@ -241,22 +246,27 @@ public class ListaView extends javax.swing.JPanel {
         return cadastroView;
     }
 
-    public EstoqueComboBox getEstoqueComboBox() {
-        return estoqueComboBox;
+    public EmprestimoComboBox getEmprestimoComboBox() {
+        return emprestimoComboBox;
     }
 
     public ExibicaoView getExibicaoView() {
         return exibicaoView;
     }
 
-    public void habilitar(boolean aFlag) {
-        jToolBarAcoes.setEnabled(aFlag);
-        jToggleButtonEdicao.setEnabled(aFlag);
-        jToggleButtonCadastro.setEnabled(aFlag);
-        estoquesController.getAplicacaoController().getAplicacaoView().habilitar(aFlag);
+    public DefaultTableModel getDtm() {
+        return dtm;
     }
 
-    public JTable getjTableLista() {
-        return jTableLista;
+    public AdicionarEstoqueView getAdicionarEstoqueView() {
+        return adicionarEstoqueView;
+    }
+
+    public SimpleDateFormat getSdf() {
+        return sdf;
+    }
+
+    public AlterarCidadaoView getAlterarCidadaoView() {
+        return alterarCidadaoView;
     }
 }
