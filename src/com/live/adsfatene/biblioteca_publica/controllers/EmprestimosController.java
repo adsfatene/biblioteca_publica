@@ -37,8 +37,9 @@ public final class EmprestimosController {
         Emprestimo emprestimo = emprestimosDAO.buscarPeloCodigo(codigo);
     }
 
-    public void atualizarDadosDeDevolucaoDoEmprestimo(Emprestimo emprestimo) {
-        Boolean sucesso = emprestimosDAO.atualizarDadosDeDevolucao(emprestimo);
+    public void atualizarDadosDeDevolucaoDoEmprestimo() {
+        listaView.getEdicaoView().getEstadoDevolucaoView().atualizar();
+        listaView.getEdicaoView().getEstadoDevolucaoView().setVisible(true);
     }
 
     /*
@@ -89,7 +90,13 @@ public final class EmprestimosController {
     }
 
     public void concluir(Emprestimo emprestimo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (emprestimosDAO.atualizarDadosDeDevolucao(emprestimo)) {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "concluido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            iniciar();
+            listaView.getEdicaoView().setVisible(listaView.getjToggleButtonEdicao().isSelected());
+        } else {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "falha na conclusao", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void excluir(Integer valueOf) {
@@ -101,11 +108,13 @@ public final class EmprestimosController {
     }
 
     public void editar(Emprestimo emprestimo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        listaView.getEdicaoView().atualizar(emprestimo);
+        listaView.getEdicaoView().setVisible(listaView.getjToggleButtonEdicao().isSelected());
     }
 
     public void exibir(Emprestimo emprestimo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        listaView.getExibicaoView().atualizar(emprestimo);
+        listaView.getExibicaoView().setVisible(true);
     }
 
     public void cadastrar() {

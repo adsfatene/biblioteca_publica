@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 public class EstadoDevolucaoMotivoView extends javax.swing.JDialog {
 
     private final EdicaoView edicaoView;
-    private int linha;
     private String motivo;
     private String estadoDevolucao;
 
@@ -20,14 +19,15 @@ public class EstadoDevolucaoMotivoView extends javax.swing.JDialog {
         if (flag) {
             setLocationRelativeTo(edicaoView);
         }
-        edicaoView.getjToggleButtonAlterarEstadoDevolucao().setSelected(flag);
         super.setVisible(flag);
     }
 
-    public void atualizar(int linha, String estadoDevolucao, String motivo) {
-        this.linha = linha;
-        this.motivo = motivo;
-        this.estadoDevolucao = estadoDevolucao;
+    public void atualizar() {
+        jButtonLimparActionPerformed(null);
+        estadoDevolucao = edicaoView.getDtm().getValueAt(edicaoView.getjTableEstoques().getSelectedRow(),
+                edicaoView.getDtm().getColumnCount() - 2).toString();
+        motivo = edicaoView.getDtm().getValueAt(edicaoView.getjTableEstoques().getSelectedRow(),
+                edicaoView.getDtm().getColumnCount() - 1).toString();
         jComboBoxEstadoDevolucao.setSelectedItem(estadoDevolucao);
     }
 
@@ -149,7 +149,11 @@ public class EstadoDevolucaoMotivoView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
-        jComboBoxEstadoDevolucao.setSelectedItem(estadoDevolucao);
+        if (estadoDevolucao != null) {
+            jComboBoxEstadoDevolucao.setSelectedItem(estadoDevolucao);
+        } else {
+            jComboBoxEstadoDevolucao.setSelectedIndex(0);
+        }
         jTextFieldMotivo.setText(motivo);
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
@@ -157,9 +161,11 @@ public class EstadoDevolucaoMotivoView extends javax.swing.JDialog {
         if (jComboBoxEstadoDevolucao.getSelectedIndex() > 0 && jTextFieldMotivo.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "motivo obrigatorio.", "aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            edicaoView.getDtm().setValueAt(jComboBoxEstadoDevolucao.getSelectedItem(), linha, edicaoView.getDtm().getColumnCount() - 2);
-            edicaoView.getDtm().setValueAt(jTextFieldMotivo.getText().trim(), linha, edicaoView.getDtm().getColumnCount() - 1);
-            jButtonCancelarActionPerformed(null);
+            edicaoView.getDtm().setValueAt(jComboBoxEstadoDevolucao.getSelectedItem(), edicaoView.getjTableEstoques().getSelectedRow(), edicaoView.getDtm().getColumnCount() - 2);
+            edicaoView.getDtm().setValueAt(jTextFieldMotivo.getText().trim(), edicaoView.getjTableEstoques().getSelectedRow(), edicaoView.getDtm().getColumnCount() - 1);
+            motivo = null;
+            estadoDevolucao = null;
+            setVisible(false);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

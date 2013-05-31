@@ -4,11 +4,10 @@ import com.live.adsfatene.biblioteca_publica.models.Cidadao;
 import com.live.adsfatene.biblioteca_publica.models.Emprestimo;
 import com.live.adsfatene.biblioteca_publica.models.EmprestimoEstoque;
 import com.live.adsfatene.biblioteca_publica.models.Estoque;
-import static java.awt.image.ImageObserver.WIDTH;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 
 public class EdicaoView extends javax.swing.JDialog {
@@ -42,7 +41,6 @@ public class EdicaoView extends javax.swing.JDialog {
         jTextFieldCidadao.setText(emprestimo.getCidadao().toString());
         jTextFieldDataHoraEmprestado.setText(listaView.getSdf().format(emprestimo.getDataHoraEmprestato().getTime()));
         jTextFieldDataHoraDevoluçãoPrevista.setText(listaView.getSdf().format(emprestimo.getDataHoraDevolucaoPrevista().getTime()));
-        jTextFieldDataHoraDevoluçãoEfetiva.setText(listaView.getSdf().format(Calendar.getInstance().getTime()));
 
         for (EmprestimoEstoque emprestimoEstoque : emprestimo.getEmprestimosEstoques()) {
             Estoque estoque = emprestimoEstoque.getEstoque();
@@ -82,9 +80,7 @@ public class EdicaoView extends javax.swing.JDialog {
         jTextFieldDataHoraEmprestado = new javax.swing.JTextField();
         jLabelDataHoraDevoluçãoPrevista = new javax.swing.JLabel();
         jTextFieldDataHoraDevoluçãoPrevista = new javax.swing.JTextField();
-        jLabelDataHoraDevoluçãoEfetiva = new javax.swing.JLabel();
-        jTextFieldDataHoraDevoluçãoEfetiva = new javax.swing.JTextField();
-        jToggleButtonAlterarEstadoDevolucaoMotivo = new javax.swing.JToggleButton();
+        jButtonAlterarEstadoDevolucaoMotivo = new javax.swing.JButton();
 
         setTitle("Edição");
         setResizable(false);
@@ -159,19 +155,10 @@ public class EdicaoView extends javax.swing.JDialog {
             }
         });
 
-        jLabelDataHoraDevoluçãoEfetiva.setText("Data/Hora Devolução Efetiva");
-
-        jTextFieldDataHoraDevoluçãoEfetiva.setEditable(false);
-        jTextFieldDataHoraDevoluçãoEfetiva.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAlterarEstadoDevolucaoMotivo.setText("Alterar Estado Devolução/Motivo");
+        jButtonAlterarEstadoDevolucaoMotivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDataHoraDevoluçãoEfetivaActionPerformed(evt);
-            }
-        });
-
-        jToggleButtonAlterarEstadoDevolucaoMotivo.setText("Alterar Estado Devolução e Motivo");
-        jToggleButtonAlterarEstadoDevolucaoMotivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonAlterarEstadoDevolucaoMotivoActionPerformed(evt);
+                jButtonAlterarEstadoDevolucaoMotivoActionPerformed(evt);
             }
         });
 
@@ -196,7 +183,7 @@ public class EdicaoView extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelEstoques, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jToggleButtonAlterarEstadoDevolucaoMotivo))
+                                .addComponent(jButtonAlterarEstadoDevolucaoMotivo))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelDataHoraEmprestado)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -205,12 +192,9 @@ public class EdicaoView extends javax.swing.JDialog {
                                 .addComponent(jLabelDataHoraDevoluçãoPrevista)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTextFieldDataHoraDevoluçãoPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelDataHoraDevoluçãoEfetiva)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldDataHoraDevoluçãoEfetiva, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButtonConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
                                 .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,7 +216,7 @@ public class EdicaoView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelEstoques)
-                    .addComponent(jToggleButtonAlterarEstadoDevolucaoMotivo))
+                    .addComponent(jButtonAlterarEstadoDevolucaoMotivo))
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
@@ -243,11 +227,7 @@ public class EdicaoView extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDataHoraDevoluçãoPrevista)
                     .addComponent(jTextFieldDataHoraDevoluçãoPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDataHoraDevoluçãoEfetiva)
-                    .addComponent(jTextFieldDataHoraDevoluçãoEfetiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonConcluir)
                     .addComponent(jButtonLimpar)
@@ -273,17 +253,18 @@ public class EdicaoView extends javax.swing.JDialog {
         boolean sucesso = true;
         for (int i = 0; i < dtm.getRowCount(); i++) {
             String estadoDevolucao = dtm.getValueAt(i, dtm.getColumnCount() - 2).toString().trim();
+            String motivo = dtm.getValueAt(i, dtm.getColumnCount() - 1).toString().trim();
             if (estadoDevolucao.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "estado devolucao obrigatorio.", "aviso", JOptionPane.WARNING_MESSAGE);
                 sucesso = false;
             } else {
-                String motivo = dtm.getValueAt(i, dtm.getColumnCount() - 1).toString().trim();
                 emprestimo.getEmprestimosEstoques().get(i).setEstadoDevolucao(estadoDevolucao);
                 emprestimo.getEmprestimosEstoques().get(i).setMotivo(motivo);
             }
         }
         if (sucesso) {
             listaView.getEmprestimosController().concluir(emprestimo);
+        } else {
+            JOptionPane.showMessageDialog(this, "estado devolucao obrigatorio.", "aviso", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonConcluirActionPerformed
 
@@ -295,19 +276,13 @@ public class EdicaoView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDataHoraDevoluçãoPrevistaActionPerformed
 
-    private void jTextFieldDataHoraDevoluçãoEfetivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataHoraDevoluçãoEfetivaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDataHoraDevoluçãoEfetivaActionPerformed
-
-    private void jToggleButtonAlterarEstadoDevolucaoMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonAlterarEstadoDevolucaoMotivoActionPerformed
+    private void jButtonAlterarEstadoDevolucaoMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarEstadoDevolucaoMotivoActionPerformed
         if (jTableEstoques.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this, "estoque obrigatorio.", "aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "estoque obrigatorio. selecione um estoque", "aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            estadoDevolucaoView.atualizar(jTableEstoques.getSelectedRow(),
-                    dtm.getValueAt(jTableEstoques.getSelectedRow(), dtm.getColumnCount() - 2).toString(),
-                    dtm.getValueAt(jTableEstoques.getSelectedRow(), dtm.getColumnCount() - 1).toString());
+            listaView.getEmprestimosController().atualizarDadosDeDevolucaoDoEmprestimo();
         }
-    }//GEN-LAST:event_jToggleButtonAlterarEstadoDevolucaoMotivoActionPerformed
+    }//GEN-LAST:event_jButtonAlterarEstadoDevolucaoMotivoActionPerformed
 
     public JTextField getjTextFieldCidadao() {
         return jTextFieldCidadao;
@@ -317,20 +292,24 @@ public class EdicaoView extends javax.swing.JDialog {
         return cidadao;
     }
 
-    public JToggleButton getjToggleButtonAlterarEstadoDevolucao() {
-        return jToggleButtonAlterarEstadoDevolucaoMotivo;
-    }
-
     public DefaultTableModel getDtm() {
         return dtm;
     }
+
+    public JTable getjTableEstoques() {
+        return jTableEstoques;
+    }
+
+    public EstadoDevolucaoMotivoView getEstadoDevolucaoView() {
+        return estadoDevolucaoView;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAlterarEstadoDevolucaoMotivo;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConcluir;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JLabel jLabelCidadao;
     private javax.swing.JLabel jLabelCodigo;
-    private javax.swing.JLabel jLabelDataHoraDevoluçãoEfetiva;
     private javax.swing.JLabel jLabelDataHoraDevoluçãoPrevista;
     private javax.swing.JLabel jLabelDataHoraEmprestado;
     private javax.swing.JLabel jLabelEstoques;
@@ -338,9 +317,7 @@ public class EdicaoView extends javax.swing.JDialog {
     private javax.swing.JTable jTableEstoques;
     private javax.swing.JTextField jTextFieldCidadao;
     private javax.swing.JTextField jTextFieldCodigo;
-    private javax.swing.JTextField jTextFieldDataHoraDevoluçãoEfetiva;
     private javax.swing.JTextField jTextFieldDataHoraDevoluçãoPrevista;
     private javax.swing.JTextField jTextFieldDataHoraEmprestado;
-    private javax.swing.JToggleButton jToggleButtonAlterarEstadoDevolucaoMotivo;
     // End of variables declaration//GEN-END:variables
 }

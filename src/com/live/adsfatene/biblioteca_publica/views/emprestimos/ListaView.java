@@ -5,6 +5,7 @@ import com.live.adsfatene.biblioteca_publica.models.Emprestimo;
 import com.live.adsfatene.biblioteca_publica.models.util.EmprestimoComboBox;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -33,7 +34,7 @@ public class ListaView extends javax.swing.JPanel {
         filtroView = new FiltroView(this, false);
         edicaoView = new EdicaoView(this, false);
         exibicaoView = new ExibicaoView(this, false);
-        sdf = new SimpleDateFormat("dd/MM/YYYY - hh:mm:ss");
+        sdf = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
         adicionarEstoqueView = new AdicionarEstoqueView(emprestimosController.getAplicacaoController().getEstoquesController().getListaView(), false);
         alterarCidadaoView = new AlterarCidadaoView(emprestimosController.getAplicacaoController().getCidadaosController().getListaView(), false);
         emprestimos = new LinkedList<>();
@@ -109,7 +110,7 @@ public class ListaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Emprestimo", "Codigo", "Cidadao", "Quantidade Estoques", "Data/Hora Emprestado", "Data/Hora Devolucao Prevista", "Data/Hora Devolucao Efetiva", "Aberto/Concluido"
+                "Emprestimo", "Codigo", "Cidadao", "Quantidade Estoques Emprestado", "Data/Hora Emprestado", "Data/Hora Devolucao Prevista", "Data/Hora Devolucao Efetiva", "Aberto/Concluido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -206,15 +207,15 @@ public class ListaView extends javax.swing.JPanel {
             dtm.setValueAt(emprestimo.getCodigo(), dtm.getRowCount() - 1, coluna++);
             dtm.setValueAt(emprestimo.getCidadao(), dtm.getRowCount() - 1, coluna++);
             dtm.setValueAt(emprestimo.getEmprestimosEstoques().size(), dtm.getRowCount() - 1, coluna++);
-            dtm.setValueAt(sdf.format(emprestimo.getDataHoraEmprestato()), dtm.getRowCount() - 1, coluna++);
-            dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoPrevista()), dtm.getRowCount() - 1, coluna++);
-            coluna++;
-            String abertoConcluido = "Aberto";
+            dtm.setValueAt(sdf.format(emprestimo.getDataHoraEmprestato().getTimeInMillis()), dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoPrevista().getTimeInMillis()), dtm.getRowCount() - 1, coluna++);
+             String abertoConcluido = "Aberto";
             if (emprestimo.getDataHoraDevolucaoEfetiva() != null) {
-                dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoEfetiva()), dtm.getRowCount() - 1, coluna);
+                dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoEfetiva().getTimeInMillis()), dtm.getRowCount() - 1, coluna);
                 abertoConcluido = "Concluido";
             }
-            dtm.setValueAt(abertoConcluido, dtm.getRowCount() - 1, coluna++);
+            coluna++;
+            dtm.setValueAt(abertoConcluido, dtm.getRowCount() - 1, coluna);
         }
     }
 
@@ -269,4 +270,5 @@ public class ListaView extends javax.swing.JPanel {
     public AlterarCidadaoView getAlterarCidadaoView() {
         return alterarCidadaoView;
     }
+   
 }

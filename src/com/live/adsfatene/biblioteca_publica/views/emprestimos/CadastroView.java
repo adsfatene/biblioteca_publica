@@ -274,11 +274,8 @@ public class CadastroView extends javax.swing.JDialog {
             try {
                 Emprestimo emprestimo = new Emprestimo();
                 emprestimo.setCidadao(cidadao);
-                emprestimo.setDataHoraEmprestato(Calendar.getInstance());
-                emprestimo.getDataHoraEmprestato().setTime(listaView.getSdf().parse(jTextFieldDataHoraEmprestado.getText()));
                 emprestimo.setDataHoraDevolucaoPrevista(Calendar.getInstance());
                 emprestimo.getDataHoraDevolucaoPrevista().setTime(listaView.getSdf().parse(jTextFieldDataHoraDevolucaoPrevista.getText()));
-                
                 emprestimo.setEmprestimosEstoques(new LinkedList<EmprestimoEstoque>());
                 for(int i = 0; i < dtm.getRowCount(); i++){
                     EmprestimoEstoque emprestimoEstoque = new EmprestimoEstoque();

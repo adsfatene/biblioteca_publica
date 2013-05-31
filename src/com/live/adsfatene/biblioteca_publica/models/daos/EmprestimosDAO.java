@@ -1,19 +1,25 @@
 package com.live.adsfatene.biblioteca_publica.models.daos;
 
-import com.live.adsfatene.biblioteca_publica.models.Celular;
+import com.live.adsfatene.biblioteca_publica.models.AnoPublicacao;
+import com.live.adsfatene.biblioteca_publica.models.Autor;
+import com.live.adsfatene.biblioteca_publica.models.Categoria;
 import com.live.adsfatene.biblioteca_publica.models.Cidadao;
 import com.live.adsfatene.biblioteca_publica.models.DadoMaterial;
+import com.live.adsfatene.biblioteca_publica.models.Edicao;
+import com.live.adsfatene.biblioteca_publica.models.Editora;
 import com.live.adsfatene.biblioteca_publica.models.Emprestimo;
 import com.live.adsfatene.biblioteca_publica.models.EmprestimoEstoque;
 import com.live.adsfatene.biblioteca_publica.models.Estoque;
 import com.live.adsfatene.biblioteca_publica.models.Formato;
 import com.live.adsfatene.biblioteca_publica.models.Material;
-import com.live.adsfatene.biblioteca_publica.models.Telefone;
+import com.live.adsfatene.biblioteca_publica.models.Publico;
 import com.live.adsfatene.biblioteca_publica.models.util.EmprestimoComboBox;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -96,16 +102,16 @@ public class EmprestimosDAO {
                     emprestimo.setCidadao(new Cidadao());
                     emprestimo.getCidadao().setCodigo(resultSet.getInt("emprestimo_cidadao_codigo"));
                     emprestimo.getCidadao().setNomeCompleto(resultSet.getString("emprestimo_cidadao_nome_completo"));
-                    Date date = resultSet.getDate("emprestimo_data_hora_emprestado");
+                    Timestamp timestamp = resultSet.getTimestamp("emprestimo_data_hora_emprestado");
                     emprestimo.setDataHoraEmprestato(Calendar.getInstance());
-                    emprestimo.getDataHoraEmprestato().setTime(date);
-                    date = resultSet.getDate("emprestimo_data_hora_devolucao_prevista");
+                    emprestimo.getDataHoraEmprestato().setTime(timestamp);
+                    timestamp = resultSet.getTimestamp("emprestimo_data_hora_devolucao_prevista");
                     emprestimo.setDataHoraDevolucaoPrevista(Calendar.getInstance());
-                    emprestimo.getDataHoraDevolucaoPrevista().setTime(date);
-                    date = resultSet.getDate("emprestimo_data_hora_devolucao_efetiva");
-                    if (date != null) {
+                    emprestimo.getDataHoraDevolucaoPrevista().setTime(timestamp);
+                    timestamp = resultSet.getTimestamp("emprestimo_data_hora_devolucao_efetiva");
+                    if (timestamp != null) {
                         emprestimo.setDataHoraDevolucaoEfetiva(Calendar.getInstance());
-                        emprestimo.getDataHoraDevolucaoEfetiva().setTime(date);
+                        emprestimo.getDataHoraDevolucaoEfetiva().setTime(timestamp);
                     }
                     emprestimos.add(emprestimo);
                     emprestimo.setEmprestimosEstoques(new LinkedList<EmprestimoEstoque>());
@@ -170,8 +176,8 @@ public class EmprestimosDAO {
             int indice = 1;
 
             preparedStatement.setInt(indice++, emprestimo.getCidadao().getCodigo());
-            preparedStatement.setDate(indice++, new java.sql.Date(emprestimo.getDataHoraDevolucaoPrevista().getTimeInMillis()));
-            for(EmprestimoEstoque emprestimoEstoque: emprestimo.getEmprestimosEstoques()){
+            preparedStatement.setTimestamp(indice++, new java.sql.Timestamp(emprestimo.getDataHoraDevolucaoPrevista().getTimeInMillis()));
+            for (EmprestimoEstoque emprestimoEstoque : emprestimo.getEmprestimosEstoques()) {
                 preparedStatement.setInt(indice++, emprestimoEstoque.getEstoque().getMaterial().getCodigo());
             }
 
@@ -196,10 +202,57 @@ public class EmprestimosDAO {
     }
 
     public Boolean atualizarDadosDeDevolucao(Emprestimo emprestimo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Boolean sucesso = false;
+        Connection connection = conexao.getConnection();
+        try {
+            String valorDoComandoUm = comandos.get("atualizar" + 1);
+            String valorDoComandoDois = comandos.get("atualizar" + 2);
+            StringBuilder query = new StringBuilder(valorDoComandoUm);
+            for (int i = 0; i < emprestimo.getEmprestimosEstoques().size(); i++) {
+                query.append("\n").append(valorDoComandoDois);
+            }
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
+            query.delete(0, query.length());
+            int indice = 1;
+
+            preparedStatement.setInt(indice++, emprestimo.getCodigo());
+            for (EmprestimoEstoque emprestimoEstoque : emprestimo.getEmprestimosEstoques()) {
+                preparedStatement.setInt(indice++, emprestimoEstoque.getCodigo());
+                preparedStatement.setString(indice++, emprestimoEstoque.getEstadoDevolucao());
+                setString(indice++, emprestimoEstoque.getMotivo(), preparedStatement);
+            }
+
+            connection.setAutoCommit(false);
+            preparedStatement.execute();
+            connection.commit();
+            connection.setAutoCommit(true);
+            sucesso = true;
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+            }
+            throw new RuntimeException(ex.getMessage());
+        } catch (NullPointerException ex) {
+            throw new RuntimeException(ex.getMessage());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        } finally {
+            conexao.fecharConnection();
+        }
+        return sucesso;
     }
 
     public EmprestimoComboBox pesquisarTodosCodigoCidadaoEstoque() {
         return null;
+    }
+
+    private void setString(Integer posicao, String valor, PreparedStatement preparedStatement) throws SQLException {
+        if (valor == null) {
+            preparedStatement.setNull(posicao, Types.VARCHAR);
+        } else {
+            preparedStatement.setString(posicao, valor);
+        }
     }
 }

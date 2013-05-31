@@ -123,7 +123,7 @@ data_hora_emprestado DATETIME NOT NULL DEFAULT GETDATE(),
 data_hora_devolucao_prevista DATETIME,
 data_hora_devolucao_efetiva DATETIME,
 CHECK 
-((data_hora_devolucao_prevista IS NULL) OR (data_hora_emprestado < data_hora_devolucao_prevista)),
+((data_hora_devolucao_prevista IS NULL) OR (data_hora_emprestado <= data_hora_devolucao_prevista)),
 CHECK
 ((data_hora_devolucao_efetiva IS NULL) OR (data_hora_devolucao_prevista IS NOT NULL AND data_hora_emprestado <= data_hora_devolucao_efetiva)),
 FOREIGN KEY (cidadao) REFERENCES cidadaos(codigo) ON DELETE NO ACTION ON UPDATE NO ACTION

@@ -82,7 +82,7 @@
                 <Column editable="false" title="Emprestimo" type="java.lang.Object"/>
                 <Column editable="false" title="Codigo" type="java.lang.Object"/>
                 <Column editable="false" title="Cidadao" type="java.lang.Object"/>
-                <Column editable="false" title="Quantidade Estoques" type="java.lang.Object"/>
+                <Column editable="false" title="Quantidade Estoques Emprestado" type="java.lang.Object"/>
                 <Column editable="false" title="Data/Hora Emprestado" type="java.lang.Object"/>
                 <Column editable="false" title="Data/Hora Devolucao Prevista" type="java.lang.Object"/>
                 <Column editable="false" title="Data/Hora Devolucao Efetiva" type="java.lang.Object"/>

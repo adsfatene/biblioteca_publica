@@ -18,16 +18,16 @@ CREATE PROCEDURE inserir_emprestimo_estoque
     END;
 
 CREATE PROCEDURE atualizar_emprestimo
-    @codigo INT
+    @codigo_emprestimo INT
     AS
     BEGIN
         UPDATE emprestimos SET 
         data_hora_devolucao_efetiva = GETDATE()
-        WHERE codigo = @codigo
+        WHERE codigo = @codigo_emprestimo
     END;
 
 CREATE PROCEDURE atualizar_emprestimo_estoque
-    @codigo INT,
+    @codigo_emprestimo_estoque INT,
     @estado_devolucao VARCHAR(13),
     @motivo VARCHAR(160)
     AS
@@ -36,13 +36,13 @@ CREATE PROCEDURE atualizar_emprestimo_estoque
         BEGIN
             UPDATE estoques SET statu = 'Usado' WHERE material = 
             (
-                SELECT estoque FROM emprestimos_estoques WHERE codigo = @codigo
+                SELECT estoque FROM emprestimos_estoques WHERE codigo = @codigo_emprestimo_estoque
             )
         END
         ELSE 
         BEGIN
             INSERT INTO estoques_danificados (emprestimo_estoque,motivo,tipo)
-            VALUES (@codigo,@motivo,@estado_devolucao)
+            VALUES (@codigo_emprestimo_estoque,@motivo,@estado_devolucao)
         END
     END;
 

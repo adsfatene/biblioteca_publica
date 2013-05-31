@@ -48,8 +48,8 @@ public class ExibicaoView extends javax.swing.JDialog {
             dtm.setValueAt(estoque.getMaterial().getDadoMaterial().getTitulo(), dtm.getRowCount() - 1, coluna++);
             dtm.setValueAt(estoque.getMaterial().getFormato(), dtm.getRowCount() - 1, coluna++);
             dtm.setValueAt(estoque.getLocalLogicoFisico(), dtm.getRowCount() - 1, coluna++);
-            dtm.setValueAt("", dtm.getRowCount() - 1, coluna++);
-            dtm.setValueAt("", dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(emprestimoEstoque.getEstadoDevolucao(), dtm.getRowCount() - 1, coluna++);
+            dtm.setValueAt(emprestimoEstoque.getMotivo(), dtm.getRowCount() - 1, coluna++);
         }
 
     }
