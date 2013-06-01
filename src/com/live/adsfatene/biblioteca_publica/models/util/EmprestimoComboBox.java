@@ -1,15 +1,8 @@
 package com.live.adsfatene.biblioteca_publica.models.util;
 
-import com.live.adsfatene.biblioteca_publica.models.AnoPublicacao;
-import com.live.adsfatene.biblioteca_publica.models.Autor;
-import com.live.adsfatene.biblioteca_publica.models.Categoria;
 import com.live.adsfatene.biblioteca_publica.models.Cidadao;
-import com.live.adsfatene.biblioteca_publica.models.Edicao;
-import com.live.adsfatene.biblioteca_publica.models.Editora;
 import com.live.adsfatene.biblioteca_publica.models.Emprestimo;
 import com.live.adsfatene.biblioteca_publica.models.Estoque;
-import com.live.adsfatene.biblioteca_publica.models.Formato;
-import com.live.adsfatene.biblioteca_publica.models.Publico;
 import java.util.LinkedList;
 import java.util.List;
 
