@@ -13,8 +13,6 @@ CREATE PROCEDURE inserir_emprestimo_estoque
     @estoque INT
     AS
     BEGIN
-        UPDATE estoques SET statu = 'Emprestado' WHERE material = @estoque
- 
         INSERT INTO emprestimos_estoques (emprestimo, estoque)
         VALUES (@emprestimo, @estoque)
     END;
@@ -43,7 +41,7 @@ CREATE PROCEDURE concluir_emprestimo_estoque
         END
         ELSE
         BEGIN
-            UPDATE estoques SET statu = 'Danificado' WHERE material = 
+            UPDATE estoques SET statu = NULL WHERE material = 
             (
                 SELECT estoque FROM emprestimos_estoques WHERE codigo = @emprestimo_estoque_codigo
             )

@@ -55,7 +55,7 @@ FOREIGN KEY (formato) REFERENCES formatos(codigo) ON DELETE NO ACTION ON UPDATE 
 CREATE TABLE estoques
 (
 material INT NOT NULL PRIMARY KEY,
-statu VARCHAR(10) NOT NULL CHECK (statu IN ('Novo', 'Emprestando',  'Usado', 'Danificado', 'Restaurado')),
+statu VARCHAR(10) CHECK (statu IN ('Novo', 'Usado', 'Restaurado')),
 local_logico_fisico VARCHAR(100) NOT NULL,
 FOREIGN KEY (material) REFERENCES materiais(codigo) ON DELETE NO ACTION ON UPDATE NO ACTION
 );

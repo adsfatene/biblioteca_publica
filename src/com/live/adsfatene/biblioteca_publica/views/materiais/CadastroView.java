@@ -470,7 +470,6 @@ public class CadastroView extends javax.swing.JDialog {
         dtm.setValueAt(formato, dtm.getRowCount() - 1, 0);
         dtm.setValueAt(quantidade, dtm.getRowCount() - 1, 1);
         dtm.setValueAt("", dtm.getRowCount() - 1, 2);
-        dtm.setValueAt("", dtm.getRowCount() - 1, 3);
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionar;

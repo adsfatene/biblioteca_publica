@@ -41,10 +41,10 @@ public class EdicaoView extends javax.swing.JDialog {
         jTextFieldDataHoraEmprestado.setText(listaView.getSdf().format(emprestimo.getDataHoraEmprestato().getTime()));
         jTextFieldDataHoraDevoluçãoPrevista.setText(listaView.getSdf().format(emprestimo.getDataHoraDevolucaoPrevista().getTime()));
 
-        while(dtm.getRowCount() > 0){
+        while (dtm.getRowCount() > 0) {
             dtm.removeRow(0);
         }
-        
+
         for (EmprestimoEstoque emprestimoEstoque : emprestimo.getEmprestimosEstoques()) {
             Estoque estoque = emprestimoEstoque.getEstoque();
             dtm.addRow(new Object[dtm.getColumnCount()]);
