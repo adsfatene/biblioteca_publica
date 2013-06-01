@@ -55,7 +55,7 @@ FOREIGN KEY (formato) REFERENCES formatos(codigo) ON DELETE NO ACTION ON UPDATE 
 CREATE TABLE estoques
 (
 material INT NOT NULL PRIMARY KEY,
-statu VARCHAR(10) NOT NULL CHECK (statu IN ('Novo', 'Usado', 'Restaurado')),
+statu VARCHAR(10) NOT NULL CHECK (statu IN ('Novo', 'Emprestando',  'Usado', 'Danificado', 'Restaurado')),
 local_logico_fisico VARCHAR(100) NOT NULL,
 FOREIGN KEY (material) REFERENCES materiais(codigo) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
@@ -134,16 +134,8 @@ codigo INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 emprestimo INT NOT NULL,
 estoque INT NOT NULL,
 estado_devolucao VARCHAR(13) CHECK (estado_devolucao IN ('Perfeito', 'Avariado', 'Irrecuperavel')),
+motivo VARCHAR (160),
 UNIQUE (emprestimo,estoque),
 FOREIGN KEY(emprestimo) REFERENCES emprestimos(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY(estoque) REFERENCES estoques(material) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
-
-CREATE TABLE estoques_danificicados
-(
-emprestimo_estoque INT NOT NULL PRIMARY KEY,
-data_hora_cadastro DATETIME NOT NULL DEFAULT GETDATE(),
-motivo VARCHAR (160),
-tipo VARCHAR(13) CHECK (tipo IN ('Avariado', 'Irrecuperavel')) 
-FOREIGN KEY (emprestimo_estoque) REFERENCES emprestimos_estoques(codigo)
 );

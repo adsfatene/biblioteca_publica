@@ -14,6 +14,7 @@ import com.live.adsfatene.biblioteca_publica.models.Formato;
 import com.live.adsfatene.biblioteca_publica.models.Material;
 import com.live.adsfatene.biblioteca_publica.models.Publico;
 import com.live.adsfatene.biblioteca_publica.models.util.EmprestimoComboBox;
+import com.live.adsfatene.biblioteca_publica.models.util.MaterialComboBox;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,22 +61,21 @@ public class EmprestimosDAO {
                 setCommands.add(new SetInt(where.size(), emprestimo.getCodigo()));
             }
             if (emprestimo.getCidadao() != null) {
-                where.add("emprestimo_cidadao_nome_completo LIKE ?");
-                setCommands.add(new SetString(where.size(), "%" + emprestimo.getCidadao().getNomeCompleto() + "%"));
+                where.add("emprestimo_cidadao_codigo = ?");
+                setCommands.add(new SetInt(where.size(), emprestimo.getCidadao().getCodigo()));
             }
             if (emprestimo.getEmprestimosEstoques() != null
                     && !emprestimo.getEmprestimosEstoques().isEmpty()
                     && emprestimo.getEmprestimosEstoques().get(0).getEstoque() != null) {
-                where.add("emprestimo_estoque_material_dado_material_titulo LIKE ?");
+                where.add("emprestimo_estoque_material_dado_material_titulo ILIKE ?");
                 setCommands.add(new SetString(where.size(), "%" + emprestimo.getEmprestimosEstoques().get(0).getEstoque().getMaterial().getDadoMaterial().getTitulo() + "%"));
             }
             if (emprestimo.getDataHoraEmprestato() != null
-                    && emprestimo.getDataHoraDevolucaoPrevista() != null
+                    && emprestimo.getDataHoraDevolucaoEfetiva() == null) {
+                where.add("emprestimo_data_hora_devolucao_efetiva IS NULL");
+            } else if (emprestimo.getDataHoraEmprestato() == null
                     && emprestimo.getDataHoraDevolucaoEfetiva() != null) {
                 where.add("emprestimo_data_hora_devolucao_efetiva IS NOT NULL");
-            } else if (emprestimo.getDataHoraEmprestato() != null
-                    && emprestimo.getDataHoraDevolucaoPrevista() != null) {
-                where.add("emprestimo_data_hora_devolucao_efetiva IS NULL");
             }
 
             StringBuilder query = new StringBuilder(valorDoComandoUm);
@@ -119,6 +119,7 @@ public class EmprestimosDAO {
                 EmprestimoEstoque emprestimoEstoque = new EmprestimoEstoque();
                 emprestimoEstoque.setEmprestimo(emprestimo);
                 emprestimoEstoque.setEstadoDevolucao(resultSet.getString("emprestimo_emprestimo_estoque_estado_devolucao"));
+                emprestimoEstoque.setMotivo(resultSet.getString("emprestimo_emprestimo_estoque_motivo"));
                 emprestimoEstoque.setCodigo(resultSet.getInt("emprestimo_emprestimo_estoque_codigo"));
                 emprestimoEstoque.setEstoque(new Estoque());
                 emprestimoEstoque.getEstoque().setMaterial(new Material());
@@ -201,12 +202,12 @@ public class EmprestimosDAO {
         return sucesso;
     }
 
-    public Boolean atualizarDadosDeDevolucao(Emprestimo emprestimo) {
+    public Boolean concluir(Emprestimo emprestimo) {
         Boolean sucesso = false;
         Connection connection = conexao.getConnection();
         try {
-            String valorDoComandoUm = comandos.get("atualizar" + 1);
-            String valorDoComandoDois = comandos.get("atualizar" + 2);
+            String valorDoComandoUm = comandos.get("concluir" + 1);
+            String valorDoComandoDois = comandos.get("concluir" + 2);
             StringBuilder query = new StringBuilder(valorDoComandoUm);
             for (int i = 0; i < emprestimo.getEmprestimosEstoques().size(); i++) {
                 query.append("\n").append(valorDoComandoDois);
@@ -245,7 +246,50 @@ public class EmprestimosDAO {
     }
 
     public EmprestimoComboBox pesquisarTodosCodigoCidadaoEstoque() {
-        return null;
+        EmprestimoComboBox emprestimoComboBox = new EmprestimoComboBox();
+        Connection connection = conexao.getConnection();
+        try {
+            String valorDoComandoUm = comandos.get("pesquisarTodosCodigoCidadaoEstoque");
+            PreparedStatement preparedStatement = connection.prepareStatement(valorDoComandoUm);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String valor = resultSet.getString("valor");
+                Integer codigo = resultSet.getInt("codigo");
+                String tipo = resultSet.getString("tipo");
+                switch (tipo) {
+                    case "emprestimo":
+                        Emprestimo emprestimo = new Emprestimo();
+                        emprestimo.setCodigo(codigo);
+                        emprestimoComboBox.getEmprestimos().add(emprestimo);
+                        break;
+                    case "cidadao":
+                        Cidadao cidadao = new Cidadao();
+                        cidadao.setCodigo(codigo);
+                        cidadao.setNomeCompleto(valor);
+                        emprestimoComboBox.getCidadaos().add(cidadao);
+                        break;
+                    default:
+                        Estoque estoque = new Estoque();
+                        estoque.setMaterial(new Material());
+                        estoque.getMaterial().setCodigo(codigo);
+                        estoque.getMaterial().setDadoMaterial(new DadoMaterial());
+                        estoque.getMaterial().getDadoMaterial().setTitulo(valor);
+                        emprestimoComboBox.getEstoques().add(estoque);
+                        break;
+                }
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+            }
+            throw new RuntimeException(ex.getMessage());
+        } catch (NullPointerException ex) {
+            throw new RuntimeException(ex.getMessage());
+        } finally {
+            conexao.fecharConnection();
+        }
+        return emprestimoComboBox;
     }
 
     private void setString(Integer posicao, String valor, PreparedStatement preparedStatement) throws SQLException {
@@ -254,5 +298,34 @@ public class EmprestimosDAO {
         } else {
             preparedStatement.setString(posicao, valor);
         }
+    }
+
+    public boolean excluirPeloCodigo(Integer codigo) {
+        boolean sucesso = false;
+        if (codigo != null) {
+            Connection connection = conexao.getConnection();
+            try {
+                String valorDoComandoUm = comandos.get("excluirPeloCodigo");
+                PreparedStatement preparedStatement = connection.prepareStatement(valorDoComandoUm);
+                preparedStatement.setInt(1, codigo);
+                connection.setAutoCommit(false);
+                sucesso = preparedStatement.executeUpdate() == 1;
+                connection.commit();
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex1) {
+                }
+                throw new RuntimeException(ex.getMessage());
+            } catch (NullPointerException ex) {
+                throw new RuntimeException(ex.getMessage());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex.getMessage());
+            } finally {
+                conexao.fecharConnection();
+            }
+        }
+        return sucesso;
     }
 }

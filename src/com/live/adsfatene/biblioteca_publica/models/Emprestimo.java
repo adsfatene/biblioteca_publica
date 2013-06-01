@@ -63,4 +63,9 @@ public class Emprestimo {
     public void setEmprestimosEstoques(List<EmprestimoEstoque> emprestimosEstoques) {
         this.emprestimosEstoques = emprestimosEstoques;
     }
+
+    @Override
+    public String toString() {
+        return codigo.toString();
+    }
 }

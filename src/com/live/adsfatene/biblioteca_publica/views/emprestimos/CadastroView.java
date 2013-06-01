@@ -261,6 +261,7 @@ public class CadastroView extends javax.swing.JDialog {
             dtm.removeRow(0);
         }
         jTextFieldDataHoraEmprestado.setText(listaView.getSdf().format(Calendar.getInstance().getTime()));
+        jTextFieldDataHoraDevolucaoPrevista.setText("");
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonEmprestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEmprestarActionPerformed
@@ -274,15 +275,22 @@ public class CadastroView extends javax.swing.JDialog {
             try {
                 Emprestimo emprestimo = new Emprestimo();
                 emprestimo.setCidadao(cidadao);
+                emprestimo.setDataHoraEmprestato(Calendar.getInstance());
+                emprestimo.getDataHoraEmprestato().setTime(listaView.getSdf().parse(jTextFieldDataHoraEmprestado.getText()));
                 emprestimo.setDataHoraDevolucaoPrevista(Calendar.getInstance());
                 emprestimo.getDataHoraDevolucaoPrevista().setTime(listaView.getSdf().parse(jTextFieldDataHoraDevolucaoPrevista.getText()));
-                emprestimo.setEmprestimosEstoques(new LinkedList<EmprestimoEstoque>());
-                for(int i = 0; i < dtm.getRowCount(); i++){
-                    EmprestimoEstoque emprestimoEstoque = new EmprestimoEstoque();
-                    emprestimoEstoque.setEstoque((Estoque) dtm.getValueAt(i, 0));
-                    emprestimo.getEmprestimosEstoques().add(emprestimoEstoque);
+                if (emprestimo.getDataHoraEmprestato().after(emprestimo.getDataHoraDevolucaoPrevista())
+                        || emprestimo.getDataHoraEmprestato().equals(emprestimo.getDataHoraDevolucaoPrevista())) {
+                    JOptionPane.showMessageDialog(this, "data hora devolucao prevista menor ou igual data hora emprestado", "aviso", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    emprestimo.setEmprestimosEstoques(new LinkedList<EmprestimoEstoque>());
+                    for (int i = 0; i < dtm.getRowCount(); i++) {
+                        EmprestimoEstoque emprestimoEstoque = new EmprestimoEstoque();
+                        emprestimoEstoque.setEstoque((Estoque) dtm.getValueAt(i, 0));
+                        emprestimo.getEmprestimosEstoques().add(emprestimoEstoque);
+                    }
+                    listaView.getEmprestimosController().salvar(emprestimo);
                 }
-                listaView.getEmprestimosController().salvar(emprestimo);
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "aviso", JOptionPane.WARNING_MESSAGE);
             }

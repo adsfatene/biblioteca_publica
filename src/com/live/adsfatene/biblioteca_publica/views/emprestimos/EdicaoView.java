@@ -4,7 +4,6 @@ import com.live.adsfatene.biblioteca_publica.models.Cidadao;
 import com.live.adsfatene.biblioteca_publica.models.Emprestimo;
 import com.live.adsfatene.biblioteca_publica.models.EmprestimoEstoque;
 import com.live.adsfatene.biblioteca_publica.models.Estoque;
-import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -42,6 +41,10 @@ public class EdicaoView extends javax.swing.JDialog {
         jTextFieldDataHoraEmprestado.setText(listaView.getSdf().format(emprestimo.getDataHoraEmprestato().getTime()));
         jTextFieldDataHoraDevoluçãoPrevista.setText(listaView.getSdf().format(emprestimo.getDataHoraDevolucaoPrevista().getTime()));
 
+        while(dtm.getRowCount() > 0){
+            dtm.removeRow(0);
+        }
+        
         for (EmprestimoEstoque emprestimoEstoque : emprestimo.getEmprestimosEstoques()) {
             Estoque estoque = emprestimoEstoque.getEstoque();
             dtm.addRow(new Object[dtm.getColumnCount()]);
@@ -192,7 +195,7 @@ public class EdicaoView extends javax.swing.JDialog {
                                 .addComponent(jLabelDataHoraDevoluçãoPrevista)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTextFieldDataHoraDevoluçãoPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButtonConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,6 +282,7 @@ public class EdicaoView extends javax.swing.JDialog {
     private void jButtonAlterarEstadoDevolucaoMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarEstadoDevolucaoMotivoActionPerformed
         if (jTableEstoques.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "estoque obrigatorio. selecione um estoque", "aviso", JOptionPane.WARNING_MESSAGE);
+            listaView.getjToggleButtonEdicao().setSelected(false);
         } else {
             listaView.getEmprestimosController().atualizarDadosDeDevolucaoDoEmprestimo();
         }

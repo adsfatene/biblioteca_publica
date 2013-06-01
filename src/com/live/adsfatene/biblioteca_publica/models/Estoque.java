@@ -39,4 +39,9 @@ public class Estoque {
                 && statu.ehIgual(estoque.statu)
                 && localLogicoFisico.equals(estoque.localLogicoFisico);
     }
+
+    @Override
+    public String toString() {
+        return material.getDadoMaterial().getTitulo();
+    }
 }

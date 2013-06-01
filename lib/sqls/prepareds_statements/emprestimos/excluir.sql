@@ -1,6 +1,6 @@
 excluirPeloCodigo;
 DECLARE 
- @material_codigo INT = ?
+ @emprestimo_codigo INT = ?
  EXECUTE 
- excluir_material
- @material_codigo;
+ excluir_emprestimo
+ @emprestimo_codigo;

@@ -157,7 +157,12 @@ public class ListaView extends javax.swing.JPanel {
 
     private void jToggleButtonEdicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEdicaoActionPerformed
         if (jTableLista.getSelectedRowCount() > 0) {
-            emprestimosController.editar((Emprestimo) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0));
+            Emprestimo emprestimo = (Emprestimo) jTableLista.getValueAt(jTableLista.getSelectedRow(), 0);
+            if (emprestimo.getDataHoraDevolucaoEfetiva() == null) {
+                emprestimosController.editar(emprestimo);
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um Emprestimo Aberto.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um Emprestimo.", "Erro", JOptionPane.ERROR_MESSAGE);
             jToggleButtonEdicao.setSelected(false);
@@ -209,7 +214,7 @@ public class ListaView extends javax.swing.JPanel {
             dtm.setValueAt(emprestimo.getEmprestimosEstoques().size(), dtm.getRowCount() - 1, coluna++);
             dtm.setValueAt(sdf.format(emprestimo.getDataHoraEmprestato().getTimeInMillis()), dtm.getRowCount() - 1, coluna++);
             dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoPrevista().getTimeInMillis()), dtm.getRowCount() - 1, coluna++);
-             String abertoConcluido = "Aberto";
+            String abertoConcluido = "Aberto";
             if (emprestimo.getDataHoraDevolucaoEfetiva() != null) {
                 dtm.setValueAt(sdf.format(emprestimo.getDataHoraDevolucaoEfetiva().getTimeInMillis()), dtm.getRowCount() - 1, coluna);
                 abertoConcluido = "Concluido";
@@ -270,5 +275,4 @@ public class ListaView extends javax.swing.JPanel {
     public AlterarCidadaoView getAlterarCidadaoView() {
         return alterarCidadaoView;
     }
-   
 }

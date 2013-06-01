@@ -35,8 +35,7 @@ public class ExibicaoView extends javax.swing.JDialog {
         jTextFieldlDataHoraEmprestado.setText(listaView.getSdf().format(emprestimo.getDataHoraEmprestato().getTime()));
         jTextFieldlDataHoraDevolucaoPrevista.setText(listaView.getSdf().format(emprestimo.getDataHoraDevolucaoPrevista().getTime()));
 
-        jButtonExcluir.setEnabled(emprestimo.getDataHoraDevolucaoEfetiva() != null);
-        if (jButtonExcluir.isEnabled()) {
+        if (emprestimo.getDataHoraDevolucaoEfetiva() != null) {
             jTextFieldlDataHoraDevolucaoEfetiva.setText(listaView.getSdf().format(emprestimo.getDataHoraDevolucaoEfetiva().getTime()));
         }
 
@@ -51,7 +50,6 @@ public class ExibicaoView extends javax.swing.JDialog {
             dtm.setValueAt(emprestimoEstoque.getEstadoDevolucao(), dtm.getRowCount() - 1, coluna++);
             dtm.setValueAt(emprestimoEstoque.getMotivo(), dtm.getRowCount() - 1, coluna++);
         }
-
     }
 
     /**
@@ -191,7 +189,7 @@ public class ExibicaoView extends javax.swing.JDialog {
                         .addComponent(jTextFieldlDataHoraEmprestado, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelDataHoraDevolucaoPrevista)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addComponent(jTextFieldlDataHoraDevolucaoPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabellDataHoraDevolucaoEfetiva)
@@ -204,7 +202,7 @@ public class ExibicaoView extends javax.swing.JDialog {
                         .addComponent(jLabelCidadao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextFieldCidadao, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,7 +247,7 @@ public class ExibicaoView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(this, "Continuar exclusão?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(this, "Emprestimo Continuar exclusão?", "Confirmação", JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             listaView.getEmprestimosController().excluir(Integer.valueOf(jTextFieldCodigo.getText()));
         }

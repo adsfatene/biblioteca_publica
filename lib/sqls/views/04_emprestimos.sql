@@ -9,6 +9,7 @@ CREATE VIEW emprestimos_view
     c_v.cidadao_nome_completo AS emprestimo_cidadao_nome_completo,
     e_e.codigo AS emprestimo_emprestimo_estoque_codigo,
     e_e.estado_devolucao AS emprestimo_emprestimo_estoque_estado_devolucao,
+    e_e.motivo AS emprestimo_emprestimo_estoque_motivo,
     e_v.estoque_material_codigo AS emprestimo_estoque_material_codigo,
     e_v.estoque_material_dado_material_titulo AS emprestimo_estoque_material_dado_material_titulo,
     e_v.estoque_material_formato_codigo AS emprestimo_estoque_material_formato_codigo,
@@ -27,8 +28,17 @@ CREATE VIEW emprestimos_view
     c_v.cidadao_nome_completo,
     e_e.codigo,
     e_e.estado_devolucao,
+    e_e.motivo,
     e_v.estoque_material_codigo,
     e_v.estoque_material_dado_material_titulo,
     e_v.estoque_material_formato_codigo,
     e_v.estoque_material_formato_nome,
     e_v.estoque_local_logico_fisico;
+
+CREATE VIEW emprestimos_combobox_view 
+    AS
+    SELECT '' AS valor, emprestimo_codigo AS codigo, 'emprestimo' AS tipo FROM emprestimos_view
+    UNION
+    SELECT emprestimo_cidadao_nome_completo AS valor, emprestimo_cidadao_codigo AS codigo, 'cidadao' AS tipo FROM emprestimos_view
+    UNION
+    SELECT DISTINCT(emprestimo_estoque_material_dado_material_titulo) AS valor, -1 AS codigo, 'estoque' AS tipo FROM emprestimos_view;

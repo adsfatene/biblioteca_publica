@@ -90,7 +90,7 @@ public final class EmprestimosController {
     }
 
     public void concluir(Emprestimo emprestimo) {
-        if (emprestimosDAO.atualizarDadosDeDevolucao(emprestimo)) {
+        if (emprestimosDAO.concluir(emprestimo)) {
             JOptionPane.showMessageDialog(listaView.getEdicaoView(), "concluido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
             iniciar();
             listaView.getEdicaoView().setVisible(listaView.getjToggleButtonEdicao().isSelected());
@@ -99,8 +99,14 @@ public final class EmprestimosController {
         }
     }
 
-    public void excluir(Integer valueOf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void excluir(Integer codigo) {
+        if (emprestimosDAO.excluirPeloCodigo(codigo)) {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "excluido com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            iniciar();
+            listaView.getExibicaoView().setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(listaView.getEdicaoView(), "falha no exclusao", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void editar(Estoque estoque) {
