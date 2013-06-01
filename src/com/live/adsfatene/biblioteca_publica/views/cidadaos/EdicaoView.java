@@ -57,14 +57,8 @@ public class EdicaoView extends javax.swing.JDialog {
         }
         jComboBoxEstadoUF.setSelectedItem(cidadao.getBairro().getCidade().getEstado());
 
-        for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
-            jComboBoxCidade.addItem(cidade);
-        }
         jComboBoxCidade.setSelectedItem(cidadao.getBairro().getCidade());
 
-        for (Bairro bairro : listaView.getCidadaoComboBox().getBairros()) {
-            jComboBoxBairro.addItem(bairro);
-        }
         jComboBoxBairro.setSelectedItem(cidadao.getBairro());
 
 
@@ -86,6 +80,36 @@ public class EdicaoView extends javax.swing.JDialog {
         }
 
         this.cidadao = cidadao;
+    }
+    
+    public void atualizarCidades(){
+
+        jComboBoxCidade.removeAllItems();
+        
+        Object obj = jComboBoxEstadoUF.getSelectedItem();
+        Estado estado = (Estado) obj;
+        if(estado != null){
+            for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
+                if(cidade.getEstado().getCodigo() == estado.getCodigo()){
+                    jComboBoxCidade.addItem(cidade);
+                }
+            }
+        }
+    }
+
+    public void atualizarBairros(){
+        jComboBoxBairro.removeAllItems();
+        
+        Object obj = jComboBoxCidade.getSelectedItem();
+        Cidade cidade = (Cidade) obj;
+        if(cidade != null){
+            for (Bairro bairro : listaView.getCidadaoComboBox().getBairros()) {
+                if(bairro.getCidade().getCodigo() == cidade.getCodigo()){
+                    jComboBoxBairro.addItem(bairro);
+                }
+            }
+        
+        }
     }
 
     /**
@@ -239,7 +263,18 @@ public class EdicaoView extends javax.swing.JDialog {
             }
         });
 
+        jComboBoxEstadoUF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxEstadoUFActionPerformed(evt);
+            }
+        });
+
         jComboBoxCidade.setEditable(true);
+        jComboBoxCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCidadeActionPerformed(evt);
+            }
+        });
 
         jComboBoxBairro.setEditable(true);
 
@@ -468,6 +503,15 @@ public class EdicaoView extends javax.swing.JDialog {
             dtmCelulares.removeRow(jTableCelulares.getSelectedRow());
         }
     }//GEN-LAST:event_jButtonRemoverCelularActionPerformed
+
+    private void jComboBoxEstadoUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEstadoUFActionPerformed
+        atualizarCidades();
+    }//GEN-LAST:event_jComboBoxEstadoUFActionPerformed
+
+    private void jComboBoxCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCidadeActionPerformed
+        atualizarBairros();
+    }//GEN-LAST:event_jComboBoxCidadeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarCelular;
     private javax.swing.JButton jButtonAdicionarTefone;

@@ -431,8 +431,9 @@ public class CadastroView extends javax.swing.JDialog {
             if(jTableTelefones.getRowCount() > 0){
                 telefones.clear();
                 for(int i = 0; i < jTableTelefones.getRowCount(); i++){
-                    DDD ddd = (DDD)jTableTelefones.getValueAt(i, 0);
-                    String numero = (String)jTableTelefones.getValueAt(i, 1);
+                    int coluna = 0;
+                    DDD ddd = (DDD)jTableTelefones.getValueAt(i, coluna++);
+                    String numero = (String)jTableTelefones.getValueAt(i, coluna++);
                     if(numero.equals("")){
                         JOptionPane.showMessageDialog(this, "Preencha o campo Número do Telefone!", "Telefone", JOptionPane.ERROR_MESSAGE);
                         telefones.clear();
