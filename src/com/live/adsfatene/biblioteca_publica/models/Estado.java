@@ -55,7 +55,7 @@ public class Estado {
 
     @Override
     public String toString() {
-        return nome + " - " + uf;
+        return uf;
     }
 
     boolean ehIgual(Estado estado) {

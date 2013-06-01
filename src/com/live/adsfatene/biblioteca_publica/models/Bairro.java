@@ -69,6 +69,7 @@ public class Bairro {
         Bairro bairro = new Bairro();
         bairro.setCodigo(codigo);
         bairro.setNome(nome);
+        bairro.setCidade(cidade);
         return bairro;
     }
 }
