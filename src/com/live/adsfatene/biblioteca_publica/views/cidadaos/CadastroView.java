@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import com.live.adsfatene.biblioteca_publica.models.Celular;
 import com.live.adsfatene.biblioteca_publica.models.Cidadao;
 import com.live.adsfatene.biblioteca_publica.models.Cidade;
+import com.live.adsfatene.biblioteca_publica.models.DDD;
 import com.live.adsfatene.biblioteca_publica.models.Estado;
 import com.live.adsfatene.biblioteca_publica.models.Telefone;
 import java.util.LinkedList;
@@ -13,13 +14,17 @@ import javax.swing.JOptionPane;
 public class CadastroView extends javax.swing.JDialog {
 
     private final ListaView listaView;
-    private final DefaultTableModel dtm;
+    private final DefaultTableModel dtmCelulares;
+    private final DefaultTableModel dtmTelefones;
+    private LinkedList<Telefone> telefones = new LinkedList<Telefone>();
+    private LinkedList<Celular> celulares = new LinkedList<Celular>();
 
     CadastroView(ListaView listaView, boolean modal) {
         super(listaView.getCidadaosController().getAplicacaoController().getAplicacaoView(), modal);
         initComponents();
         this.listaView = listaView;
-        dtm = (DefaultTableModel) jTableCelulares.getModel();
+        dtmCelulares = (DefaultTableModel) jTableCelulares.getModel();
+        dtmTelefones = (DefaultTableModel) jTableTelefones.getModel();
         jComboBoxBairro.setEditable(true);
         jComboBoxCidade.setEditable(true);
     }
@@ -46,6 +51,7 @@ public class CadastroView extends javax.swing.JDialog {
         for (Estado estado : listaView.getCidadaoComboBox().getEstados()) {
             jComboBoxEstadoUF.addItem(estado);
         }
+        jComboBoxEstadoUF.setSelectedIndex(5);
     }
     
     public void atualizarCidades(){
@@ -54,13 +60,13 @@ public class CadastroView extends javax.swing.JDialog {
         
         Object obj = jComboBoxEstadoUF.getSelectedItem();
         Estado estado = (Estado) obj;
-        
-        for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
-            if(cidade.getEstado().getCodigo() == estado.getCodigo()){
-                jComboBoxCidade.addItem(cidade);
+        if(estado != null){
+            for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
+                if(cidade.getEstado().getCodigo() == estado.getCodigo()){
+                    jComboBoxCidade.addItem(cidade);
+                }
             }
         }
-        //atualizarBairros();
     }
 
     public void atualizarBairros(){
@@ -70,7 +76,6 @@ public class CadastroView extends javax.swing.JDialog {
         Cidade cidade = (Cidade) obj;
         if(cidade != null){
             for (Bairro bairro : listaView.getCidadaoComboBox().getBairros()) {
-
                 if(bairro.getCidade().getCodigo() == cidade.getCodigo()){
                     jComboBoxBairro.addItem(bairro);
                 }
@@ -179,12 +184,19 @@ public class CadastroView extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Telefone", "DDD", "Número", "Estado - UF"
+                "DDD", "Número"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -240,12 +252,19 @@ public class CadastroView extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Telefone", "DDD", "Número", "Estado - UF"
+                "DDD", "Número"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -368,7 +387,7 @@ public class CadastroView extends javax.swing.JDialog {
         jTextFieldNomeCompleto.setText("");
         jTextFieldLogradouro.setText("");
         jTextFieldNumero.setText("");
-        //jComboBoxEstadoUF.setSelectedIndex(5);
+        jComboBoxEstadoUF.setSelectedIndex(5);
         //jComboBoxCidade.setSelectedIndex(0);
         //jComboBoxBairro.setSelectedIndex(0);
     }//GEN-LAST:event_jButtonLimparActionPerformed
@@ -380,7 +399,12 @@ public class CadastroView extends javax.swing.JDialog {
             Cidadao cidadao = new Cidadao();
             cidadao.setNomeCompleto(jTextFieldNomeCompleto.getText());
             cidadao.setLogradouro(jTextFieldLogradouro.getText());
+            try{
             cidadao.setNumeroImovel(Integer.valueOf(jTextFieldNumero.getText()));
+            } catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "O Nº do imovél não é válido!", "Endereço", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             Bairro bairro;
             if (jComboBoxBairro.getSelectedItem() instanceof Bairro) {
@@ -389,7 +413,7 @@ public class CadastroView extends javax.swing.JDialog {
                 bairro = new Bairro();
                 bairro.setNome(jComboBoxBairro.getSelectedItem().toString());
             }
-            cidadao.setBairro(bairro);
+            
 
             Cidade cidade;
             if (jComboBoxCidade.getSelectedItem() instanceof Cidade) {
@@ -402,56 +426,106 @@ public class CadastroView extends javax.swing.JDialog {
 
             cidade.setEstado((Estado) jComboBoxEstadoUF.getSelectedItem());
 
-            cidadao.setTelefones(new LinkedList<Telefone>());
-            cidadao.setCelulares(new LinkedList<Celular>());
+            cidadao.setBairro(bairro);
+            
+            if(jTableTelefones.getRowCount() > 0){
+                telefones.clear();
+                for(int i = 0; i < jTableTelefones.getRowCount(); i++){
+                    DDD ddd = (DDD)jTableTelefones.getValueAt(i, 0);
+                    String numero = (String)jTableTelefones.getValueAt(i, 1);
+                    if(numero.equals("")){
+                        JOptionPane.showMessageDialog(this, "Preencha o campo Número do Telefone!", "Telefone", JOptionPane.ERROR_MESSAGE);
+                        telefones.clear();
+                        return;
+                    } else {
+                        Telefone telefone = new Telefone();
+                        telefone.setDDD(ddd);
+                        telefone.setNumero(numero);
+                        telefone.setTipo("Tel");
+                        telefones.add(telefone);
+            
+                    }
+                }
+            }
+            
+            if(jTableCelulares.getRowCount() > 0){
+                celulares.clear();
+                for(int i = 0; i < jTableCelulares.getRowCount(); i++){
+                    DDD ddd = (DDD)jTableCelulares.getValueAt(i, 0);
+                    String numero = (String)jTableCelulares.getValueAt(i, 1);
+                    if(numero.equals("")){
+                        JOptionPane.showMessageDialog(this, "Preencha o campo Número do Celular!", "Telefone", JOptionPane.ERROR_MESSAGE);
+                        celulares.clear();
+                        return;
+                    } else {
+                        Celular celular = new Celular();
+                        celular.setDDD(ddd);
+                        celular.setNumero(numero);
+                        celular.setTipo("Cel");
+                        celulares.add(celular);
+                    }
+                }
+            }
+            
+            
+            cidadao.setTelefones(telefones);
+            cidadao.setCelulares(celulares);
 
             listaView.getCidadaosController().salvar(cidadao);
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverTelefoneActionPerformed
-//        while (jTableFormato.getSelectedRowCount() > 0) {
-//            jComboBoxFormato.addItem(dtm.getValueAt(jTableFormato.getSelectedRow(), 0));
-//            dtm.removeRow(jTableFormato.getSelectedRow());
-//        }
+        while (jTableTelefones.getSelectedRowCount() > 0) {
+            dtmTelefones.removeRow(jTableTelefones.getSelectedRow());
+        }
     }//GEN-LAST:event_jButtonRemoverTelefoneActionPerformed
 
     private void jButtonAdicionarTefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarTefoneActionPerformed
-//        Formato formato;
-//        if (jComboBoxFormato.getSelectedItem() instanceof Formato) {
-//            formato = (Formato) jComboBoxFormato.getSelectedItem();
-//            jComboBoxFormato.removeItemAt(jComboBoxFormato.getSelectedIndex());
-//        } else {
-//            formato = new Formato();
-//            formato.setNome(jComboBoxFormato.getSelectedItem().toString());
-//            jComboBoxFormato.setSelectedIndex(0);
-//        }
-//
-//        int quantidade = 1;
-//        if (formato.getNome().equalsIgnoreCase("impresso")) {
-//            String valor = JOptionPane.showInputDialog(this, "digite uma quantidade:", "Quantidade", JOptionPane.INFORMATION_MESSAGE);
-//            try {
-//                quantidade = Integer.valueOf(valor);
-//                if (quantidade < 1) {
-//                    quantidade = 1;
-//                }
-//            } catch (NumberFormatException ex) {
-//                quantidade = 1;
-//            }
-//        }
-//        dtm.addRow(new Object[dtm.getColumnCount()]);
-//        dtm.setValueAt(formato, dtm.getRowCount() - 1, 0);
-//        dtm.setValueAt(quantidade, dtm.getRowCount() - 1, 1);
-//        dtm.setValueAt("", dtm.getRowCount() - 1, 2);
-//        dtm.setValueAt("", dtm.getRowCount() - 1, 3);
+        
+        String ddd_txt = JOptionPane.showInputDialog(this, "digite o ddd:", "DDD", JOptionPane.INFORMATION_MESSAGE);
+        boolean invalido = true;
+        for(DDD ddd : listaView.getCidadaoComboBox().getDDDs()){
+            if(ddd_txt.equals(ddd.getNumero().toString())){
+                dtmTelefones.addRow(new Object[dtmTelefones.getColumnCount()]);
+                dtmTelefones.setValueAt(ddd, dtmTelefones.getRowCount() - 1, 0);
+                dtmTelefones.setValueAt("", dtmTelefones.getRowCount() - 1, 1);
+                invalido = false;
+                break;
+            }
+        }
+        if(invalido){
+            String mensagem = "O ddd " + ddd_txt + " não é válido!";
+            JOptionPane.showMessageDialog(this, mensagem, "DDD Inválido", JOptionPane.ERROR_MESSAGE);
+        }
+        
+          
     }//GEN-LAST:event_jButtonAdicionarTefoneActionPerformed
 
     private void jButtonAdicionarCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarCelularActionPerformed
-        // TODO add your handling code here:
+
+        String ddd_txt = JOptionPane.showInputDialog(this, "digite o ddd:", "DDD", JOptionPane.INFORMATION_MESSAGE);
+        boolean invalido = true;
+        for(DDD ddd : listaView.getCidadaoComboBox().getDDDs()){
+            if(ddd_txt.equals(ddd.getNumero().toString())){
+                dtmCelulares.addRow(new Object[dtmCelulares.getColumnCount()]);
+                dtmCelulares.setValueAt(ddd, dtmCelulares.getRowCount() - 1, 0);
+                dtmCelulares.setValueAt("", dtmCelulares.getRowCount() - 1, 1);
+                invalido = false;
+                break;
+            }
+        }
+        if(invalido){
+            String mensagem = "O ddd " + ddd_txt + " não é válido!";
+            JOptionPane.showMessageDialog(this, mensagem, "DDD Inválido", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jButtonAdicionarCelularActionPerformed
 
     private void jButtonRemoverCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverCelularActionPerformed
-        // TODO add your handling code here:
+        while (jTableCelulares.getSelectedRowCount() > 0) {
+            dtmCelulares.removeRow(jTableCelulares.getSelectedRow());
+        }
     }//GEN-LAST:event_jButtonRemoverCelularActionPerformed
 
     private void jTextFieldNomeCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeCompletoActionPerformed
