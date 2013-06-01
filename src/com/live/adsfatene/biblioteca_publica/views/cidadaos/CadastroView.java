@@ -43,19 +43,41 @@ public class CadastroView extends javax.swing.JDialog {
         jTextFieldNomeCompleto.setText(null);
         jTextFieldNumero.setText(null);
 
-        for (Bairro bairro : listaView.getCidadaoComboBox().getBairros()) {
-            jComboBoxBairro.addItem(bairro);
-        }
-
-        for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
-            jComboBoxCidade.addItem(cidade);
-        }
-
         for (Estado estado : listaView.getCidadaoComboBox().getEstados()) {
             jComboBoxEstadoUF.addItem(estado);
         }
     }
+    
+    public void atualizarCidades(){
 
+        jComboBoxCidade.removeAllItems();
+        
+        Object obj = jComboBoxEstadoUF.getSelectedItem();
+        Estado estado = (Estado) obj;
+        
+        for (Cidade cidade : listaView.getCidadaoComboBox().getCidades()) {
+            if(cidade.getEstado().getCodigo() == estado.getCodigo()){
+                jComboBoxCidade.addItem(cidade);
+            }
+        }
+        //atualizarBairros();
+    }
+
+    public void atualizarBairros(){
+        jComboBoxBairro.removeAllItems();
+        
+        Object obj = jComboBoxCidade.getSelectedItem();
+        Cidade cidade = (Cidade) obj;
+        if(cidade != null){
+            for (Bairro bairro : listaView.getCidadaoComboBox().getBairros()) {
+
+                if(bairro.getCidade().getCodigo() == cidade.getCodigo()){
+                    jComboBoxBairro.addItem(bairro);
+                }
+            }
+        
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,7 +192,18 @@ public class CadastroView extends javax.swing.JDialog {
         });
         jScrollPane4.setViewportView(jTableCelulares);
 
+        jComboBoxEstadoUF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxEstadoUFActionPerformed(evt);
+            }
+        });
+
         jComboBoxCidade.setEditable(true);
+        jComboBoxCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCidadeActionPerformed(evt);
+            }
+        });
 
         jButtonAdicionarCelular.setText("+");
         jButtonAdicionarCelular.addActionListener(new java.awt.event.ActionListener() {
@@ -247,11 +280,11 @@ public class CadastroView extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabelNomeCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelEstadoUF, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jLabelCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jLabelBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jLabelLogradouro, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jLabelNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                            .addComponent(jLabelEstadoUF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelCidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelBairro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelLogradouro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelNumero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
@@ -335,9 +368,9 @@ public class CadastroView extends javax.swing.JDialog {
         jTextFieldNomeCompleto.setText("");
         jTextFieldLogradouro.setText("");
         jTextFieldNumero.setText("");
-        jComboBoxEstadoUF.setSelectedIndex(0);
-        jComboBoxCidade.setSelectedIndex(0);
-        jComboBoxBairro.setSelectedIndex(0);
+        //jComboBoxEstadoUF.setSelectedIndex(5);
+        //jComboBoxCidade.setSelectedIndex(0);
+        //jComboBoxBairro.setSelectedIndex(0);
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -423,6 +456,19 @@ public class CadastroView extends javax.swing.JDialog {
 
     private void jTextFieldNomeCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeCompletoActionPerformed
     }//GEN-LAST:event_jTextFieldNomeCompletoActionPerformed
+
+    private void jComboBoxCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCidadeActionPerformed
+
+        atualizarBairros();
+        
+    }//GEN-LAST:event_jComboBoxCidadeActionPerformed
+
+    private void jComboBoxEstadoUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEstadoUFActionPerformed
+        
+        atualizarCidades();
+        
+    }//GEN-LAST:event_jComboBoxEstadoUFActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarCelular;
     private javax.swing.JButton jButtonAdicionarTefone;
